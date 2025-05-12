@@ -9,5 +9,5 @@ class AppImageConst {
 
 
   // ========================== Images ===========================
-  static const String appBackground = '${imagePath}background.png';
+
 }

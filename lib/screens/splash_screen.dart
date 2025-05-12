@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:instagram_clone/constant/appColor_const.dart';
+import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
@@ -12,14 +13,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColorConst.appBlack,
       body: Stack(
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              AppImageConst.appBackground,
-              fit: BoxFit.cover,
-            ),
-          ),
           Center(
             child: Image.asset(
               AppImageConst.appInstagram,
@@ -34,7 +30,7 @@ class SplashScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
+                Text(
                   'from',
                   style: TextStyle(
                     color: AppColorConst.appGray,
