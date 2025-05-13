@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/screens/signup_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
+import 'package:instagram_clone/screens/welcome_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: SignupScreen(),
+      home: WelcomeScreen(),
     );
   }
 }
