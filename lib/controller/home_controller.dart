@@ -58,13 +58,18 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> signupButton(String name, String email, String password) async {
+  void signupButton(
+    String name,
+    String email,
+    String password,
+  ) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
       await userCredential.user?.updateDisplayName(name);
 
       DateTime currentTime = DateTime.now();
@@ -74,7 +79,8 @@ class HomeController extends GetxController {
         email,
         currentTime,
       );
-      Get.to(() => const LoginScreen());
+
+      Get.off(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
@@ -90,8 +96,7 @@ class HomeController extends GetxController {
       }
       Fluttertoast.showToast(msg: errorMessage);
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
-      log('Error -> $e');
+      Fluttertoast.showToast(msg: 'An error occurred: $e');
     }
   }
 

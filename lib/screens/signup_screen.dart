@@ -97,7 +97,7 @@ class SignupScreen extends StatelessWidget {
                       validator: (value) =>
                           emptyValidation(value, 'Please enter your name'),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: emailController,
                       style: const TextStyle(
@@ -173,11 +173,15 @@ class SignupScreen extends StatelessWidget {
                           color: AppColorConst.appDarkBlue,
                           borderRadius: BorderRadius.circular(20)),
                       child: TextButton(
-                        onPressed: () => homeController.signupButton(
-                          nameController.text.trim(),
-                          emailController.text.trim(),
-                          passwordController.text.trim(),
-                        ),
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            homeController.signupButton(
+                              nameController.text.trim(),
+                              emailController.text.trim(),
+                              passwordController.text.trim(),
+                            );
+                          }
+                        },
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(

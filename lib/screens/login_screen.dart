@@ -144,10 +144,14 @@ class LoginScreen extends StatelessWidget {
                           color: AppColorConst.appDarkBlue,
                           borderRadius: BorderRadius.circular(20)),
                       child: TextButton(
-                        onPressed: () => homeController.SignInButton(
-                          emailController.text.trim(),
-                          passwordController.text.trim(),
-                        ),
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            homeController.SignInButton(
+                              emailController.text.trim(),
+                              passwordController.text.trim(),
+                            );
+                          }
+                        },
                         child: const Text(
                           'Login',
                           style: TextStyle(
