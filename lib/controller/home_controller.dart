@@ -26,7 +26,7 @@ class HomeController extends GetxController {
 
   void timer() {
     Future.delayed(const Duration(seconds: 2), () {
-      // Get.off(() => const HomeScreen());
+      Get.off(() => const HomeScreen());
     });
   }
 

@@ -12,6 +12,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    homeController.timer();
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: Stack(
@@ -30,7 +31,7 @@ class SplashScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'from',
                   style: TextStyle(
                     color: AppColorConst.appGray,

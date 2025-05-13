@@ -9,33 +9,51 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      body: Padding(
-        padding: const EdgeInsets.all(13),
-        child: Row(
-          children: [
-            Image.asset(
-              AppImageConst.appInstagramText,
-              height: 35,
-              width: 120,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(13),
+            child: Row(
+              children: [
+                Image.asset(
+                  AppImageConst.appInstagramText,
+                  height: 35,
+                  width: 120,
+                ),
+                const Spacer(),
+                const Icon(
+                  Icons.add_box_outlined,
+                  color: AppColorConst.appWhite,
+                ),
+                const SizedBox(width: 15),
+                const Icon(
+                  Icons.favorite_border_rounded,
+                  color: AppColorConst.appWhite,
+                ),
+                const SizedBox(width: 15),
+                const Icon(
+                  Icons.message_rounded,
+                  color: AppColorConst.appWhite,
+                )
+              ],
             ),
-            const Spacer(),
-            const Icon(
-              Icons.add_box_outlined,
-              color: AppColorConst.appWhite,
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (int i = 1; i <= 10; i++)
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: CircleAvatar(),
+                  ),
+              ],
             ),
-            const SizedBox(width: 15),
-            const Icon(
-              Icons.favorite_border_rounded,
-              color: AppColorConst.appWhite,
-            ),
-            const SizedBox(width: 15),
-            const Icon(
-              Icons.message_rounded,
-              color: AppColorConst.appWhite,
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
+
+
