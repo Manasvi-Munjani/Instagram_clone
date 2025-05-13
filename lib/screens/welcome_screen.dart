@@ -11,7 +11,6 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Positioned.fill(
@@ -46,7 +45,7 @@ class WelcomeScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+              padding: const EdgeInsets.only(bottom: 60, right:25,left: 25),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
