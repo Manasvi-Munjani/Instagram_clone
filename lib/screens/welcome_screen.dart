@@ -11,6 +11,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Positioned.fill(
@@ -19,25 +20,27 @@ class WelcomeScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Positioned(
-            top: 170,
-            right: 150,
-            child: Column(
-              children: [
-                Image.asset(
-                  AppImageConst.appInstagramText,
-                  width: 130,
-                ),
-                const Text(
-                  "Capture and share the world's moments",
-                  style: TextStyle(
-                    color: AppColorConst.appWhite,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 100),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    AppImageConst.appInstagramText,
+                    width: 150,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                  const Text(
+                    "Capture and share the world's moments",
+                    style: TextStyle(
+                      color: AppColorConst.appWhite,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
           ),
           Align(
