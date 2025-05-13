@@ -146,7 +146,7 @@ class SignupScreen extends StatelessWidget {
                     TextSpan(
                       text: 'Login',
                       style: const TextStyle(
-                        color: Colors.brown,
+                        color: AppColorConst.appBlue,
                         decoration: TextDecoration.underline,
                       ),
                       recognizer: TapGestureRecognizer()
