@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
+import 'package:instagram_clone/screens/splash_screen.dart';
 
 class HomeController extends GetxController {
   var obscureText = true.obs;
@@ -27,6 +30,34 @@ class HomeController extends GetxController {
     });
   }
 
+  void SignInButton(String email, String password) async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = userCredential.user;
+
+      if (user != null) {
+        debugPrint('Signed in as :${user.email}');
+      }
+      Get.to(() => SplashScreen());
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found for email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Wrong password provided.';
+      } else {
+        errorMessage = e.message ?? 'An unknown error occurred.';
+      }
+      Fluttertoast.showToast(msg: errorMessage);
+      log('Error -> $e');
+      return;
+    }
+  }
+
   Future<void> signupButton(String name, String email, String password) async {
     try {
       UserCredential userCredential =
@@ -43,7 +74,7 @@ class HomeController extends GetxController {
         email,
         currentTime,
       );
-      Get.off(() => const LoginScreen());
+      Get.to(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       switch (e.code) {
@@ -60,6 +91,7 @@ class HomeController extends GetxController {
       Fluttertoast.showToast(msg: errorMessage);
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
+      log('Error -> $e');
     }
   }
 

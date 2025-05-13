@@ -14,6 +14,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final formkey = GlobalKey<FormState>();
     final HomeController homeController = Get.put(HomeController());
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
     return Scaffold(
       body: Form(
         key: formkey,
@@ -65,6 +68,7 @@ class LoginScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
+                      controller: emailController,
                       style: const TextStyle(
                           color: AppColorConst.appGray, fontSize: 14),
                       decoration: InputDecoration(
@@ -94,6 +98,7 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     Obx(
                       () => TextFormField(
+                        controller: passwordController,
                         style: const TextStyle(
                             color: AppColorConst.appGray, fontSize: 14),
                         obscureText: homeController.obscureText.value,
@@ -139,7 +144,10 @@ class LoginScreen extends StatelessWidget {
                           color: AppColorConst.appDarkBlue,
                           borderRadius: BorderRadius.circular(20)),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => homeController.SignInButton(
+                          emailController.text.trim(),
+                          passwordController.text.trim(),
+                        ),
                         child: const Text(
                           'Login',
                           style: TextStyle(

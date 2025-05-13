@@ -14,6 +14,10 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final formkey = GlobalKey<FormState>();
     final HomeController homeController = Get.put(HomeController());
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
     return Scaffold(
       body: Form(
         key: formkey,
@@ -65,6 +69,7 @@ class SignupScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
+                      controller: nameController,
                       style: const TextStyle(
                           color: AppColorConst.appGray, fontSize: 14),
                       decoration: InputDecoration(
@@ -94,6 +99,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
+                      controller: emailController,
                       style: const TextStyle(
                           color: AppColorConst.appGray, fontSize: 14),
                       decoration: InputDecoration(
@@ -123,6 +129,7 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     Obx(
                       () => TextFormField(
+                        controller: passwordController,
                         style: const TextStyle(
                             color: AppColorConst.appGray, fontSize: 14),
                         obscureText: homeController.obscureText.value,
@@ -166,7 +173,11 @@ class SignupScreen extends StatelessWidget {
                           color: AppColorConst.appDarkBlue,
                           borderRadius: BorderRadius.circular(20)),
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => homeController.signupButton(
+                          nameController.text.trim(),
+                          emailController.text.trim(),
+                          passwordController.text.trim(),
+                        ),
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(
