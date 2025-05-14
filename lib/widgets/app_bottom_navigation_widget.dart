@@ -21,9 +21,11 @@ class AppBottomNavigationWidget extends StatelessWidget {
         onTap: homeController.selectIcon,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(homeController.selected.value == 0
-                ? Icons.home
-                : Icons.home_outlined),
+            icon: Icon(
+              homeController.selected.value == 0
+                  ? Icons.home
+                  : Icons.home_outlined,
+            ),
             label: 'Home',
           ),
           BottomNavigationBarItem(
@@ -33,15 +35,19 @@ class AppBottomNavigationWidget extends StatelessWidget {
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(homeController.selected.value == 2
-                ? Icons.movie_creation_rounded
-                : Icons.movie_creation_outlined),
+            icon: Icon(
+              homeController.selected.value == 2
+                  ? Icons.movie_creation_rounded
+                  : Icons.movie_creation_outlined,
+            ),
             label: 'Reels',
           ),
           BottomNavigationBarItem(
-            icon: Icon(homeController.selected.value == 3
-                ? Icons.person
-                : Icons.person_outline),
+            icon: Icon(
+              homeController.selected.value == 3
+                  ? Icons.person
+                  : Icons.person_outline,
+            ),
             label: 'Profile',
           ),
         ],
