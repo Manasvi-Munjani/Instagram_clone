@@ -278,11 +278,11 @@ class HomeScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             FocusScope.of(context).unfocus();
-                            */
+
           /*setState(() {
                             _showEmojiPicker = !_showEmojiPicker;
                           });*/
-          /*
+
                           },
                           child: const Icon(Icons.add_circle_outline,
                               color: AppColorConst.appGray, size: 16),
