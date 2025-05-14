@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+          /*  SizedBox(
               height: 100,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -60,7 +60,87 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
+            ),*/
+
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding:  EdgeInsets.symmetric(horizontal: 8),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 6),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 64,
+                          height: 64,
+                          padding: const EdgeInsets.all(3), // border thickness
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.yellow,
+                                Colors.orange,
+                                Colors.red,
+                                Colors.purple,
+                                Colors.deepPurple,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.black, // background color behind image
+                            ),
+                            child: ClipOval(
+                              child: Image.asset(
+                                appDpImage, // your image asset
+                                fit: BoxFit.cover,
+                                width: 58,
+                                height: 58,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        /*Container(
+                          padding:  EdgeInsets.all(3),
+                          decoration:  BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.yellow,
+                                Colors.orange,
+                                Colors.red,
+                                Colors.purple,
+                                Colors.deepPurple,
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                          ),
+                          child:  CircleAvatar(
+                            radius: 30,
+                            backgroundImage: AssetImage(appDpImage),
+
+                          ),
+                        ),*/
+                        const SizedBox(height: 5),
+                        const Text(
+                          "User",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
+
             const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
