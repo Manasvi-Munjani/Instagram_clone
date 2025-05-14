@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,12 +15,6 @@ class HomeController extends GetxController {
 
   void show() {
     obscureText.value = !obscureText.value;
-  }
-
-  @override
-  void onInit() {
-    timer();
-    super.onInit();
   }
 
   void timer() {
@@ -80,6 +73,11 @@ class HomeController extends GetxController {
         currentTime,
       );
 
+      debugPrint('Id -> ${userCredential.user!.uid}');
+      debugPrint('name -> $name');
+      debugPrint('email -> $email');
+      debugPrint('time -> $email');
+
       Get.off(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
       String errorMessage;
@@ -105,7 +103,7 @@ class HomeController extends GetxController {
     String username,
     String email,
     DateTime time,
-  ) {
+  ) async {
     try {
       UserModel user = UserModel(
         userid: userId,
@@ -113,10 +111,11 @@ class HomeController extends GetxController {
         email: email,
         time: time,
       );
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('users')
-          .doc(userId)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .set(user.toMap());
+      debugPrint("Current user UID: ${FirebaseAuth.instance.currentUser?.uid}");
     } catch (e) {
       debugPrint("Error saving user data: $e");
       Fluttertoast.showToast(msg: "Firestore error: $e");

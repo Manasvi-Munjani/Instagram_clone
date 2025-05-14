@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: user == null ? const WelcomeScreen() : SplashScreen(),
+      // home: WelcomeScreen(),
     );
   }
 }
