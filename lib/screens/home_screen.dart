@@ -500,20 +500,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-/*
-                Image.asset(
-                  AppImageConst.appNature,
-                  fit: BoxFit.cover,
-                  height: 500,
-                  width: double.infinity,
-                ),
-
-                Image.asset(
-                  AppImageConst.appNature2,
-                  fit: BoxFit.cover,
-                  height: 500,
-                  width: double.infinity,
-                ),
-
-*/
