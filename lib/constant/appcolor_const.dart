@@ -7,4 +7,9 @@ class AppColorConst {
   static const appOffWhite = Color(0xffF3F1F1);
   static const appBlue = Color(0xff448AFF);
   static const appDarkBlue = Color(0xff3B3355);
+  static const appYellow =Color(0xFFFFFF00);
+  static const appOrange = Color(0xFFFFA500);
+  static const appRed = Color(0xFFFF0000);
+  static const appPurple = Color(0xFF800080);
+  static const appDeepPurple = Color(0xFF673AB7);
 }

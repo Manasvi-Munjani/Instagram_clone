@@ -1,253 +1,700 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
+import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/screens/profile_screen.dart';
+import 'package:instagram_clone/screens/reels_screen.dart';
+import 'package:instagram_clone/screens/search_screen.dart';
+import 'package:instagram_clone/widgets/app_bottom_navigation_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.put(HomeController());
+
+    final List<Widget> screens = [
+      _homeContent(homeController),
+      const SearchScreen(),
+      const ReelsScreen(),
+      const ProfileScreen(),
+    ];
+
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(13),
-              child: Row(
-                children: [
-                  Image.asset(
-                    AppImageConst.appInstagramText,
-                    height: 35,
-                    width: 120,
-                  ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.add_box_outlined,
-                    color: AppColorConst.appWhite,
-                  ),
-                  const SizedBox(width: 15),
-                  const Icon(
-                    Icons.favorite_border_rounded,
-                    color: AppColorConst.appWhite,
-                  ),
-                  const SizedBox(width: 15),
-                  const Icon(
-                    Icons.message_rounded,
-                    color: AppColorConst.appWhite,
-                  )
-                ],
-              ),
-            ),
-          /*  SizedBox(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 6),
-                    child: Column(
-                      children: [
-                        CircleAvatar(radius: 30, backgroundColor: Colors.grey),
-                        SizedBox(height: 5),
-                        Text("User",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 12)),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),*/
+      body: Obx(() => screens[homeController.selected.value]),
+      bottomNavigationBar: const AppBottomNavigationWidget(),
+    );
+  }
 
-            SizedBox(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding:  EdgeInsets.symmetric(horizontal: 8),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 6),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 64,
-                          height: 64,
-                          padding: const EdgeInsets.all(3), // border thickness
+  Widget _homeContent(HomeController homeController) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(13),
+            child: Row(
+              children: [
+                Image.asset(
+                  AppImageConst.appInstagramText,
+                  height: 35,
+                  width: 120,
+                ),
+                const Spacer(),
+                const Icon(
+                  Icons.add_box_outlined,
+                  color: AppColorConst.appWhite,
+                ),
+                const SizedBox(width: 15),
+                const Icon(
+                  Icons.favorite_border_rounded,
+                  color: AppColorConst.appWhite,
+                ),
+                const SizedBox(width: 15),
+                const Icon(
+                  Icons.message_rounded,
+                  color: AppColorConst.appWhite,
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              AppColorConst.appYellow,
+                              AppColorConst.appOrange,
+                              AppColorConst.appRed,
+                              AppColorConst.appPurple,
+                              AppColorConst.appDeepPurple,
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: Container(
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.yellow,
-                                Colors.orange,
-                                Colors.red,
-                                Colors.purple,
-                                Colors.deepPurple,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
+                            color: AppColorConst.appBlack,
                           ),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.black, // background color behind image
-                            ),
-                            child: ClipOval(
-                              child: Image.asset(
-                                appDpImage, // your image asset
-                                fit: BoxFit.cover,
-                                width: 58,
-                                height: 58,
-                              ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              AppImageConst.appDpImage,
+                              fit: BoxFit.cover,
+                              width: 58,
+                              height: 58,
                             ),
                           ),
                         ),
-
-                        /*Container(
-                          padding:  EdgeInsets.all(3),
-                          decoration:  BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.yellow,
-                                Colors.orange,
-                                Colors.red,
-                                Colors.purple,
-                                Colors.deepPurple,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                          ),
-                          child:  CircleAvatar(
-                            radius: 30,
-                            backgroundImage: AssetImage(appDpImage),
-
-                          ),
-                        ),*/
-                        const SizedBox(height: 5),
-                        const Text(
-                          "User",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      const SizedBox(height: 5),
+                      const Text(
+                        "User",
+                        style: TextStyle(
+                          color: AppColorConst.appWhite,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
                         ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
-
-            const Column(
+          ),
+          /*Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   child: Row(
                     children: [
-                      CircleAvatar(backgroundColor: Colors.red, radius: 18),
-                      SizedBox(width: 10),
-                      Text("marvel",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold)),
-                      Spacer(),
-                      Icon(Icons.more_horiz, color: Colors.white),
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              AppColorConst.appYellow,
+                              AppColorConst.appOrange,
+                              AppColorConst.appRed,
+                              AppColorConst.appPurple,
+                              AppColorConst.appDeepPurple,
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColorConst.appBlack,
+                          ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              AppImageConst.appPostDp,
+                              fit: BoxFit.cover,
+                              width: 35,
+                              height: 35,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "marvel",
+                        style: TextStyle(
+                          color: AppColorConst.appWhite,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const Spacer(),
+                      const Icon(Icons.more_horiz,
+                          color: AppColorConst.appWhite),
                     ],
                   ),
                 ),
-
-                Padding(
+                Image.asset(
+                  AppImageConst.appPost,
+                ),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   child: Row(
                     children: [
-                      Icon(Icons.favorite, color: Colors.red),
+                      Icon(Icons.favorite, color: AppColorConst.appRed),
                       SizedBox(width: 12),
-                      Icon(Icons.chat_bubble_outline, color: Colors.white),
+                      Icon(Icons.chat_bubble_outline,
+                          color: AppColorConst.appWhite),
                       SizedBox(width: 12),
-                      Icon(Icons.send, color: Colors.white),
+                      Icon(Icons.send, color: AppColorConst.appWhite),
                       Spacer(),
-                      Icon(Icons.bookmark_border, color: Colors.white),
+                      Icon(Icons.bookmark_border,
+                          color: AppColorConst.appWhite),
                     ],
                   ),
                 ),
-
-
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: Text(
                     '105,762 likes',
                     style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                      color: AppColorConst.appWhite,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
-
-                SizedBox(height: 5),
-
-                Padding(
+                const SizedBox(height: 5),
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: Text.rich(
-                    TextSpan(
+                  child: Text(
+                    'marvel We can’t get enough of this dynamic duo. Marvel Studios\' @HawkeyeOfficial is...',
+                    style: TextStyle(
+                      color: AppColorConst.appWhite,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    'View all 103 comments',
+                    style: TextStyle(
+                      color: AppColorConst.appGray,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Obx(
+                    () => Row(
                       children: [
-                        TextSpan(
-                            text: 'marvel ',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(
-                            text:
-                                'We can’t get enough of this dynamic duo. Marvel Studios\' @HawkeyeOfficial is...'),
+                        ClipOval(
+                          child: Image.asset(
+                            AppImageConst.appDpImage,
+                            fit: BoxFit.cover,
+                            width: 35,
+                            height: 35,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            focusNode: homeController.focusNode,
+                            decoration: const InputDecoration(
+                              hintText: "Add a comment...",
+                              hintStyle: TextStyle(
+                                color: AppColorConst.appGray,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                            style: const TextStyle(
+                              color: AppColorConst.appWhite,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        if (homeController.isFocused.value)
+                          IconButton(
+                            icon: const Icon(
+                              Icons.send,
+                              color: AppColorConst.appBlue,
+                              size: 18,
+                            ),
+                            onPressed: () {},
+                          ),
+                        const Icon(Icons.favorite,
+                            color: AppColorConst.appRed, size: 16),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.emoji_emotions,
+                            color: AppColorConst.appYellow, size: 16),
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            */ /*setState(() {
+                            _showEmojiPicker = !_showEmojiPicker;
+                          });*/ /*
+                          },
+                          child: const Icon(Icons.add_circle_outline,
+                              color: AppColorConst.appGray, size: 16),
+                        ),
                       ],
                     ),
-                    style: TextStyle(color: Colors.white),
                   ),
                 ),
-
-                SizedBox(height: 5),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: Text('View all 103 comments',
-                      style: TextStyle(color: Colors.grey)),
-                ),
-
-                SizedBox(height: 5),
-
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: Row(
-                    children: [
-                      CircleAvatar(radius: 14, backgroundColor: Colors.yellow),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Add a comment...",
-                            hintStyle: TextStyle(color: Colors.grey),
-                            border: InputBorder.none,
-                          ),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Icon(Icons.favorite, color: Colors.red, size: 16),
-                      SizedBox(width: 8),
-                      Icon(Icons.emoji_emotions, color: Colors.amber, size: 16),
-                    ],
-                  ),
-                ),
-
-                // Timestamp
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  child: Text('13 hours ago',
-                      style: TextStyle(color: Colors.grey, fontSize: 11)),
+                  child: Text(
+                    '13 hours ago',
+                    style: TextStyle(
+                      color: AppColorConst.appGray,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                 ),
               ],
             ),
-          ],
-        ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              AppColorConst.appYellow,
+                              AppColorConst.appOrange,
+                              AppColorConst.appRed,
+                              AppColorConst.appPurple,
+                              AppColorConst.appDeepPurple,
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                        ),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColorConst.appBlack,
+                          ),
+                          child: ClipOval(
+                            child: Image.asset(
+                              AppImageConst.appPostDp,
+                              fit: BoxFit.cover,
+                              width: 35,
+                              height: 35,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "marvel",
+                        style: TextStyle(
+                          color: AppColorConst.appWhite,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const Spacer(),
+                      const Icon(Icons.more_horiz,
+                          color: AppColorConst.appWhite),
+                    ],
+                  ),
+                ),
+                Image.asset(
+                  AppImageConst.appNature,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  child: Row(
+                    children: [
+                      Icon(Icons.favorite, color: AppColorConst.appRed),
+                      SizedBox(width: 12),
+                      Icon(Icons.chat_bubble_outline,
+                          color: AppColorConst.appWhite),
+                      SizedBox(width: 12),
+                      Icon(Icons.send, color: AppColorConst.appWhite),
+                      Spacer(),
+                      Icon(Icons.bookmark_border,
+                          color: AppColorConst.appWhite),
+                    ],
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    '105,762 likes',
+                    style: TextStyle(
+                      color: AppColorConst.appWhite,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    'marvel We can’t get enough of this dynamic duo. Marvel Studios\' @HawkeyeOfficial is...',
+                    style: TextStyle(
+                      color: AppColorConst.appWhite,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Text(
+                    'View all 103 comments',
+                    style: TextStyle(
+                      color: AppColorConst.appGray,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Obx(
+                    () => Row(
+                      children: [
+                        ClipOval(
+                          child: Image.asset(
+                            AppImageConst.appDpImage,
+                            fit: BoxFit.cover,
+                            width: 35,
+                            height: 35,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            focusNode: homeController.focusNode,
+                            decoration: const InputDecoration(
+                              hintText: "Add a comment...",
+                              hintStyle: TextStyle(
+                                color: AppColorConst.appGray,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                            style: const TextStyle(
+                              color: AppColorConst.appWhite,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        if (homeController.isFocused.value)
+                          IconButton(
+                            icon: const Icon(
+                              Icons.send,
+                              color: AppColorConst.appBlue,
+                              size: 18,
+                            ),
+                            onPressed: () {},
+                          ),
+                        const Icon(Icons.favorite,
+                            color: AppColorConst.appRed, size: 16),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.emoji_emotions,
+                            color: AppColorConst.appYellow, size: 16),
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () {
+                            FocusScope.of(context).unfocus();
+                            */ /*setState(() {
+                            _showEmojiPicker = !_showEmojiPicker;
+                          });*/ /*
+                          },
+                          child: const Icon(Icons.add_circle_outline,
+                              color: AppColorConst.appGray, size: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: Text(
+                    '13 hours ago',
+                    style: TextStyle(
+                      color: AppColorConst.appGray,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+*/
+          SizedBox(
+            height: 1000,
+            child: ListView.builder(
+              itemCount: homeController.postList.length,
+              itemBuilder: (context, index) {
+                final post = homeController.postList[index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                colors: [
+                                  AppColorConst.appYellow,
+                                  AppColorConst.appOrange,
+                                  AppColorConst.appRed,
+                                  AppColorConst.appPurple,
+                                  AppColorConst.appDeepPurple,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColorConst.appBlack,
+                              ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  post['userImage'],
+                                  fit: BoxFit.cover,
+                                  width: 35,
+                                  height: 35,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            post['username'],
+                            style: const TextStyle(
+                              color: AppColorConst.appWhite,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const Spacer(),
+                          const Icon(Icons.more_horiz,
+                              color: AppColorConst.appWhite),
+                        ],
+                      ),
+                    ),
+                    Image.asset(post['postImage']),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                      child: Row(
+                        children: [
+                          Icon(Icons.favorite, color: AppColorConst.appRed),
+                          SizedBox(width: 12),
+                          Icon(Icons.chat_bubble_outline,
+                              color: AppColorConst.appWhite),
+                          SizedBox(width: 12),
+                          Icon(Icons.send, color: AppColorConst.appWhite),
+                          Spacer(),
+                          Icon(Icons.bookmark_border,
+                              color: AppColorConst.appWhite),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        post['likes'],
+                        style: const TextStyle(
+                          color: AppColorConst.appWhite,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        post['caption'],
+                        style: const TextStyle(
+                          color: AppColorConst.appWhite,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        'View all 103 comments',
+                        style: TextStyle(
+                          color: AppColorConst.appGray,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Obx(
+                        () => Row(
+                          children: [
+                            ClipOval(
+                              child: Image.asset(
+                                AppImageConst.appDpImage,
+                                fit: BoxFit.cover,
+                                width: 35,
+                                height: 35,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: TextField(
+                                focusNode: homeController.focusNode,
+                                decoration: const InputDecoration(
+                                  hintText: "Add a comment...",
+                                  hintStyle: TextStyle(
+                                    color: AppColorConst.appGray,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                  ),
+                                  border: InputBorder.none,
+                                ),
+                                style: const TextStyle(
+                                  color: AppColorConst.appWhite,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                            if (homeController.isFocused.value)
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.send,
+                                  color: AppColorConst.appBlue,
+                                  size: 18,
+                                ),
+                                onPressed: () {},
+                              ),
+                            const Icon(Icons.favorite,
+                                color: AppColorConst.appRed, size: 16),
+                            const SizedBox(width: 8),
+                            const Icon(Icons.emoji_emotions,
+                                color: AppColorConst.appYellow, size: 16),
+                            const SizedBox(width: 8),
+                            GestureDetector(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                              },
+                              child: const Icon(Icons.add_circle_outline,
+                                  color: AppColorConst.appGray, size: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
+                      child: Text(
+                        post['timeAgo'],
+                        style: const TextStyle(
+                          color: AppColorConst.appGray,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
+/*
+                Image.asset(
+                  AppImageConst.appNature,
+                  fit: BoxFit.cover,
+                  height: 500,
+                  width: double.infinity,
+                ),
+
+                Image.asset(
+                  AppImageConst.appNature2,
+                  fit: BoxFit.cover,
+                  height: 500,
+                  width: double.infinity,
+                ),
+
+*/

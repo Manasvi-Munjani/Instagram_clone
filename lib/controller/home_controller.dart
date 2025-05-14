@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
@@ -12,6 +14,45 @@ import 'package:instagram_clone/screens/splash_screen.dart';
 class HomeController extends GetxController {
   var obscureText = true.obs;
   final formkey = GlobalKey<FormState>();
+  var showEmojiPicker = false.obs;
+  final RxList<Map<String, dynamic>> postList = <Map<String, dynamic>>[].obs;
+  final FocusNode focusNode = FocusNode();
+  var isFocused = false.obs;
+  var selected = 0.obs;
+
+  void selectIcon(int index) {
+    selected.value = index;
+  }
+
+  @override
+  void onInit() {
+    focusNode.addListener(() {
+      isFocused.value = focusNode.hasFocus;
+    });
+
+    postList.assignAll([
+      {
+        'username': 'marvel',
+        'userImage': AppImageConst.appPostDp,
+        'postImage': AppImageConst.appPost,
+        'caption':
+            "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
+        'likes': '105,762 likes',
+        'timeAgo': '13 hours ago',
+      },
+      {
+        'username': 'marvel',
+        'userImage': AppImageConst.appPostDp,
+        'postImage': AppImageConst.appNature,
+        'caption':
+            "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
+        'likes': '105,762 likes',
+        'timeAgo': '13 hours ago',
+      },
+    ]);
+
+    super.onInit();
+  }
 
   void show() {
     obscureText.value = !obscureText.value;
@@ -120,5 +161,9 @@ class HomeController extends GetxController {
       debugPrint("Error saving user data: $e");
       Fluttertoast.showToast(msg: "Firestore error: $e");
     }
+  }
+
+  void toggleEmojiPicker() {
+    showEmojiPicker.value = !showEmojiPicker.value;
   }
 }
