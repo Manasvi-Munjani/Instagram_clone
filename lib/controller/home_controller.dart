@@ -35,9 +35,11 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+/*
     focusNode.addListener(() {
       isFocused.value = focusNode.hasFocus;
     });
+*/
 
     postList.assignAll([
       {
@@ -48,6 +50,8 @@ class HomeController extends GetxController {
             "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
         'likes': '105,762 likes',
         'timeAgo': '13 hours ago',
+        'focusNode': FocusNode(),
+        'isFocused': false.obs,
       },
       {
         'username': 'Beauty_of_Nature',
@@ -57,9 +61,19 @@ class HomeController extends GetxController {
             "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
         'likes': '105,762 likes',
         'timeAgo': '13 hours ago',
+        'focusNode': FocusNode(),
+        'isFocused': false.obs,
       },
     ]);
 
+    for (var post in postList) {
+      final focusNode = post['focusNode'] as FocusNode;
+      final isFocused = post['isFocused'] as RxBool;
+
+      focusNode.addListener(() {
+        isFocused.value = focusNode.hasFocus;
+      });
+    }
     super.onInit();
   }
 

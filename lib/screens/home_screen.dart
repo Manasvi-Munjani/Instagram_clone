@@ -125,6 +125,7 @@ class HomeScreen extends StatelessWidget {
               itemCount: homeController.postList.length,
               itemBuilder: (context, index) {
                 final post = homeController.postList[index];
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -260,60 +261,66 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Obx(
-                        () => Row(
-                          children: [
-                            ClipOval(
-                              child: Image.asset(
-                                AppImageConst.appDpImage,
-                                fit: BoxFit.cover,
-                                width: 35,
-                                height: 35,
+                        () {
+                          final post = homeController.postList[index];
+                          final isFocused = post['isFocused'] as RxBool;
+
+                          return Row(
+                            children: [
+                              ClipOval(
+                                child: Image.asset(
+                                  AppImageConst.appDpImage,
+                                  fit: BoxFit.cover,
+                                  width: 35,
+                                  height: 35,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: TextField(
-                                focusNode: homeController.focusNode,
-                                decoration: const InputDecoration(
-                                  hintText: "Add a comment...",
-                                  hintStyle: TextStyle(
-                                    color: AppColorConst.appGray,
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: TextField(
+                                  focusNode: post['focusNode'] as FocusNode,
+                                  decoration: const InputDecoration(
+                                    hintText: "Add a comment...",
+                                    hintStyle: TextStyle(
+                                      color: AppColorConst.appGray,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                    ),
+                                    border: InputBorder.none,
+                                  ),
+                                  style: const TextStyle(
+                                    color: AppColorConst.appWhite,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14,
                                   ),
-                                  border: InputBorder.none,
-                                ),
-                                style: const TextStyle(
-                                  color: AppColorConst.appWhite,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14,
                                 ),
                               ),
-                            ),
-                            if (homeController.isFocused.value)
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.send,
-                                  color: AppColorConst.appBlue,
-                                  size: 18,
-                                ),
-                                onPressed: () {},
+                              isFocused.value
+                                  ? IconButton(
+                                      icon: const Icon(
+                                        Icons.send,
+                                        color: AppColorConst.appBlue,
+                                        size: 18,
+                                      ),
+                                      onPressed: () {},
+                                    )
+                                  : const SizedBox(),
+                              const Icon(Icons.favorite,
+                                  color: AppColorConst.appRed, size: 16),
+                              const SizedBox(width: 8),
+                              const Icon(Icons.emoji_emotions,
+                                  color: AppColorConst.appYellow, size: 16),
+                              const SizedBox(width: 8),
+                              GestureDetector(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                },
+                                child: const Icon(Icons.add_circle_outline,
+                                    color: AppColorConst.appGray, size: 16),
                               ),
-                            const Icon(Icons.favorite,
-                                color: AppColorConst.appRed, size: 16),
-                            const SizedBox(width: 8),
-                            const Icon(Icons.emoji_emotions,
-                                color: AppColorConst.appYellow, size: 16),
-                            const SizedBox(width: 8),
-                            GestureDetector(
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                              },
-                              child: const Icon(Icons.add_circle_outline,
-                                  color: AppColorConst.appGray, size: 16),
-                            ),
-                          ],
-                        ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                     Padding(
