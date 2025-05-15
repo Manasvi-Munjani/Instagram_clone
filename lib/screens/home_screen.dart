@@ -180,20 +180,44 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Image.asset(post['postImage']),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
                       child: Row(
                         children: [
-                          Icon(Icons.favorite, color: AppColorConst.appRed),
-                          SizedBox(width: 12),
-                          Icon(Icons.chat_bubble_outline,
-                              color: AppColorConst.appWhite),
-                          SizedBox(width: 12),
-                          Icon(Icons.send, color: AppColorConst.appWhite),
-                          Spacer(),
-                          Icon(Icons.bookmark_border,
-                              color: AppColorConst.appWhite),
+                          Obx(
+                            () => GestureDetector(
+                              onTap: () => homeController.favoriteIcon(),
+                              child: homeController.isFavorite.value
+                                  ? const Icon(Icons.favorite_rounded,
+                                      color: AppColorConst.appRed)
+                                  : const Icon(Icons.favorite_outline_rounded,
+                                      color: AppColorConst.appWhite),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          GestureDetector(
+                            onTap: () {},
+                            child: const Icon(Icons.chat_bubble_outline,
+                                color: AppColorConst.appWhite),
+                          ),
+                          const SizedBox(width: 12),
+                          GestureDetector(
+                            onTap: () {},
+                            child: const Icon(Icons.send,
+                                color: AppColorConst.appWhite),
+                          ),
+                          const Spacer(),
+                          Obx(
+                            () => GestureDetector(
+                              onTap: () => homeController.saveData(),
+                              child: homeController.isSave.value
+                                  ? const Icon(Icons.bookmark,
+                                      color: AppColorConst.appWhite)
+                                  : const Icon(Icons.bookmark_border,
+                                      color: AppColorConst.appWhite),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -314,19 +338,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-/*
-    Image.asset(
-      AppImageConst.appNature,
-      fit: BoxFit.cover,
-      height: 500,
-      width: double.infinity,
-    ),
-
-    Image.asset(
-      AppImageConst.appNature2,
-      fit: BoxFit.cover,
-      height: 500,
-      width: double.infinity,
-    ),
-*/

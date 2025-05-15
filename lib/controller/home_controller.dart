@@ -18,9 +18,19 @@ class HomeController extends GetxController {
   final FocusNode focusNode = FocusNode();
   var isFocused = false.obs;
   var selected = 0.obs;
+  var isFavorite = false.obs;
+  var isSave = false.obs;
 
   void selectIcon(int index) {
     selected.value = index;
+  }
+
+  void favoriteIcon() {
+    isFavorite.value = !isFavorite.value;
+  }
+
+  void saveData() {
+    isSave.value = !isSave.value;
   }
 
   @override
