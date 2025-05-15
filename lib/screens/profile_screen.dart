@@ -17,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
             padding: EdgeInsets.all(13),
@@ -138,6 +139,67 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Jonathan Scott',
+            style: TextStyle(
+              color: AppColorConst.appWhite,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            'Creative/Artistic',
+            style: TextStyle(
+              color: AppColorConst.appWhite,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            'www.johnscott.com',
+            style: TextStyle(
+              color: AppColorConst.appWhite,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: AppColorConst.appWhite),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'Edit Profile',
+                      style: TextStyle(color: AppColorConst.appWhite),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppColorConst.appWhite),
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.expand_circle_down_outlined,
+                    color: AppColorConst.appWhite,
+                  ),
+                ),
               ),
             ],
           ),
