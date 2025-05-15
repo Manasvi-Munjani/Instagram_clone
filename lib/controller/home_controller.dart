@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -41,7 +40,7 @@ class HomeController extends GetxController {
         'timeAgo': '13 hours ago',
       },
       {
-        'username': 'marvel',
+        'username': 'Beauty_of_Nature',
         'userImage': AppImageConst.appPostDp,
         'postImage': AppImageConst.appNature,
         'caption':

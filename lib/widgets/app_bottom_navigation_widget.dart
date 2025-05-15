@@ -19,6 +19,8 @@ class AppBottomNavigationWidget extends StatelessWidget {
         unselectedItemColor: AppColorConst.appWhite,
         currentIndex: homeController.selected.value,
         onTap: homeController.selectIcon,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -26,13 +28,13 @@ class AppBottomNavigationWidget extends StatelessWidget {
                   ? Icons.home
                   : Icons.home_outlined,
             ),
-            label: 'Home',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               homeController.selected.value == 1 ? Icons.search : Icons.search,
             ),
-            label: 'Search',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -40,7 +42,7 @@ class AppBottomNavigationWidget extends StatelessWidget {
                   ? Icons.movie_creation_rounded
                   : Icons.movie_creation_outlined,
             ),
-            label: 'Reels',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -48,7 +50,7 @@ class AppBottomNavigationWidget extends StatelessWidget {
                   ? Icons.person
                   : Icons.person_outline,
             ),
-            label: 'Profile',
+            label: '',
           ),
         ],
       ),
