@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Row(
               children: [
                 Text(
@@ -78,7 +78,7 @@ class ProfileScreen extends StatelessWidget {
                       child: const Icon(
                         Icons.add,
                         size: 18,
-                        color: Colors.white,
+                        color: AppColorConst.appWhite,
                       ),
                     ),
                   ),
@@ -207,6 +207,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
+
         ],
       ),
     );

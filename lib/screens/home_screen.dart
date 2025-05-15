@@ -62,51 +62,56 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: 100,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: Column(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: SizedBox(
+              height: 100,
+              child: Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(3),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [
-                              AppColorConst.appYellow,
-                              AppColorConst.appOrange,
-                              AppColorConst.appRed,
-                              AppColorConst.appPurple,
-                              AppColorConst.appDeepPurple,
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                        ),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColorConst.appBlack,
-                          ),
-                          child: ClipOval(
-                            child: Image.asset(
-                              AppImageConst.appDpImage,
-                              fit: BoxFit.cover,
-                              width: 58,
-                              height: 58,
+                      Stack(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: ClipOval(
+                              child: Image.asset(
+                                AppImageConst.appDpImage,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              width: 22,
+                              height: 22,
+                              decoration: BoxDecoration(
+                                color: AppColorConst.appBlue,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColorConst.appBlack,
+                                  width: 2,
+                                ),
+                              ),
+                              child: const Icon(
+                                Icons.add,
+                                size: 18,
+                                color: AppColorConst.appWhite,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 6),
                       const Text(
-                        "User",
+                        "Your Story",
                         style: TextStyle(
                           color: AppColorConst.appWhite,
                           fontSize: 12,
@@ -115,8 +120,65 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                );
-              },
+                  const SizedBox(width: 18),
+                  Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      AppColorConst.appYellow,
+                                      AppColorConst.appOrange,
+                                      AppColorConst.appRed,
+                                      AppColorConst.appPurple,
+                                      AppColorConst.appDeepPurple,
+                                    ],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                ),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColorConst.appBlack,
+                                  ),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      AppImageConst.appDpImage,
+                                      fit: BoxFit.cover,
+                                      width: 61,
+                                      height: 61,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              const Text(
+                                "User",
+                                style: TextStyle(
+                                  color: AppColorConst.appWhite,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(
