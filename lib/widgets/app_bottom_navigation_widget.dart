@@ -47,6 +47,14 @@ class AppBottomNavigationWidget extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(
               homeController.selected.value == 3
+                  ? Icons.shopping_bag
+                  : Icons.shopping_bag_outlined,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              homeController.selected.value == 4
                   ? Icons.person
                   : Icons.person_outline,
             ),
