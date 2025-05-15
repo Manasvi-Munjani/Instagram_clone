@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/screens/order_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/reels_screen.dart';
 import 'package:instagram_clone/screens/search_screen.dart';
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
       _homeContent(homeController),
       const SearchScreen(),
       const ReelsScreen(),
+      const OrderScreen(),
       const ProfileScreen(),
     ];
 
