@@ -11,56 +11,44 @@ class AppBottomNavigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
+
+    final List<IconData> iconsFilled = [
+      Icons.home,
+      Icons.search,
+      Icons.movie_creation_rounded,
+      Icons.shopping_bag,
+      Icons.person,
+    ];
+
+    final List<IconData> iconsOutlined = [
+      Icons.home_outlined,
+      Icons.search,
+      Icons.movie_creation_outlined,
+      Icons.shopping_bag_outlined,
+      Icons.person_outline,
+    ];
+
     return Obx(
-      () => BottomNavigationBar(
-        backgroundColor: AppColorConst.appBlack,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColorConst.appWhite,
-        unselectedItemColor: AppColorConst.appWhite,
-        currentIndex: homeController.selected.value,
-        onTap: homeController.selectIcon,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              homeController.selected.value == 0
-                  ? Icons.home
-                  : Icons.home_outlined,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              homeController.selected.value == 1 ? Icons.search : Icons.search,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              homeController.selected.value == 2
-                  ? Icons.movie_creation_rounded
-                  : Icons.movie_creation_outlined,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              homeController.selected.value == 3
-                  ? Icons.shopping_bag
-                  : Icons.shopping_bag_outlined,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              homeController.selected.value == 4
-                  ? Icons.person
-                  : Icons.person_outline,
-            ),
-            label: '',
-          ),
-        ],
+      () => Container(
+        color: AppColorConst.appBlack,
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(5, (index) {
+            return GestureDetector(
+              onTap: () {
+                homeController.selectIcon(index);
+              },
+              child: Icon(
+                homeController.selected.value == index
+                    ? iconsFilled[index]
+                    : iconsOutlined[index],
+                color: AppColorConst.appWhite,
+                size: 22,
+              ),
+            );
+          }),
+        ),
       ),
     );
   }
