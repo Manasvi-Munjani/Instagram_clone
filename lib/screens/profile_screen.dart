@@ -9,15 +9,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      body: _profileData(),
-    );
-  }
-
-  Widget _profileData() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
         children: [
           const Padding(
             padding: EdgeInsets.all(13),
@@ -44,6 +36,18 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
+          _profileData()
+        ],
+      ),
+    );
+  }
+
+  Widget _profileData() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -196,7 +200,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Icon(
-                    Icons.expand_circle_down_outlined,
+                    Icons.keyboard_arrow_down_outlined,
                     color: AppColorConst.appWhite,
                   ),
                 ),
