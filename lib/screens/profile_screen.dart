@@ -207,7 +207,55 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(3),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
 
+                    /*gradient: LinearGradient(
+                  colors: [
+                    AppColorConst.appYellow,
+                    AppColorConst.appOrange,
+                    AppColorConst.appRed,
+                    AppColorConst.appPurple,
+                    AppColorConst.appDeepPurple,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),*/
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColorConst.appBlack,
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        AppImageConst.appDpImage,
+                        fit: BoxFit.cover,
+                        width: 61,
+                        height: 61,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  "User",
+                  style: TextStyle(
+                    color: AppColorConst.appWhite,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
