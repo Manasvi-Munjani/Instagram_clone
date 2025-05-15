@@ -62,7 +62,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: SizedBox(
@@ -128,8 +127,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return
-                      Padding(
+                    return Padding(
                       padding: const EdgeInsets.only(right: 12),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
