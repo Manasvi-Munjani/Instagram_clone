@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.all(13),
+            padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
             child: Row(
               children: [
                 Text(
@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _profileData() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -146,7 +146,7 @@ class ProfileScreen extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 17),
           const Text(
             'Jonathan Scott',
             style: TextStyle(
@@ -180,7 +180,7 @@ class ProfileScreen extends StatelessWidget {
                   height: 40,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColorConst.appWhite),
+                    border: Border.all(color: AppColorConst.appLightBlack),
                   ),
                   child: const Center(
                     child: Text(
@@ -196,7 +196,7 @@ class ProfileScreen extends StatelessWidget {
                 width: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: AppColorConst.appWhite),
+                  border: Border.all(color: AppColorConst.appLightBlack),
                 ),
                 child: const Center(
                   child: Icon(
