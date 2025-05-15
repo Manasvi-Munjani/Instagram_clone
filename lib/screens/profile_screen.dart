@@ -276,7 +276,6 @@ class ProfileScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Top bar with username and icons
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Row(
@@ -304,7 +303,6 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -315,7 +313,6 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 15),
                     _postGrid(),
                     const SizedBox(height: 15),
-
                   ],
                 ),
               ),
@@ -332,7 +329,6 @@ class ProfileScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Profile pic and stats
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -502,7 +498,6 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _storyHighlights() {
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
@@ -595,6 +590,5 @@ class ProfileScreen extends StatelessWidget {
         }).toList(),
       ),
     );
-
   }
 }
