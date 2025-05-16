@@ -13,7 +13,6 @@ import 'package:instagram_clone/screens/splash_screen.dart';
 class HomeController extends GetxController {
   var obscureText = true.obs;
   final formkey = GlobalKey<FormState>();
-  var showEmojiPicker = false.obs;
   final RxList<Map<String, dynamic>> postList = <Map<String, dynamic>>[].obs;
   final FocusNode focusNode = FocusNode();
   var isFocused = false.obs;
@@ -21,26 +20,42 @@ class HomeController extends GetxController {
   var isFavorite = false.obs;
   var isSave = false.obs;
 
+// ======================== Selected Icons -> BottomNavigation Screen ========================
+
   void selectIcon(int index) {
     selected.value = index;
   }
+
+// ======================== Favorite Icon ========================
 
   void favoriteIcon() {
     isFavorite.value = !isFavorite.value;
   }
 
+// ======================== Save Icon ========================
+
   void saveData() {
     isSave.value = !isSave.value;
   }
 
+// ======================== Password Icon ========================
+
+  void show() {
+    obscureText.value = !obscureText.value;
+  }
+
+// ======================== Timer -> Splash screen ========================
+
+  void timer() {
+    Future.delayed(const Duration(seconds: 2), () {
+      Get.off(() => const HomeScreen());
+    });
+  }
+
+// ======================== Post Data -> Home screen ========================
+
   @override
   void onInit() {
-/*
-    focusNode.addListener(() {
-      isFocused.value = focusNode.hasFocus;
-    });
-*/
-
     postList.assignAll([
       {
         'username': 'marvel',
@@ -77,15 +92,7 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  void show() {
-    obscureText.value = !obscureText.value;
-  }
-
-  void timer() {
-    Future.delayed(const Duration(seconds: 2), () {
-      Get.off(() => const HomeScreen());
-    });
-  }
+// ======================== SignIn Button ========================
 
   void SignInButton(String email, String password) async {
     try {
@@ -115,6 +122,8 @@ class HomeController extends GetxController {
     }
   }
 
+// ======================== SignUp Button ========================
+
   void signupButton(
     String name,
     String email,
@@ -136,11 +145,6 @@ class HomeController extends GetxController {
         email,
         currentTime,
       );
-
-      debugPrint('Id -> ${userCredential.user!.uid}');
-      debugPrint('name -> $name');
-      debugPrint('email -> $email');
-      debugPrint('time -> $email');
 
       Get.off(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
@@ -184,9 +188,5 @@ class HomeController extends GetxController {
       debugPrint("Error saving user data: $e");
       Fluttertoast.showToast(msg: "Firestore error: $e");
     }
-  }
-
-  void toggleEmojiPicker() {
-    showEmojiPicker.value = !showEmojiPicker.value;
   }
 }
