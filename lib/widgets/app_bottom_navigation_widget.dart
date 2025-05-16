@@ -15,16 +15,16 @@ class AppBottomNavigationWidget extends StatelessWidget {
     final List<IconData> iconsFilled = [
       Icons.home,
       Icons.search,
+      Icons.add_box,
       Icons.movie_creation_rounded,
-      Icons.shopping_bag,
       Icons.person,
     ];
 
     final List<IconData> iconsOutlined = [
       Icons.home_outlined,
       Icons.search,
+      Icons.add_box_outlined,
       Icons.movie_creation_outlined,
-      Icons.shopping_bag_outlined,
       Icons.person_outline,
     ];
 
