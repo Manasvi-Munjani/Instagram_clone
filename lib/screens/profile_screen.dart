@@ -47,6 +47,8 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     _storyHighlights(),
                     const SizedBox(height: 15),
+                    _post(),
+                    const SizedBox(height: 15),
                     _postGrid(),
                     const SizedBox(height: 15),
                   ],
@@ -238,9 +240,9 @@ class ProfileScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _storyItem('Paris', 'assets/paris.jpg'),
+          _storyItem('Paris', 'assets/images/nature.jpg'),
           const SizedBox(width: 15),
-          _storyItem('Dubai', 'assets/dubai.jpg'),
+          _storyItem('Dubai', 'assets/images/nature2.png'),
           const SizedBox(width: 15),
           _newStoryItem(),
         ],
@@ -301,29 +303,58 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
+  Widget _post() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Icon(
+            Icons.grid_on,
+            color: AppColorConst.appWhite,
+            size: 28,
+          ),
+          Icon(
+            Icons.person_pin_outlined,
+            color: AppColorConst.appLightBlack,
+            size: 28,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _postGrid() {
     final postImages = [
       'assets/images/nature.jpg',
       'assets/images/nature2.png',
+      'assets/images/nature.jpg',
+      'assets/images/nature2.png',
       'assets/images/post1.png',
+      'assets/images/nature.jpg',
     ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        children: postImages.map((img) {
-          return Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(1),
-              height: 150,
-              child: Image.asset(
-                img,
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
-        }).toList(),
-      ),
+    List<Widget> imageWidgets = [];
+
+    for (var img in postImages) {
+      imageWidgets.add(
+        SizedBox(
+          height: 150,
+          child: Image.asset(
+            img,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+
+    return GridView.count(
+      crossAxisCount: 3,
+      shrinkWrap: true,
+      crossAxisSpacing: 3,
+      mainAxisSpacing: 3,
+      physics: const NeverScrollableScrollPhysics(),
+      children: imageWidgets,
     );
   }
 }
