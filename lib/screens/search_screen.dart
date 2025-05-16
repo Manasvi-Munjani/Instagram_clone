@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/screens/photo_view_screen.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -50,7 +51,7 @@ class SearchScreen extends StatelessWidget {
               itemCount: postImages.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: (){},
+                  onTap: () {},
                   child: ClipRRect(
                     child: Image.asset(
                       postImages[index],

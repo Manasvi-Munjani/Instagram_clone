@@ -15,4 +15,3 @@ class Photoviewscreen extends StatelessWidget {
     );
   }
 }
-
