@@ -304,10 +304,10 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _post() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Icon(
             Icons.grid_on,
