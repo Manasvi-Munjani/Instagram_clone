@@ -49,10 +49,13 @@ class SearchScreen extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: postImages.length,
               itemBuilder: (context, index) {
-                return ClipRRect(
-                  child: Image.asset(
-                    postImages[index],
-                    fit: BoxFit.cover,
+                return GestureDetector(
+                  onTap: (){},
+                  child: ClipRRect(
+                    child: Image.asset(
+                      postImages[index],
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 );
               },
