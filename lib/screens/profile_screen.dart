@@ -258,7 +258,7 @@ class ProfileScreen extends StatelessWidget {
           height: 65,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.white24, width: 2),
+            border: Border.all(color: AppColorConst.appLightBlack, width: 2),
           ),
           child: ClipOval(
             child: Image.asset(
@@ -284,7 +284,7 @@ class ProfileScreen extends StatelessWidget {
           height: 65,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.white24, width: 2),
+            border: Border.all(color: AppColorConst.appLightBlack, width: 2),
           ),
           child: const Center(
             child: Icon(
