@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     _storyHighlights(),
                     const SizedBox(height: 15),
-                    _post(),
+                    _postIcon(),
                     const SizedBox(height: 15),
                     _postGrid(),
                     const SizedBox(height: 15),
@@ -303,7 +303,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _post() {
+  Widget _postIcon() {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
