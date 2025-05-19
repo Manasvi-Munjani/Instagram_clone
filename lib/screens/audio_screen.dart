@@ -8,7 +8,28 @@ class AudioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text('Audio',style: TextStyle(color: AppColorConst.appGray,fontWeight: FontWeight.w400,fontSize: 15),),
+      body: const Row(
+        children: [
+          Text(
+            'Audio',
+            style: TextStyle(
+              color: AppColorConst.appGray,
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+            ),
+          ),
+          Spacer(),
+          Icon(
+            Icons.bookmark_border,
+            color: AppColorConst.appGray,
+          ),
+          SizedBox(width: 5),
+          Icon(
+            Icons.more_vert_outlined,
+            color: AppColorConst.appGray,
+          )
+        ],
+      ),
     );
   }
 }

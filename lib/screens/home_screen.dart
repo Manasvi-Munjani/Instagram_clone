@@ -236,8 +236,10 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          const Icon(Icons.more_horiz,
-                              color: AppColorConst.appWhite),
+                          const Icon(
+                            Icons.more_horiz,
+                            color: AppColorConst.appWhite,
+                          ),
                         ],
                       ),
                     ),
