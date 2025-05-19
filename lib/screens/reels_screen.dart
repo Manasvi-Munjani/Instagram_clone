@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/widgets/app_music_widget.dart';
 
 class ReelsScreen extends StatelessWidget {
   const ReelsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -50,9 +51,26 @@ class ReelsScreen extends StatelessWidget {
               Icons.send,
               color: AppColorConst.appWhite,
             ),
-            Icon(
-              Icons.more_horiz,
-              color: AppColorConst.appWhite,
+            IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: AppColorConst.appBlack,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20)),
+                  ),
+                  isScrollControlled: true,
+                  builder: (_) => Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: AppMusicWidget(),
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.more_horiz,
+                color: AppColorConst.appWhite,
+              ),
             ),
           ],
         ),
