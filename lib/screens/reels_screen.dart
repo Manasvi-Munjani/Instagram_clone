@@ -115,7 +115,7 @@ class ReelsScreen extends StatelessWidget {
                   style: TextStyle(
                     color: AppColorConst.appWhite,
                     fontSize: 22,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 Icon(
@@ -172,7 +172,7 @@ class ReelsScreen extends StatelessWidget {
                   height: 24,
                   width: 24,
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColorConst.appWhite),
+                    border: Border.all(color: AppColorConst.appWhite, width: 2),
                   ),
                   child: Image.asset(
                     AppImageConst.appNature,
@@ -198,7 +198,7 @@ class ReelsScreen extends StatelessWidget {
                         ),
                       ),
                       child: const CircleAvatar(
-                        radius: 15,
+                        radius: 20,
                         backgroundImage: AssetImage('assets/images/nature.jpg'),
                       ),
                     ),
@@ -247,4 +247,11 @@ class ReelsScreen extends StatelessWidget {
       ),
     );
   }
+
+  static final List<String> reelsData = [
+    'assets/images/book.jpg',
+    'assets/images/book2.jpg',
+    'assets/images/doraemon.jpg',
+    'assets/images/post2.jpg',
+  ];
 }
