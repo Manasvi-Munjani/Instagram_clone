@@ -52,7 +52,8 @@ class SearchScreen extends StatelessWidget {
               itemCount: postImages.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: ()=>Get.off(()=>Photoviewscreen(imageURL: postImages[index])),
+                  onTap: () => Get.off(
+                      () => Photoviewscreen(imageURL: postImages[index])),
                   child: ClipRRect(
                     child: Image.asset(
                       postImages[index],
@@ -87,4 +88,3 @@ class SearchScreen extends StatelessWidget {
     'assets/images/flower.jpg',
   ];
 }
-  
