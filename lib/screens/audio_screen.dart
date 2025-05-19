@@ -6,7 +6,7 @@ class AudioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -46,7 +46,33 @@ class AudioScreen extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-            )
+            ),
+            Text(
+              '_.zenkaii',
+              style: TextStyle(
+                color: AppColorConst.appOffWhite,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Container(
+              height: 40,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColorConst.appBlue,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Center(
+                child: Text(
+                  'Use Audio',
+                  style: TextStyle(
+                    color: AppColorConst.appWhite,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
