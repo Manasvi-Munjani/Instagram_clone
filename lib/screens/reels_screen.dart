@@ -266,7 +266,7 @@ class ReelsScreen extends StatelessWidget {
                           ),
                           isScrollControlled: true,
                           builder: (_) => Padding(
-                            padding: EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(20),
                             child: AppMusicWidget(),
                           ),
                         );
