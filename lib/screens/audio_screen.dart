@@ -8,7 +8,6 @@ class AudioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      appBar: AppBar(),
       body: const Row(
         children: [
           Icon(
