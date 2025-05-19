@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
+import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/music_controller.dart';
 
 class AppMusicWidget extends StatelessWidget {
@@ -27,10 +28,10 @@ class AppMusicWidget extends StatelessWidget {
           return musicController.musicPath.isNotEmpty
               ? Text(
                   "Selected: ${File(musicController.musicPath.value).path.split('/').last}",
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: AppColorConst.appWhite),
                 )
               : const Text("No music selected",
-                  style: TextStyle(color: Colors.white));
+                  style: TextStyle(color: AppColorConst.appWhite));
         }),
         const SizedBox(height: 10),
         Row(
@@ -41,15 +42,17 @@ class AppMusicWidget extends StatelessWidget {
               child: const Text("Pick Music"),
             ),
             const SizedBox(width: 10),
-            Obx(() => IconButton(
-                  icon: Icon(
-                    musicController.isPlaying.value
-                        ? Icons.pause
-                        : Icons.play_arrow,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => musicController.playPauseMusic(),
-                )),
+            Obx(
+              () => IconButton(
+                icon: Icon(
+                  musicController.isPlaying.value
+                      ? Icons.pause
+                      : Icons.play_arrow,
+                  color: AppColorConst.appWhite,
+                ),
+                onPressed: () => musicController.playPauseMusic(),
+              ),
+            ),
           ],
         ),
       ],
