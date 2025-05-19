@@ -9,11 +9,11 @@ class AudioScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               children: [
                 Icon(
                   Icons.arrow_back,
@@ -39,7 +39,7 @@ class AudioScreen extends StatelessWidget {
                 )
               ],
             ),
-            Text(
+            const Text(
               'Origin audio',
               style: TextStyle(
                 color: AppColorConst.appOffWhite,
@@ -47,7 +47,7 @@ class AudioScreen extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Text(
+            const Text(
               '_.zenkaii',
               style: TextStyle(
                 color: AppColorConst.appOffWhite,
@@ -62,7 +62,7 @@ class AudioScreen extends StatelessWidget {
                 color: AppColorConst.appBlue,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Use Audio',
                   style: TextStyle(
