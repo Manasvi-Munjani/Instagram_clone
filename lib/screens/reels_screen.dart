@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
+import 'package:instagram_clone/screens/audio_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 import 'package:instagram_clone/widgets/app_music_widget.dart';
 
@@ -93,18 +94,21 @@ class ReelsScreen extends StatelessWidget {
                         size: 24,
                       ),
                     ),
-                    Container(
-                      height: 24,
-                      width: 24,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColorConst.appWhite,
-                          width: 2,
+                    GestureDetector(
+                      onTap: () => Get.off(() => const AudioScreen()),
+                      child: Container(
+                        height: 24,
+                        width: 24,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: AppColorConst.appWhite,
+                            width: 2,
+                          ),
                         ),
-                      ),
-                      child: Image.asset(
-                        AppImageConst.appNature,
-                        fit: BoxFit.cover,
+                        child: Image.asset(
+                          AppImageConst.appNature,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ],

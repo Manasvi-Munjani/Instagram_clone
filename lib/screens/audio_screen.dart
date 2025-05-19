@@ -1,5 +1,5 @@
-/*
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/constant/appcolor_const.dart';
 
 class AudioScreen extends StatelessWidget {
   const AudioScreen({super.key});
@@ -7,11 +7,8 @@ class AudioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-      ),
-
+      appBar: AppBar(),
+      body: Text('Audio',style: TextStyle(color: AppColorConst.appGray,fontWeight: FontWeight.w400,fontSize: 15),),
     );
   }
 }
-*/
