@@ -10,11 +10,11 @@ class ReelsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
+            const Row(
               children: [
                 Text(
                   'Reels',
@@ -31,23 +31,23 @@ class ReelsScreen extends StatelessWidget {
                 )
               ],
             ),
-            Icon(
+            const Icon(
               Icons.favorite_outline_rounded,
               color: AppColorConst.appWhite,
             ),
-            Text(
+            const Text(
               '31.2k',
               style: TextStyle(color: AppColorConst.appWhite),
             ),
-            Icon(
+            const Icon(
               Icons.mode_comment_outlined,
               color: AppColorConst.appWhite,
             ),
-            Text(
+            const Text(
               '510',
               style: TextStyle(color: AppColorConst.appWhite),
             ),
-            Icon(
+            const Icon(
               Icons.send,
               color: AppColorConst.appWhite,
             ),
@@ -67,7 +67,7 @@ class ReelsScreen extends StatelessWidget {
                   ),
                 );
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.more_horiz,
                 color: AppColorConst.appWhite,
               ),
