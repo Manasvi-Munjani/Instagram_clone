@@ -7,13 +7,18 @@ class AudioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColorConst.appBlack,
       appBar: AppBar(),
       body: const Row(
         children: [
+          Icon(
+            Icons.arrow_back,
+            color: AppColorConst.appWhite,
+          ),
           Text(
             'Audio',
             style: TextStyle(
-              color: AppColorConst.appGray,
+              color: AppColorConst.appWhite,
               fontWeight: FontWeight.w700,
               fontSize: 18,
             ),
@@ -21,12 +26,12 @@ class AudioScreen extends StatelessWidget {
           Spacer(),
           Icon(
             Icons.bookmark_border,
-            color: AppColorConst.appGray,
+            color: AppColorConst.appWhite,
           ),
           SizedBox(width: 5),
           Icon(
             Icons.more_vert_outlined,
-            color: AppColorConst.appGray,
+            color: AppColorConst.appWhite,
           )
         ],
       ),
