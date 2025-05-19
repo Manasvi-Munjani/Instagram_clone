@@ -11,11 +11,6 @@ class Photoviewscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: AppColorConst.appWhite),
-      ),
       body: PhotoView(
         imageProvider: AssetImage(imageURL),
         backgroundDecoration: const BoxDecoration(
