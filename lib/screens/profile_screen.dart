@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/screens/photo_view_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -338,11 +340,14 @@ class ProfileScreen extends StatelessWidget {
 
     for (var img in postImages) {
       imageWidgets.add(
-        SizedBox(
-          height: 150,
-          child: Image.asset(
-            img,
-            fit: BoxFit.cover,
+        GestureDetector(
+          onTap: ()=> Get.off(()=>Photoviewscreen(imageURL: img)),
+          child: SizedBox(
+            height: 150,
+            child: Image.asset(
+              img,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       );
