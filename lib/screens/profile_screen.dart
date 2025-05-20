@@ -181,7 +181,7 @@ class ProfileScreen extends StatelessWidget {
             // 'Jonathan Scott',
             homeController.userModel!.username,
 
-            style: TextStyle(
+            style: const TextStyle(
               color: AppColorConst.appWhite,
               fontWeight: FontWeight.w600,
               fontSize: 16,
@@ -209,7 +209,7 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: GestureDetector(
-                  onTap: () => Get.off(() => EditProfile()),
+                  onTap: () => Get.off(() => const EditProfile()),
                   child: Container(
                     height: 40,
                     decoration: BoxDecoration(
