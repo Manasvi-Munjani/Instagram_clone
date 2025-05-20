@@ -29,6 +29,7 @@ class ProfileController extends GetxController {
         username: nameController.text.trim(),
         bio: bioController.text.trim(),
         links: linkController.text.trim(),
+        profileImage: '',
       );
 
       await FirebaseFirestore.instance
@@ -53,3 +54,11 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 }
+
+/*CldImageWidget(
+  publicId: 'sample.jpg',
+  transformation: Transformation()
+    ..resize(Resize.crop()
+      ..width(100)
+      ..height(150))
+),*/
