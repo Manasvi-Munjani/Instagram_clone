@@ -26,7 +26,7 @@ class ReelsScreen extends StatelessWidget {
                 ),
               ),
               const Positioned(
-                top: 40,
+                top: 20,
                 left: 16,
                 right: 16,
                 child: Row(
