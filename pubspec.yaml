@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   get: ^4.7.2
   fluttertoast: ^8.2.12
   firebase_core: ^3.13.0
@@ -37,7 +38,6 @@ dependencies:
   firebase_storage: ^12.4.5
   cloud_firestore: ^5.6.7
   emoji_picker_flutter: ^4.3.0
-  cloudinary: ^1.2.0
   http: ^1.4.0
   image_picker: ^1.1.2
   flutter_staggered_grid_view: ^0.7.0
