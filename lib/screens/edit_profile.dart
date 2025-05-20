@@ -11,7 +11,7 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formkey = GlobalKey<FormState>();
-    final ProfileController profileController = Get.put(ProfileController());
+    // final ProfileController profileController = Get.put(ProfileController());
     final TextEditingController nameController = TextEditingController();
     final TextEditingController bioController = TextEditingController();
     final TextEditingController linkController = TextEditingController();
@@ -125,7 +125,7 @@ class EditProfile extends StatelessWidget {
                       style: const TextStyle(
                           color: AppColorConst.appGray, fontSize: 14),
                       decoration: InputDecoration(
-                        hintText: 'Link...',
+                        hintText: 'Add links',
                         hintStyle: const TextStyle(
                             color: AppColorConst.appGray, fontSize: 12),
                         suffixIcon: const Icon(Icons.email_outlined,
