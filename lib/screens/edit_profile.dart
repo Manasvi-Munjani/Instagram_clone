@@ -9,8 +9,6 @@ import 'package:instagram_clone/validation/app_validation.dart';
 class EditProfile extends StatelessWidget {
   const EditProfile({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     final formkey = GlobalKey<FormState>();
@@ -42,21 +40,17 @@ class EditProfile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const Text(
-                  'Get Started',
-                  style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600),
+                Center(
+                  child: const Text(
+                    'Edit Profile',
+                    style: TextStyle(
+                        color: AppColorConst.appWhite,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
                 const SizedBox(height: 5),
-                const Text(
-                  'Please enter your detail to create an account ',
-                  style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400),
-                ),
+                Center(child: CircleAvatar()),
               ],
             ),
           ),
@@ -171,34 +165,10 @@ class EditProfile extends StatelessWidget {
                         }*/
                       },
                       child: const Text(
-                        'Sign Up',
+                        'Edit',
                         style: TextStyle(
                             color: AppColorConst.appWhite, fontSize: 15),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        const TextSpan(
-                          text: "Already have an account? ",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        TextSpan(
-                          text: 'Login',
-                          style: const TextStyle(
-                            color: AppColorConst.appBlue,
-                            decoration: TextDecoration.underline,
-                          ),
-                          /*recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.to(
-                                () => const LoginScreen(),
-                              );
-                            },*/
-                        ),
-                      ],
                     ),
                   ),
                 ],
