@@ -19,6 +19,7 @@ class HomeController extends GetxController {
   var selected = 0.obs;
   var isFavorite = false.obs;
   var isSave = false.obs;
+  UserModel? userModel;
 
 // ======================== Selected Icons -> BottomNavigation Screen ========================
 
@@ -89,6 +90,8 @@ class HomeController extends GetxController {
         isFocused.value = focusNode.hasFocus;
       });
     }
+
+    fetchProfileData();
     super.onInit();
   }
 
@@ -187,6 +190,22 @@ class HomeController extends GetxController {
     } catch (e) {
       debugPrint("Error saving user data: $e");
       Fluttertoast.showToast(msg: "Firestore error: $e");
+    }
+  }
+
+// =========================== Fetch profile Data =================================
+
+  Future<void> fetchProfileData() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentSnapshot userdoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+    if (userdoc.exists) {
+      userModel = UserModel(
+          userid: userdoc['userid'],
+          username: userdoc['username'],
+          email: userdoc['email']);
     }
   }
 }

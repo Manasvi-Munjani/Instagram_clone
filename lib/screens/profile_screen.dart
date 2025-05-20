@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,31 +10,33 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.put(HomeController());
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: SafeArea(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Row(
                 children: [
                   Text(
-                    'john_scott',
-                    style: TextStyle(
+                    // 'john_scott',
+                    homeController.userModel!.username,
+                    style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                       color: AppColorConst.appWhite,
                     ),
                   ),
-                  Spacer(),
-                  Icon(
+                  const Spacer(),
+                  const Icon(
                     Icons.add_box_outlined,
                     color: AppColorConst.appWhite,
                     size: 28,
                   ),
-                  SizedBox(width: 15),
-                  Icon(
+                  const SizedBox(width: 15),
+                  const Icon(
                     Icons.menu,
                     color: AppColorConst.appWhite,
                     size: 28,
@@ -64,6 +67,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _profileData() {
+    final HomeController homeController = Get.put(HomeController());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -171,8 +175,10 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 17),
-          const Text(
-            'Jonathan Scott',
+          Text(
+            // 'Jonathan Scott',
+            homeController.userModel!.username,
+
             style: TextStyle(
               color: AppColorConst.appWhite,
               fontWeight: FontWeight.w600,
@@ -341,7 +347,7 @@ class ProfileScreen extends StatelessWidget {
     for (var img in postImages) {
       imageWidgets.add(
         GestureDetector(
-          onTap: ()=> Get.off(()=>Photoviewscreen(imageURL: img)),
+          onTap: () => Get.off(() => Photoviewscreen(imageURL: img)),
           child: SizedBox(
             height: 150,
             child: Image.asset(
