@@ -11,7 +11,13 @@ class EditProfile extends StatelessWidget {
   }
 }
 
-
+// image
+// - choose from library
+// - remove current picture
+// Name
+// user name
+// bio
+// links
 
 /*
 import 'package:flutter/material.dart';
@@ -227,7 +233,3 @@ class ProfileInfoScreen extends StatelessWidget {
   }
 }
 */
-
-
-
-// jo insta ma pla signup kariye ama username,email,passwrd add kariye right then amathi username che e propfile screen ma fetch karaviye and then click on edit profile tyare j image, bio, and link aa ba
