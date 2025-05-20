@@ -4,6 +4,7 @@ class ProfileModel {
   String username;
   String? bio;
   String? links;
+  String profileImage;
 
   ProfileModel({
     this.userid,
@@ -11,6 +12,7 @@ class ProfileModel {
     required this.username,
     this.bio,
     this.links,
+    required this.profileImage,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,6 +21,7 @@ class ProfileModel {
       'username': username,
       'bio': bio,
       'links': links,
+      'profileImage':profileImage,
     };
   }
 }
