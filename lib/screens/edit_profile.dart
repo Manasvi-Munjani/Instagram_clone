@@ -40,8 +40,8 @@ class EditProfile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                Center(
-                  child: const Text(
+                const Center(
+                  child: Text(
                     'Edit Profile',
                     style: TextStyle(
                         color: AppColorConst.appWhite,
@@ -50,7 +50,7 @@ class EditProfile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Center(child: CircleAvatar()),
+                const Center(child: CircleAvatar()),
               ],
             ),
           ),
