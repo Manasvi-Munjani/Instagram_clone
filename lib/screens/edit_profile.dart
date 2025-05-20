@@ -91,6 +91,8 @@ class EditProfile extends StatelessWidget {
                       validator: (value) =>
                           emptyValidation(value, 'Please enter your name'),
                     ),
+                    const SizedBox(height: 20),
+
                     TextFormField(
                       controller: nameController,
                       style: const TextStyle(
