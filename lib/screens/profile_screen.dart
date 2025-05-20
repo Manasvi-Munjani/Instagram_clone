@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/screens/edit_profile.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -22,7 +23,8 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Text(
                     // 'john_scott',
-                    homeController.userModel!.username,
+                    homeController.userModel!.username ??
+                        '$CircularProgressIndicator()',
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
@@ -206,16 +208,19 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                child: Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColorConst.appLightBlack),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Edit Profile',
-                      style: TextStyle(color: AppColorConst.appWhite),
+                child: GestureDetector(
+                  onTap: () => Get.off(() => EditProfile()),
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColorConst.appLightBlack),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Edit Profile',
+                        style: TextStyle(color: AppColorConst.appWhite),
+                      ),
                     ),
                   ),
                 ),

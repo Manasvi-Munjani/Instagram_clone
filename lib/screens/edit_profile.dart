@@ -1,3 +1,18 @@
+import 'package:flutter/material.dart';
+
+class EditProfile extends StatelessWidget {
+  const EditProfile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text('data'),
+    );
+  }
+}
+
+
+
 /*
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -212,3 +227,7 @@ class ProfileInfoScreen extends StatelessWidget {
   }
 }
 */
+
+
+
+// jo insta ma pla signup kariye ama username,email,passwrd add kariye right then amathi username che e propfile screen ma fetch karaviye and then click on edit profile tyare j image, bio, and link aa ba
