@@ -54,11 +54,3 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 }
-
-/*CldImageWidget(
-  publicId: 'sample.jpg',
-  transformation: Transformation()
-    ..resize(Resize.crop()
-      ..width(100)
-      ..height(150))
-),*/
