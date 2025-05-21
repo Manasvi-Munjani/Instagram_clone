@@ -28,35 +28,44 @@ class MusicController extends GetxController{
 }*/
 
 import 'package:get/get.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:just_audio/just_audio.dart';
 
 class MusicController extends GetxController {
   final AudioPlayer player = AudioPlayer();
+
   var isPlaying = false.obs;
   var currentFile = ''.obs;
 
+  /// Pick an audio file using FilePicker
   Future<void> pickAudioFile() async {
-    final result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.audio,
     );
+
     if (result != null && result.files.single.path != null) {
-      currentFile.value = result.files.single.name;
-      await player.setFilePath(result.files.single.path!);
+      currentFile.value = result.files.single.path!;
+      await player.setFilePath(currentFile.value);
+      isPlaying.value = false;
     }
   }
 
-  void playAudio() async {
-    await player.play();
-    isPlaying.value = true;
+  /// Play the selected audio file
+  Future<void> playAudio() async {
+    if (currentFile.value.isNotEmpty) {
+      await player.play();
+      isPlaying.value = true;
+    }
   }
 
-  void pauseAudio() async {
+  /// Pause the audio
+  Future<void> pauseAudio() async {
     await player.pause();
     isPlaying.value = false;
   }
 
-  void stopAudio() async {
+  /// Stop the audio
+  Future<void> stopAudio() async {
     await player.stop();
     isPlaying.value = false;
   }

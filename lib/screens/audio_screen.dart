@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
@@ -17,7 +18,7 @@ class AudioScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  IconButton( 
+                  IconButton(
                     icon: const Icon(Icons.arrow_back,
                         color: AppColorConst.appWhite),
                     onPressed: () => Get.back(),
@@ -134,6 +135,69 @@ class AudioScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+*/
+
+
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:instagram_clone/controller/music_controller.dart';
+
+class AudioScreen extends StatelessWidget {
+  AudioScreen({super.key});
+  final MusicController musicController = Get.put(MusicController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Music Player")),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Obx(() => Text(
+              musicController.currentFile.value.isEmpty
+                  ? "No file selected"
+                  : "Now playing: ${musicController.currentFile}",
+              style: const TextStyle(fontSize: 16),
+            )),
+            const SizedBox(height: 30),
+            ElevatedButton.icon(
+              onPressed: musicController.pickAudioFile,
+              icon: const Icon(Icons.library_music),
+              label: const Text("Pick Music"),
+            ),
+            const SizedBox(height: 30),
+            Obx(() => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.play_arrow),
+                  onPressed: musicController.isPlaying.value
+                      ? null
+                      : musicController.playAudio,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.pause),
+                  onPressed: musicController.isPlaying.value
+                      ? musicController.pauseAudio
+                      : null,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.stop),
+                  onPressed: musicController.isPlaying.value
+                      ? musicController.stopAudio
+                      : null,
+                ),
+              ],
+            )),
+          ],
         ),
       ),
     );
