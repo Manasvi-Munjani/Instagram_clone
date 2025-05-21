@@ -6,14 +6,6 @@ import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/validation/app_validation.dart';
 
-// image
-// - choose from library
-// - remove current picture
-// Name
-// user name
-// bio
-// links
-
 class EditProfile extends StatelessWidget {
   EditProfile({super.key});
 
@@ -150,3 +142,13 @@ class EditProfile extends StatelessWidget {
     );
   }
 }
+
+
+
+// image
+// - choose from library
+// - remove current picture
+// Name
+// user name
+// bio
+// links
