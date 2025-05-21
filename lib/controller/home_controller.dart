@@ -19,7 +19,7 @@ class HomeController extends GetxController {
   var selected = 0.obs;
   var isFavorite = false.obs;
   var isSave = false.obs;
-  UserModel? userModel;
+  var userModel = Rxn<UserModel>();
 
 // ======================== Selected Icons -> BottomNavigation Screen ========================
 
@@ -202,7 +202,7 @@ class HomeController extends GetxController {
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
     if (userdoc.exists) {
-      userModel = UserModel(
+      userModel.value = UserModel(
           userid: userdoc['userid'],
           username: userdoc['username'],
           email: userdoc['email']);
