@@ -71,15 +71,16 @@ class EditProfile extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       _buildTextField(nameController, 'Name...',
-                          Icons.account_box_outlined,'Please enter your name'),
+                          Icons.account_box_outlined, 'Please enter your name'),
                       const SizedBox(height: 20),
-                      _buildTextField(
-                          userNameController, 'Username...', Icons.person,'Please enter your Username'),
+                      _buildTextField(userNameController, 'Username...',
+                          Icons.person, 'Please enter your Username'),
                       const SizedBox(height: 20),
-                      _buildTextField(bioController, 'Bio...', Icons.info,'Please Enter Bio'),
+                      _buildTextField(bioController, 'Bio...', Icons.info,
+                          'Please Enter Bio'),
                       const SizedBox(height: 20),
-                      _buildTextField(
-                          linkController, 'Add links...', Icons.link,'Please Enter Link'),
+                      _buildTextField(linkController, 'Add links...',
+                          Icons.link, 'Please Enter Link'),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
@@ -115,7 +116,11 @@ class EditProfile extends StatelessWidget {
   }
 
   Widget _buildTextField(
-      TextEditingController controller, String hint, IconData icon,String validationMessage,) {
+    TextEditingController controller,
+    String hint,
+    IconData icon,
+    String validationMessage,
+  ) {
     return TextFormField(
       controller: controller,
       style: const TextStyle(color: AppColorConst.appGray, fontSize: 14),
@@ -143,7 +148,6 @@ class EditProfile extends StatelessWidget {
         }
         return null;
       },
-      // validator: (value) => emptyValidation(value, 'This field is required'),
     );
   }
 }
