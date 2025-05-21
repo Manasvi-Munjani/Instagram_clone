@@ -141,8 +141,6 @@ class AudioScreen extends StatelessWidget {
   }
 }
 */
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/controller/music_controller.dart';
@@ -161,9 +159,9 @@ class AudioScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Obx(() => Text(
-              musicController.currentFile.value.isEmpty
+              musicController.musicPath.value.isEmpty
                   ? "No file selected"
-                  : "Now playing: ${musicController.currentFile.value.split('/').last}",
+                  : "Now playing: ${musicController.musicPath.value.split('/').last}",
               style: const TextStyle(fontSize: 16),
             )),
             const SizedBox(height: 30),

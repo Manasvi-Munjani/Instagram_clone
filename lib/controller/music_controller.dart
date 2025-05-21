@@ -32,10 +32,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:just_audio/just_audio.dart';
 
 class MusicController extends GetxController {
-  final AudioPlayer player = AudioPlayer();
+  final AudioPlayer _player = AudioPlayer();
 
   var isPlaying = false.obs;
-  var currentFile = ''.obs;
+  var musicPath = ''.obs;
 
   /// Pick an audio file using FilePicker
   Future<void> pickAudioFile() async {
@@ -44,35 +44,51 @@ class MusicController extends GetxController {
     );
 
     if (result != null && result.files.single.path != null) {
-      currentFile.value = result.files.single.path!;
-      await player.setFilePath(currentFile.value);
-      isPlaying.value = false;
+      setMusic(result.files.single.path!);
     }
   }
 
-  /// Play the selected audio file
-  Future<void> playAudio() async {
-    if (currentFile.value.isNotEmpty) {
-      await player.play();
+  /// Set music path and prepare player
+  Future<void> setMusic(String path) async {
+    musicPath.value = path;
+    await _player.setFilePath(path);
+    isPlaying.value = false;
+  }
+
+  /// Toggle play/pause
+  Future<void> playPauseMusic() async {
+    if (isPlaying.value) {
+      await _player.pause();
+      isPlaying.value = false;
+    } else {
+      await _player.play();
       isPlaying.value = true;
     }
   }
 
-  /// Pause the audio
+  /// Play manually
+  Future<void> playAudio() async {
+    if (musicPath.value.isNotEmpty) {
+      await _player.play();
+      isPlaying.value = true;
+    }
+  }
+
+  /// Pause manually
   Future<void> pauseAudio() async {
-    await player.pause();
+    await _player.pause();
     isPlaying.value = false;
   }
 
-  /// Stop the audio
+  /// Stop manually
   Future<void> stopAudio() async {
-    await player.stop();
+    await _player.stop();
     isPlaying.value = false;
   }
 
   @override
   void onClose() {
-    player.dispose();
+    _player.dispose();
     super.onClose();
   }
 }
