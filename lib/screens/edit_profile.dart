@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/validation/app_validation.dart';
 
 /*class EditProfile extends StatelessWidget {
@@ -215,8 +216,6 @@ import 'package:instagram_clone/validation/app_validation.dart';
   }
 }*/
 
-
-
 // image
 // - choose from library
 // - remove current picture
@@ -224,10 +223,6 @@ import 'package:instagram_clone/validation/app_validation.dart';
 // user name
 // bio
 // links
-
-
-
-
 
 class EditProfile extends StatelessWidget {
   EditProfile({super.key});
@@ -259,18 +254,21 @@ class EditProfile extends StatelessWidget {
           child: Stack(
             children: [
               Positioned.fill(
-                child: Image.asset(AppImageConst.appBackground2, fit: BoxFit.fill),
+                child:
+                    Image.asset(AppImageConst.appBackground2, fit: BoxFit.fill),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () => Get.back(),
-                      child: const Icon(Icons.arrow_back, size: 20, color: AppColorConst.appWhite),
+                      onTap: () => Get.off(() => const ProfileScreen()),
+                      child: const Icon(Icons.arrow_back,
+                          size: 20, color: AppColorConst.appWhite),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
                     const Center(
                       child: Text('Edit Profile',
                           style: TextStyle(
@@ -286,17 +284,21 @@ class EditProfile extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 60, left: 25, right: 25),
+                  padding:
+                      const EdgeInsets.only(bottom: 60, left: 25, right: 25),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _buildTextField(nameController, 'Name...', Icons.account_box_outlined),
+                      _buildTextField(nameController, 'Name...',
+                          Icons.account_box_outlined),
                       const SizedBox(height: 20),
-                      _buildTextField(userNameController, 'Username...', Icons.person),
+                      _buildTextField(
+                          userNameController, 'Username...', Icons.person),
                       const SizedBox(height: 20),
                       _buildTextField(bioController, 'Bio...', Icons.info),
                       const SizedBox(height: 20),
-                      _buildTextField(linkController, 'Add links...', Icons.link),
+                      _buildTextField(
+                          linkController, 'Add links...', Icons.link),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
@@ -304,7 +306,8 @@ class EditProfile extends StatelessWidget {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColorConst.appDarkBlue,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               homeController.editProfile(
@@ -315,7 +318,8 @@ class EditProfile extends StatelessWidget {
                               );
                             }
                           },
-                          child: const Text('Edit', style: TextStyle(color: AppColorConst.appWhite)),
+                          child: const Text('Edit',
+                              style: TextStyle(color: AppColorConst.appWhite)),
                         ),
                       ),
                     ],
@@ -344,7 +348,8 @@ class EditProfile extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: const BorderSide(color: AppColorConst.appBlue, width: 1.5),
+          borderSide:
+              const BorderSide(color: AppColorConst.appBlue, width: 1.5),
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
@@ -355,7 +360,3 @@ class EditProfile extends StatelessWidget {
     );
   }
 }
-
-
-
-

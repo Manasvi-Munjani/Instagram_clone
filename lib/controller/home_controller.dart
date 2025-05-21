@@ -6,8 +6,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/models/user_model.dart';
+import 'package:instagram_clone/screens/edit_profile.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
+import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
 
 class HomeController extends GetxController {
@@ -211,38 +213,35 @@ class HomeController extends GetxController {
 
 // =========================== Update profile Data =================================
 
+  Future<void> editProfile({
+    required String name,
+    required String username,
+    String? bio,
+    String? link,
+  }) async {
+    try {
+      final User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
 
+      Map<String, dynamic> updateData = {
+        'name': name,
+        'username': username,
+        'bio': bio ?? '',
+        'link': link ?? '',
+      };
 
-Future<void> editProfile({
-  required String name,
-  required String username,
-  String? bio,
-  String? link,
-}) async {
-  try {
-    final User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .update(updateData);
 
-    Map<String, dynamic> updateData = {
-      'name': name,
-      'username': username,
-      'bio': bio ?? '',
-      'link': link ?? '',
-    };
-
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .update(updateData);
-
-    Fluttertoast.showToast(msg: 'Profile updated successfully!');
-    await fetchProfileData();
-    Get.back();
-  } catch (e) {
-    Fluttertoast.showToast(msg: 'Error: $e');
+      Fluttertoast.showToast(msg: 'Profile updated successfully!');
+      await fetchProfileData();
+      Get.off(() => ProfileScreen());
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Error: $e');
+    }
   }
-}
-
 
 /*  Future<void> editProfile() async {
     try {
