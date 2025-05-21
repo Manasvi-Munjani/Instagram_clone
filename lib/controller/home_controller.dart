@@ -211,7 +211,40 @@ class HomeController extends GetxController {
 
 // =========================== Update profile Data =================================
 
-  Future<void> editProfile() async {
+
+
+Future<void> editProfile({
+  required String name,
+  required String username,
+  String? bio,
+  String? link,
+}) async {
+  try {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    Map<String, dynamic> updateData = {
+      'name': name,
+      'username': username,
+      'bio': bio ?? '',
+      'link': link ?? '',
+    };
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .update(updateData);
+
+    Fluttertoast.showToast(msg: 'Profile updated successfully!');
+    await fetchProfileData();
+    Get.back();
+  } catch (e) {
+    Fluttertoast.showToast(msg: 'Error: $e');
+  }
+}
+
+
+/*  Future<void> editProfile() async {
     try {
       final User? user = FirebaseAuth.instance.currentUser;
       final Map<String, dynamic> updateData = {};
@@ -222,8 +255,12 @@ class HomeController extends GetxController {
           .collection('profile')
           .doc(user.uid)
           .set(updateData, SetOptions(merge: true));
+
+      Fluttertoast.showToast(msg: 'Profile Update successfully!');
+
+      Get.back();
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
-  }
+  }*/
 }

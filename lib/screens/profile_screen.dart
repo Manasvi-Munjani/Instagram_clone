@@ -218,7 +218,7 @@ class ProfileScreen extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: GestureDetector(
-                    onTap: () => Get.off(() => const EditProfile()),
+                    onTap: () => Get.off(() => EditProfile()),
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
