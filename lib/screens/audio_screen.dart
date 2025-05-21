@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 
 class AudioScreen extends StatelessWidget {
@@ -14,10 +15,12 @@ class AudioScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top bar
               Row(
                 children: [
-                  const Icon(Icons.arrow_back, color: AppColorConst.appWhite),
+                  IconButton(
+                    icon: Icon(Icons.arrow_back, color: AppColorConst.appWhite),
+                    onPressed: () => Get.back(),
+                  ),
                   const SizedBox(width: 10),
                   const Text(
                     'Audio',
@@ -28,9 +31,11 @@ class AudioScreen extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const Icon(Icons.bookmark_border, color: AppColorConst.appWhite),
+                  const Icon(Icons.bookmark_border,
+                      color: AppColorConst.appWhite),
                   const SizedBox(width: 15),
-                  const Icon(Icons.more_vert_outlined, color: AppColorConst.appWhite),
+                  const Icon(Icons.more_vert_outlined,
+                      color: AppColorConst.appWhite),
                 ],
               ),
               const SizedBox(height: 25),
