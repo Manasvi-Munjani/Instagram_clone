@@ -12,9 +12,10 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.put(HomeController());
-    final user = homeController.userModel.value;
-    return Obx(
-      () => Scaffold(
+    return Obx(() {
+      final user = homeController.userModel.value;
+
+      return Scaffold(
         backgroundColor: AppColorConst.appBlack,
         body: SafeArea(
           child: Column(
@@ -68,189 +69,192 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _profileData() {
     final HomeController homeController = Get.put(HomeController());
-    final user = homeController.userModel.value;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    width: 70,
-                    height: 70,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: ClipOval(
-                      child: Image.asset(
-                        AppImageConst.appDpImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 22,
-                      height: 22,
-                      decoration: BoxDecoration(
-                        color: AppColorConst.appBlue,
+    return Obx(() {
+      final user = homeController.userModel.value;
+
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      width: 70,
+                      height: 70,
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        border:
-                            Border.all(color: AppColorConst.appBlack, width: 2),
                       ),
-                      child: const Icon(
-                        Icons.add,
-                        size: 18,
+                      child: ClipOval(
+                        child: Image.asset(
+                          AppImageConst.appDpImage,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 22,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          color: AppColorConst.appBlue,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: AppColorConst.appBlack, width: 2),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          size: 18,
+                          color: AppColorConst.appWhite,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const Column(
+                  children: [
+                    Text(
+                      '5',
+                      style: TextStyle(
                         color: AppColorConst.appWhite,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const Column(
-                children: [
-                  Text(
-                    '5',
-                    style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                    Text(
+                      'Post',
+                      style: TextStyle(
+                        color: AppColorConst.appWhite,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Post',
-                    style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
+                  ],
+                ),
+                const Column(
+                  children: [
+                    Text(
+                      '1000',
+                      style: TextStyle(
+                        color: AppColorConst.appWhite,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const Column(
-                children: [
-                  Text(
-                    '1000',
-                    style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                    Text(
+                      'Followers',
+                      style: TextStyle(
+                        color: AppColorConst.appWhite,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Followers',
-                    style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
+                  ],
+                ),
+                const Column(
+                  children: [
+                    Text(
+                      '500',
+                      style: TextStyle(
+                        color: AppColorConst.appWhite,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const Column(
-                children: [
-                  Text(
-                    '500',
-                    style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                    Text(
+                      'Following',
+                      style: TextStyle(
+                        color: AppColorConst.appWhite,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Following',
-                    style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 17),
-          Text(
-            // 'Jonathan Scott',
-            user!.username,
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 17),
+            Text(
+              // 'Jonathan Scott',
+              user!.username,
 
-            style: const TextStyle(
-              color: AppColorConst.appWhite,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
+              style: const TextStyle(
+                color: AppColorConst.appWhite,
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'Creative/Artistic',
-            style: TextStyle(
-              color: AppColorConst.appWhite,
-              fontSize: 14,
+            const SizedBox(height: 4),
+            const Text(
+              'Creative/Artistic',
+              style: TextStyle(
+                color: AppColorConst.appWhite,
+                fontSize: 14,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'www.johnscott.com',
-            style: TextStyle(
-              color: AppColorConst.appWhite,
-              fontSize: 14,
+            const SizedBox(height: 4),
+            const Text(
+              'www.johnscott.com',
+              style: TextStyle(
+                color: AppColorConst.appWhite,
+                fontSize: 14,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: GestureDetector(
-                  onTap: () => Get.off(() => const EditProfile()),
-                  child: Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: AppColorConst.appLightBlack),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Edit Profile',
-                        style: TextStyle(color: AppColorConst.appWhite),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: GestureDetector(
+                    onTap: () => Get.off(() => const EditProfile()),
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: AppColorConst.appLightBlack),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Edit Profile',
+                          style: TextStyle(color: AppColorConst.appWhite),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: AppColorConst.appLightBlack),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    color: AppColorConst.appWhite,
+                const SizedBox(width: 10),
+                Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: AppColorConst.appLightBlack),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.keyboard_arrow_down_outlined,
+                      color: AppColorConst.appWhite,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   Widget _storyHighlights() {
