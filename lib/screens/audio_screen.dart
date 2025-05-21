@@ -18,7 +18,8 @@ class AudioScreen extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back, color: AppColorConst.appWhite),
+                    icon: const Icon(Icons.arrow_back,
+                        color: AppColorConst.appWhite),
                     onPressed: () => Get.back(),
                   ),
                   const SizedBox(width: 10),
@@ -39,8 +40,6 @@ class AudioScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 25),
-
-              // Profile row with audio name and username
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -53,9 +52,9 @@ class AudioScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         'Original audio',
                         style: TextStyle(
@@ -78,8 +77,6 @@ class AudioScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 25),
-
-              // Use Audio button
               Container(
                 height: 45,
                 width: double.infinity,
@@ -99,8 +96,6 @@ class AudioScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15),
-
-              // Audio slider and time
               Row(
                 children: [
                   Expanded(
@@ -121,10 +116,7 @@ class AudioScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
               const SizedBox(height: 20),
-
-              // Grid preview placeholder
               Expanded(
                 child: GridView.builder(
                   itemCount: 9,
