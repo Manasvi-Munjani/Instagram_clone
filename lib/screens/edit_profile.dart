@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
-import 'package:instagram_clone/controller/profile_controller.dart';
+import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/validation/app_validation.dart';
 
 class EditProfile extends StatelessWidget {
@@ -17,177 +17,181 @@ class EditProfile extends StatelessWidget {
     final TextEditingController linkController = TextEditingController();
 
     return Scaffold(
-      body: Form(
-        key: formkey,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.asset(
-                AppImageConst.appBackground2,
-                fit: BoxFit.fill,
+      body: Obx(() {
+        final HomeController homeController = Get.put(HomeController());
+        final user = homeController.userModel.value;
+        return Form(
+          key: formkey,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  AppImageConst.appBackground2,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: const Icon(
-                      Icons.arrow_back,
-                      size: 20,
-                      color: AppColorConst.appWhite,
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  const Center(
-                    child: Text(
-                      'Edit Profile',
-                      style: TextStyle(
-                          color: AppColorConst.appWhite,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Center(child: CircleAvatar()),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 60, left: 25, right: 25),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextFormField(
-                      controller: nameController,
-                      style: const TextStyle(
-                          color: AppColorConst.appGray, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: 'Name...',
-                        hintStyle: const TextStyle(
-                            color: AppColorConst.appGray, fontSize: 12),
-                        suffixIcon: const Icon(Icons.account_box_outlined,
-                            color: AppColorConst.appGray, size: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(
-                              color: AppColorConst.appBlue, width: 1.5),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
-                      ),
-                      validator: (value) =>
-                          emptyValidation(value, 'Please enter your name'),
-                    ),
-                    const SizedBox(height: 20),
-
-                    TextFormField(
-                      controller: nameController,
-                      style: const TextStyle(
-                          color: AppColorConst.appGray, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: 'Username...',
-                        hintStyle: const TextStyle(
-                            color: AppColorConst.appGray, fontSize: 12),
-                        suffixIcon: const Icon(Icons.account_box_outlined,
-                            color: AppColorConst.appGray, size: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(
-                              color: AppColorConst.appBlue, width: 1.5),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
-                      ),
-                      validator: (value) =>
-                          emptyValidation(value, 'Please enter your name'),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: bioController,
-                      style: const TextStyle(
-                          color: AppColorConst.appGray, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: 'Bio...',
-                        hintStyle: const TextStyle(
-                            color: AppColorConst.appGray, fontSize: 12),
-                        suffixIcon: const Icon(Icons.email_outlined,
-                            color: AppColorConst.appGray, size: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(
-                              color: AppColorConst.appBlue, width: 1.5),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                        color: AppColorConst.appWhite,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      controller: linkController,
-                      style: const TextStyle(
-                          color: AppColorConst.appGray, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: 'Add links',
-                        hintStyle: const TextStyle(
-                            color: AppColorConst.appGray, fontSize: 12),
-                        suffixIcon: const Icon(Icons.email_outlined,
-                            color: AppColorConst.appGray, size: 20),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: const BorderSide(
-                              color: AppColorConst.appBlue, width: 1.5),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide:
-                              const BorderSide(color: AppColorConst.appGray),
-                        ),
+                    const SizedBox(height: 30),
+                    const Center(
+                      child: Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                            color: AppColorConst.appWhite,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    Container(
-                      width: double.infinity,
-                      height: 45,
-                      decoration: BoxDecoration(
-                          color: AppColorConst.appDarkBlue,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: TextButton(
-                        onPressed: () {
-                          /*
+                    const SizedBox(height: 5),
+                    const Center(child: CircleAvatar()),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 60, left: 25, right: 25),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        controller: nameController,
+                        style: const TextStyle(
+                            color: AppColorConst.appGray, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: 'Name...',
+                          hintStyle: const TextStyle(
+                              color: AppColorConst.appGray, fontSize: 12),
+                          suffixIcon: const Icon(Icons.account_box_outlined,
+                              color: AppColorConst.appGray, size: 20),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                                color: AppColorConst.appBlue, width: 1.5),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                        ),
+                        validator: (value) =>
+                            emptyValidation(value, 'Please enter your name'),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: nameController,
+                        style: const TextStyle(
+                            color: AppColorConst.appGray, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: 'Username...',
+                          hintStyle: const TextStyle(
+                              color: AppColorConst.appGray, fontSize: 12),
+                          suffixIcon: const Icon(Icons.account_box_outlined,
+                              color: AppColorConst.appGray, size: 20),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                                color: AppColorConst.appBlue, width: 1.5),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                        ),
+                        validator: (value) =>
+                            emptyValidation(value, 'Please enter your name'),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: bioController,
+                        style: const TextStyle(
+                            color: AppColorConst.appGray, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: 'Bio...',
+                          hintStyle: const TextStyle(
+                              color: AppColorConst.appGray, fontSize: 12),
+                          suffixIcon: const Icon(Icons.email_outlined,
+                              color: AppColorConst.appGray, size: 20),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                                color: AppColorConst.appBlue, width: 1.5),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: linkController,
+                        style: const TextStyle(
+                            color: AppColorConst.appGray, fontSize: 14),
+                        decoration: InputDecoration(
+                          hintText: 'Add links',
+                          hintStyle: const TextStyle(
+                              color: AppColorConst.appGray, fontSize: 12),
+                          suffixIcon: const Icon(Icons.email_outlined,
+                              color: AppColorConst.appGray, size: 20),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                                color: AppColorConst.appBlue, width: 1.5),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide:
+                                const BorderSide(color: AppColorConst.appGray),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        width: double.infinity,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            color: AppColorConst.appDarkBlue,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: TextButton(
+                          onPressed: () {
+                            /*
                           if (formkey.currentState!.validate()) {
                             homeController.signupButton(
                               nameController.text.trim(),
@@ -195,21 +199,22 @@ class EditProfile extends StatelessWidget {
                               passwordController.text.trim(),
                             );
                           }*/
-                        },
-                        child: const Text(
-                          'Edit',
-                          style: TextStyle(
-                              color: AppColorConst.appWhite, fontSize: 15),
+                          },
+                          child: const Text(
+                            'Edit',
+                            style: TextStyle(
+                                color: AppColorConst.appWhite, fontSize: 15),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
