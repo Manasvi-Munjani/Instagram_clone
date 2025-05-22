@@ -288,24 +288,4 @@ class HomeController extends GetxController {
 
     return null;
   }
-
-/*  Future<void> editProfile() async {
-    try {
-      final User? user = FirebaseAuth.instance.currentUser;
-      final Map<String, dynamic> updateData = {};
-
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.uid)
-          .collection('profile')
-          .doc(user.uid)
-          .set(updateData, SetOptions(merge: true));
-
-      Fluttertoast.showToast(msg: 'Profile Update successfully!');
-
-      Get.back();
-    } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
-    }
-  }*/
 }
