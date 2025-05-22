@@ -285,7 +285,6 @@ class HomeController extends GetxController {
         print('Upload failed: ${response.body}');
       }
     }
-
     return null;
   }
 }
