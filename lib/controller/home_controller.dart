@@ -260,7 +260,7 @@ class HomeController extends GetxController {
   String uploadPreset = 'flutter_unsigned';
 
 
-  Future<String?> pickAndUploadImage() async {
+ /* Future<String?> pickAndUploadImage() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.image,
       withData: true,
@@ -283,6 +283,41 @@ class HomeController extends GetxController {
         url,
         body: {
           // 'file': 'data:image/png;base64,$base64Image',
+          'file': fileData,
+          'upload_preset': 'flutter_unsigned',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return data['secure_url'];
+      } else {
+        print('Upload failed: ${response.body}');
+      }
+    }
+
+    return null;
+  }*/
+
+
+  Future<String?> pickAndUploadImage() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true,
+    );
+
+    if (result != null && result.files.single.bytes != null) {
+      final bytes = result.files.single.bytes!;
+      final fileName = result.files.single.name;
+      final mimeType = lookupMimeType(fileName) ?? 'image/jpeg'; // fallback
+      final base64Image = base64Encode(bytes);
+      final fileData = 'data:$mimeType;base64,$base64Image';
+
+      final url = Uri.parse('https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload');
+
+      final response = await http.post(
+        url,
+        body: {
           'file': fileData,
           'upload_preset': 'flutter_unsigned',
         },
