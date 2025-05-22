@@ -80,8 +80,6 @@ class EditProfile extends StatelessWidget {
                               final uploadedUrl =
                                   await homeController.pickAndUploadImage();
                               if (uploadedUrl != null) {
-                                debugPrint('Uploaded URL: $uploadedUrl');
-
                                 homeController.editProfile(
                                   name: nameController.text,
                                   username: userNameController.text,
