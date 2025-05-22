@@ -245,7 +245,7 @@ class HomeController extends GetxController {
 
       Fluttertoast.showToast(msg: 'Profile updated successfully!');
       await fetchProfileData();
-      Get.off(() => ProfileScreen());
+      Get.off(() => const ProfileScreen());
     } catch (e) {
       Fluttertoast.showToast(msg: 'Error: $e');
     }
