@@ -282,7 +282,7 @@ class HomeController extends GetxController {
         final data = jsonDecode(response.body);
         return data['secure_url'];
       } else {
-        print('Upload failed: ${response.body}');
+        debugPrint('Upload failed: ${response.body}');
       }
     }
     return null;
