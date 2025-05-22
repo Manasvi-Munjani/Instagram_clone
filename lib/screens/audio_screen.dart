@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
-import 'package:instagram_clone/controller/music_controller.dart';
 
 class AudioScreen extends StatelessWidget {
   const AudioScreen({super.key});
