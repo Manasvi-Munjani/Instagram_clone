@@ -1,4 +1,3 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
@@ -9,7 +8,6 @@ class AudioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: SafeArea(
@@ -18,8 +16,6 @@ class AudioScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-
               Row(
                 children: [
                   IconButton(
@@ -144,8 +140,8 @@ class AudioScreen extends StatelessWidget {
     );
   }
 }
-*/
 
+/*
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/controller/music_controller.dart';
@@ -206,3 +202,4 @@ class AudioScreen extends StatelessWidget {
     );
   }
 }
+*/
