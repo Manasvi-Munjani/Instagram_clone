@@ -264,7 +264,6 @@ class HomeController extends GetxController {
 
     if (result != null && result.files.single.bytes != null) {
       final bytes = result.files.single.bytes!;
-      final fileName = result.files.single.name;
 
       final base64Image = base64Encode(bytes);
 
