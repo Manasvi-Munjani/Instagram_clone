@@ -92,7 +92,7 @@ class EditProfile extends StatelessWidget {
                             child: Container(
                               width: 24,
                               height: 24,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: AppColorConst.appBlue,
                                 shape: BoxShape.circle,
                               ),
