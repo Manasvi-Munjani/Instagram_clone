@@ -95,7 +95,7 @@ class ReelsScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => Get.off(() =>  AudioScreen()),
+                      onTap: () => Get.off(() => AudioScreen()),
                       child: Container(
                         height: 24,
                         width: 24,
