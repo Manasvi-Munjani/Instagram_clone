@@ -22,24 +22,14 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
       body: Obx(() {
         final user = homeController.userModel.value;
-        if (user == null) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (!homeController.isDataSet.value) {
+
+        if (user != null) {
           nameController.text = user.name ?? '';
           userNameController.text = user.username ?? '';
           bioController.text = user.bio ?? '';
           linkController.text = user.link ?? '';
-          homeController.isDataSet.value = true;
         }
-/*
 
-        nameController.text = user.name ?? '';
-        userNameController.text = user.username ?? '';
-        bioController.text = user.bio ?? '';
-        linkController.text = user.link ?? '';
-
-*/
         return Form(
           key: formKey,
           child: Stack(
@@ -71,9 +61,8 @@ class EditProfile extends StatelessWidget {
                     Stack(
                       children: [
                         Obx(() {
-                          final user = homeController.userModel.value;
-                          final imageUrl = user?.image;
-
+                          final imageUrl =
+                              homeController.userModel.value?.image;
                           return CircleAvatar(
                             radius: 40,
                             backgroundImage:
@@ -82,15 +71,6 @@ class EditProfile extends StatelessWidget {
                                     : const AssetImage(AppImageConst.appDpImage)
                                         as ImageProvider,
                           );
-
-                          /*CircleAvatar(
-                            radius: 40,
-                            backgroundImage:
-                                imageUrl != null && imageUrl.isNotEmpty
-                                    ? NetworkImage(imageUrl)
-                                    : const AssetImage(AppImageConst.appDpImage)
-                                        as ImageProvider,
-                          );*/
                         }),
                         Positioned(
                           bottom: 0,
@@ -100,14 +80,13 @@ class EditProfile extends StatelessWidget {
                               final uploadedUrl =
                                   await homeController.pickAndUploadImage();
                               if (uploadedUrl != null) {
-                                await homeController.editProfile(
+                                homeController.editProfile(
                                   name: nameController.text,
                                   username: userNameController.text,
                                   bio: bioController.text,
                                   link: linkController.text,
                                   image: uploadedUrl,
                                 );
-                                await homeController.fetchProfileData();
                               }
                             },
                             child: Container(

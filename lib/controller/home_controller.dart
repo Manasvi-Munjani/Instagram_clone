@@ -14,7 +14,6 @@ import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
 import 'package:http/http.dart' as http;
-import 'package:mime/mime.dart';
 
 class HomeController extends GetxController {
   var obscureText = true.obs;
@@ -27,7 +26,7 @@ class HomeController extends GetxController {
   var isSave = false.obs;
   var isDataSet = false.obs;
 
-  Rxn<UserModel> userModel = Rxn<UserModel>();
+  var userModel = Rxn<UserModel>();
   final picker = ImagePicker();
 
 // ======================== Selected Icons -> BottomNavigation Screen ========================
@@ -207,7 +206,6 @@ class HomeController extends GetxController {
   Future<void> fetchProfileData() async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
-/*
     DocumentSnapshot userdoc =
         await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
@@ -217,34 +215,11 @@ class HomeController extends GetxController {
           username: userdoc['username'],
           email: userdoc['email']);
     }
-*/
-
-    final snapshot =
-        await FirebaseFirestore.instance.collection('users').doc(userId).get();
-
-    if (snapshot.exists) {
-      userModel.value = UserModel.fromMap(snapshot.data()!);
-    }
   }
 
-  /* Future<void> fetchProfileData() async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
-
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .get();
-
-    if (snapshot.exists) {
-      userModel.value = UserModel.fromMap(snapshot.data()!);
-    }
-  }
-}
-*/
 // =========================== Update profile Data =================================
 
-  /*Future<void> editProfile({
+  Future<void> editProfile({
     required String name,
     required String username,
     String? image,
@@ -274,46 +249,6 @@ class HomeController extends GetxController {
     } catch (e) {
       Fluttertoast.showToast(msg: 'Error: $e');
     }
-  }*/
-
-  Future<void> editProfile({
-    required String name,
-    required String username,
-    String? image,
-    String? bio,
-    String? link,
-  }) async {
-    try {
-      final User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) return;
-      final invalidCharacters = RegExp(r'[\/\[\]#]');
-      if (invalidCharacters.hasMatch(username)) {
-        Fluttertoast.showToast(msg: 'Username cannot contain slashes.');
-        return;
-      }
-
-      await user.updateDisplayName(username);
-
-      Map<String, dynamic> updateData = {
-        'name': name,
-        'username': username,
-        'image': image ?? userModel.value?.image ?? '',
-        'bio': bio ?? '',
-        'link': link ?? '',
-      };
-
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .update(updateData);
-
-      await fetchProfileData();
-
-      Fluttertoast.showToast(msg: 'Profile updated successfully!');
-      Get.off(() => ProfileScreen());
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Error: $e');
-    }
   }
 
 //=============== Image Upload Using Cloudinary ==================
@@ -321,16 +256,11 @@ class HomeController extends GetxController {
   String cloudName = 'dgu8vmtqi';
   String uploadPreset = 'flutter_unsigned';
 
-  /* Future<String?> pickAndUploadImage() async {
+  Future<String?> pickAndUploadImage() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.image,
       withData: true,
     );
-
-    final mimeType = lookupMimeType(file.path ?? '');
-    final base64Image = base64Encode(await file.readAsBytes());
-    final fileData = 'data:$mimeType;base64,$base64Image';
-
 
     if (result != null && result.files.single.bytes != null) {
       final bytes = result.files.single.bytes!;
@@ -343,8 +273,7 @@ class HomeController extends GetxController {
       final response = await http.post(
         url,
         body: {
-          // 'file': 'data:image/png;base64,$base64Image',
-          'file': fileData,
+          'file': 'data:image/png;base64,$base64Image',
           'upload_preset': 'flutter_unsigned',
         },
       );
@@ -354,40 +283,6 @@ class HomeController extends GetxController {
         return data['secure_url'];
       } else {
         print('Upload failed: ${response.body}');
-      }
-    }
-
-    return null;
-  }*/
-
-  Future<String?> pickAndUploadImage() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      withData: true,
-    );
-
-    if (result != null && result.files.single.bytes != null) {
-      final bytes = result.files.single.bytes!;
-      final mimeType = lookupMimeType(result.files.single.name) ?? 'image/jpeg';
-      final base64Image = base64Encode(bytes);
-      final fileData = 'data:$mimeType;base64,$base64Image';
-
-      final url =
-          Uri.parse('https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload');
-
-      final response = await http.post(
-        url,
-        body: {
-          'file': fileData,
-          'upload_preset': 'flutter_unsigned',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data['secure_url'];
-      } else {
-        debugPrint('Upload failed: ${response.body}');
       }
     }
 
