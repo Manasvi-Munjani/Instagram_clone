@@ -22,7 +22,7 @@ class ReelsScreen extends StatelessWidget {
               Positioned.fill(
                 child: Image.asset(
                   reelsData[index],
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
               const Positioned(
