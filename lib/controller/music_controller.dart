@@ -1,7 +1,7 @@
-/*import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
-class MusicController extends GetxController{
+class MusicController extends GetxController {
   final player = AudioPlayer();
   RxBool isPlaying = false.obs;
   RxString musicPath = ''.obs;
@@ -25,7 +25,7 @@ class MusicController extends GetxController{
     player.dispose();
     super.onClose();
   }
-}*/
+}
 
 /*
 import 'package:get/get.dart';
