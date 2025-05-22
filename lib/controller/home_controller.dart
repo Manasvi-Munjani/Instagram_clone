@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:nativewrappers/_internal/vm/lib/typed_data_patch.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,7 +16,8 @@ import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
+import 'package:mime/mime.dart';
 
 class HomeController extends GetxController {
   var obscureText = true.obs;
@@ -254,64 +256,47 @@ class HomeController extends GetxController {
 
 //=============== Image Upload Using Cloudinary ==================
 
-  String cloudName = 'your_cloud_name';
-  String uploadPreset = 'msyqhxuj';
+  String cloudName = 'dgu8vmtqi';
+  String uploadPreset = 'flutter_unsigned';
 
-  /*Future<String?> pickAndUploadImage() async {
-    try {
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image == null) return null;
-
-      final File file = File(image.path);
-
-      final uri = Uri.parse('https://api.cloudinary.com/v1_1/$cloudName/image/upload');
-
-      final request = http.MultipartRequest('POST', uri)
-        ..fields['upload_preset'] = uploadPreset
-        ..files.add(await http.MultipartFile.fromPath('file', file.path));
-
-      final response = await request.send();
-      final resBody = await response.stream.bytesToString();
-
-      if (response.statusCode == 200) {
-        final data = json.decode(resBody);
-        return data['secure_url'];
-      } else {
-        Fluttertoast.showToast(msg: 'Upload failed');
-        return null;
-      }
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Upload error: $e');
-      return null;
-    }
-  }*/
 
   Future<String?> pickAndUploadImage() async {
-    try {
-      final result = await FilePicker.platform.pickFiles(type: FileType.image);
-      if (result == null) return null;
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true,
+    );
 
-      final file = File(result.files.single.path!);
-      final uri = Uri.parse('https://api.cloudinary.com/v1_1/$cloudName/image/upload');
+    final mimeType = lookupMimeType(file.path ?? '');
+    final base64Image = base64Encode(await file.readAsBytes());
+    final fileData = 'data:$mimeType;base64,$base64Image';
 
-      final request = http.MultipartRequest('POST', uri)
-        ..fields['upload_preset'] = uploadPreset
-        ..files.add(await http.MultipartFile.fromPath('file', file.path));
 
-      final response = await request.send();
-      final res = await http.Response.fromStream(response);
+    if (result != null && result.files.single.bytes != null) {
+      final bytes = result.files.single.bytes!;
+      final fileName = result.files.single.name;
+
+      final base64Image = base64Encode(bytes);
+
+      final url =
+          Uri.parse('https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload');
+      final response = await http.post(
+        url,
+        body: {
+          // 'file': 'data:image/png;base64,$base64Image',
+          'file': fileData,
+          'upload_preset': 'flutter_unsigned',
+        },
+      );
 
       if (response.statusCode == 200) {
-        final data = json.decode(res.body);
+        final data = jsonDecode(response.body);
         return data['secure_url'];
       } else {
-        print('Cloudinary Upload Error: ${res.body}');
-        return null;
+        print('Upload failed: ${response.body}');
       }
-    } catch (e) {
-      print('Error uploading image: $e');
-      return null;
     }
+
+    return null;
   }
 
 /*  Future<void> editProfile() async {
