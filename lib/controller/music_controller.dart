@@ -37,7 +37,6 @@ class MusicController extends GetxController {
   var isPlaying = false.obs;
   var musicPath = ''.obs;
 
-  /// Pick an audio file using FilePicker
   Future<void> pickAudioFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.audio,
@@ -48,14 +47,12 @@ class MusicController extends GetxController {
     }
   }
 
-  /// Set music path and prepare player
   Future<void> setMusic(String path) async {
     musicPath.value = path;
     await _player.setFilePath(path);
     isPlaying.value = false;
   }
 
-  /// Toggle play/pause
   Future<void> playPauseMusic() async {
     if (isPlaying.value) {
       await _player.pause();
@@ -66,7 +63,6 @@ class MusicController extends GetxController {
     }
   }
 
-  /// Play manually
   Future<void> playAudio() async {
     if (musicPath.value.isNotEmpty) {
       await _player.play();
@@ -74,13 +70,11 @@ class MusicController extends GetxController {
     }
   }
 
-  /// Pause manually
   Future<void> pauseAudio() async {
     await _player.pause();
     isPlaying.value = false;
   }
 
-  /// Stop manually
   Future<void> stopAudio() async {
     await _player.stop();
     isPlaying.value = false;
