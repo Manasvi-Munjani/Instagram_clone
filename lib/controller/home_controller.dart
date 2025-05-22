@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/screens/edit_profile.dart';
@@ -11,6 +15,7 @@ import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
+import 'package:http/http.dart'as http;
 
 class HomeController extends GetxController {
   var obscureText = true.obs;
@@ -22,6 +27,8 @@ class HomeController extends GetxController {
   var isFavorite = false.obs;
   var isSave = false.obs;
   var userModel = Rxn<UserModel>();
+  final picker = ImagePicker();
+
 
 // ======================== Selected Icons -> BottomNavigation Screen ========================
 
@@ -216,6 +223,7 @@ class HomeController extends GetxController {
   Future<void> editProfile({
     required String name,
     required String username,
+    String? image,
     String? bio,
     String? link,
   }) async {
@@ -226,6 +234,7 @@ class HomeController extends GetxController {
       Map<String, dynamic> updateData = {
         'name': name,
         'username': username,
+        'image': image,
         'bio': bio ?? '',
         'link': link ?? '',
       };
@@ -240,6 +249,68 @@ class HomeController extends GetxController {
       Get.off(() => ProfileScreen());
     } catch (e) {
       Fluttertoast.showToast(msg: 'Error: $e');
+    }
+  }
+
+//=============== Image Upload Using Cloudinary ==================
+
+  String cloudName = 'your_cloud_name';
+  String uploadPreset = 'msyqhxuj';
+
+  /*Future<String?> pickAndUploadImage() async {
+    try {
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) return null;
+
+      final File file = File(image.path);
+
+      final uri = Uri.parse('https://api.cloudinary.com/v1_1/$cloudName/image/upload');
+
+      final request = http.MultipartRequest('POST', uri)
+        ..fields['upload_preset'] = uploadPreset
+        ..files.add(await http.MultipartFile.fromPath('file', file.path));
+
+      final response = await request.send();
+      final resBody = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        final data = json.decode(resBody);
+        return data['secure_url'];
+      } else {
+        Fluttertoast.showToast(msg: 'Upload failed');
+        return null;
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Upload error: $e');
+      return null;
+    }
+  }*/
+
+  Future<String?> pickAndUploadImage() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(type: FileType.image);
+      if (result == null) return null;
+
+      final file = File(result.files.single.path!);
+      final uri = Uri.parse('https://api.cloudinary.com/v1_1/$cloudName/image/upload');
+
+      final request = http.MultipartRequest('POST', uri)
+        ..fields['upload_preset'] = uploadPreset
+        ..files.add(await http.MultipartFile.fromPath('file', file.path));
+
+      final response = await request.send();
+      final res = await http.Response.fromStream(response);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(res.body);
+        return data['secure_url'];
+      } else {
+        print('Cloudinary Upload Error: ${res.body}');
+        return null;
+      }
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
     }
   }
 
