@@ -71,7 +71,7 @@ class HomeController extends GetxController {
         'userImage': AppImageConst.appPostDp,
         'postImage': AppImageConst.appPost,
         'caption':
-            "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
+        "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
         'likes': '105,762 likes',
         'timeAgo': '13 hours ago',
         'focusNode': FocusNode(),
@@ -82,7 +82,7 @@ class HomeController extends GetxController {
         'userImage': AppImageConst.appPostDp,
         'postImage': AppImageConst.appNature,
         'caption':
-            "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
+        "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
         'likes': '105,762 likes',
         'timeAgo': '13 hours ago',
         'focusNode': FocusNode(),
@@ -108,7 +108,7 @@ class HomeController extends GetxController {
   void SignInButton(String email, String password) async {
     try {
       UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -135,14 +135,12 @@ class HomeController extends GetxController {
 
 // ======================== SignUp Button ========================
 
-  void signupButton(
-    String name,
-    String email,
-    String password,
-  ) async {
+  void signupButton(String name,
+      String email,
+      String password,) async {
     try {
       UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -177,12 +175,10 @@ class HomeController extends GetxController {
     }
   }
 
-  addUserDetail(
-    String userId,
-    String username,
-    String email,
-    DateTime time,
-  ) async {
+  addUserDetail(String userId,
+      String username,
+      String email,
+      DateTime time,) async {
     try {
       UserModel user = UserModel(
         userid: userId,
@@ -207,7 +203,7 @@ class HomeController extends GetxController {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
     DocumentSnapshot userdoc =
-        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
     if (userdoc.exists) {
       userModel.value = UserModel(
@@ -268,7 +264,7 @@ class HomeController extends GetxController {
       final base64Image = base64Encode(bytes);
 
       final url =
-          Uri.parse('https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload');
+      Uri.parse('https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload');
       final response = await http.post(
         url,
         body: {
