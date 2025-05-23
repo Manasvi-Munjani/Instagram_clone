@@ -24,12 +24,19 @@ class ReelsScreen extends StatelessWidget {
           return Stack(
             children: [
               Positioned.fill(
-                child: reelsData.isEmpty
+                child: reelsData[index].endsWith('.mp4')
+                    ? ReelWidget(videoUrl: reelsData[index]) // ✅ Video
+                    : Image.asset(
+                  reelsData[index],                      // ✅ Image
+                  fit: BoxFit.cover,
+                ),
+
+                /*child: reelsData.isEmpty
                     ? ReelWidget(videoUrl: reelsData[index])
                     : Image.asset(
                         reelsData[index],
                         fit: BoxFit.fill,
-                      ),
+                      ),*/
               ),
               const Positioned(
                 top: 20,
