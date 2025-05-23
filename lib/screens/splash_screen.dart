@@ -4,11 +4,10 @@ import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 
-
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
 
-  final HomeController homeController = Get.put(HomeController());
+  final HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
