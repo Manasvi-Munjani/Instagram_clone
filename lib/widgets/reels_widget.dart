@@ -9,24 +9,51 @@ class ReelWidget extends StatelessWidget {
 
   const ReelWidget({super.key, required this.videoUrl});
 
+
   @override
   Widget build(BuildContext context) {
-    final ReelsController reelsController = Get.find<ReelsController>();
-    final controller = reelsController.getController(videoUrl);
+    final ReelsController reelsController = Get.find();
+    final VideoPlayerController controller = reelsController.getController(videoUrl);
 
     return VisibilityDetector(
       key: Key(videoUrl),
       onVisibilityChanged: (info) {
         reelsController.onVisibilityChanged(videoUrl, info);
       },
-      child: Obx(() {
-        return controller.value.isInitialized
-            ? AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: VideoPlayer(controller),
-        )
-            : const Center(child: CircularProgressIndicator());
-      }),
+      child: GetBuilder<ReelsController>(
+        builder: (_) {
+          return controller.value.isInitialized
+              ? AspectRatio(
+            aspectRatio: controller.value.aspectRatio,
+            child: VideoPlayer(controller),
+          )
+              : const Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
+
+
+/*  @override
+  Widget build(BuildContext context) {
+    final ReelsController reelsController = Get.find();
+    final VideoPlayerController controller = reelsController.getController(videoUrl);
+
+    return VisibilityDetector(
+      key: Key(videoUrl),
+      onVisibilityChanged: (info) {
+        reelsController.onVisibilityChanged(videoUrl, info);
+      },
+      child: GetBuilder<ReelsController>(
+        builder: (_) {
+          return controller.value.isInitialized
+              ? AspectRatio(
+            aspectRatio: controller.value.aspectRatio,
+            child: VideoPlayer(controller),
+          )
+              : const Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
+  }*/
 }

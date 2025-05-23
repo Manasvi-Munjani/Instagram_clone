@@ -25,7 +25,7 @@ class ReelsScreen extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: reelsData.isEmpty
-                    ? ReelWidget(videoUrl: videoUrls[index])
+                    ? ReelWidget(videoUrl: reelsData[index])
                     : Image.asset(
                         reelsData[index],
                         fit: BoxFit.fill,
@@ -43,7 +43,7 @@ class ReelsScreen extends StatelessWidget {
                       style: TextStyle(
                         color: AppColorConst.appWhite,
                         fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                     Icon(
@@ -216,13 +216,10 @@ class ReelsScreen extends StatelessWidget {
     'assets/images/book2.jpg',
     'assets/images/doraemon.jpg',
     'assets/images/post2.jpg',
-  ];
-
-  static final List<String> videoUrls = [
-    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
-        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
-        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
-        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4'
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
   ];
 }
