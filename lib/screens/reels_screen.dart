@@ -113,6 +113,8 @@ class ReelsScreen extends StatelessWidget {
                       color: AppColorConst.appWhite,
                       size: 24,
                     ),
+                    const SizedBox(height: 20),
+
                     GestureDetector(
                       onTap: () => Get.off(() => const AudioScreen()),
                       child: Container(
