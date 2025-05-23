@@ -3,11 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
-import 'package:instagram_clone/screens/signup_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
 import 'package:instagram_clone/screens/welcome_screen.dart';
 import 'firebase_options.dart';
-
 
 Future<void> main() async {
   Get.put(HomeController());

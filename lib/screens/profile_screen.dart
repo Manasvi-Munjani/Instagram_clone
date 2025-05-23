@@ -95,13 +95,24 @@ class ProfileScreen extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child: ClipOval(
+                     /* child: ClipOval(
                         child: Image.asset(
                           AppImageConst.appDpImage,
                           fit: BoxFit.cover,
                         ),
+                      ),*/
+
+                      child: ClipOval(
+                        child: Obx(() {
+                          final imageUrl = homeController.userModel.value?.image;
+                          return imageUrl != null && imageUrl.isNotEmpty
+                              ? Image.network(imageUrl, fit: BoxFit.cover)
+                              : Image.asset(AppImageConst.appDpImage, fit: BoxFit.cover);
+                        }),
                       ),
+
                     ),
+
                     Positioned(
                       bottom: 0,
                       right: 0,
