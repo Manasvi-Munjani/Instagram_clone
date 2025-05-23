@@ -204,7 +204,7 @@ class HomeController extends GetxController {
 
 // =========================== Fetch profile Data =================================
 
-  /*Future<void> fetchProfileData() async {
+  Future<void> fetchProfileData() async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
     DocumentSnapshot userdoc =
@@ -216,9 +216,9 @@ class HomeController extends GetxController {
           username: userdoc['username'],
           email: userdoc['email']);
     }
-  }*/
+  }
 
-  Future<void> fetchProfileData() async {
+ /* Future<void> fetchProfileData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
@@ -230,7 +230,7 @@ class HomeController extends GetxController {
     if (snapshot.exists) {
       userModel.value = UserModel.fromMap(snapshot.data()!);
     }
-  }
+  }*/
 
 // =========================== Update profile Data =================================
 

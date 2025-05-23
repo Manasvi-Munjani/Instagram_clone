@@ -36,6 +36,7 @@ class ProfileScreen extends StatelessWidget {
                         color: AppColorConst.appWhite,
                       ),
                     ),
+
                     /* Obx(() {
                       final user = homeController.userModel.value;
                       if (user == null) {
