@@ -50,8 +50,6 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       );
                     }),
-
-
                     const Spacer(),
                     const Icon(
                       Icons.add_box_outlined,
@@ -238,7 +236,6 @@ class ProfileScreen extends StatelessWidget {
                 ),
               );
             }),
-
             const SizedBox(height: 4),
             const Text(
               'Creative/Artistic',
