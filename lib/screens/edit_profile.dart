@@ -9,7 +9,6 @@ class EditProfile extends StatelessWidget {
   EditProfile({super.key});
 
   final formKey = GlobalKey<FormState>();
-
   final TextEditingController nameController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
