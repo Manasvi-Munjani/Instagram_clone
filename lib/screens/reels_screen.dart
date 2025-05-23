@@ -5,7 +5,6 @@ import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/controller/reels_controller.dart';
 import 'package:instagram_clone/screens/audio_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
-import 'package:instagram_clone/widgets/app_music_widget.dart';
 import 'package:instagram_clone/widgets/reels_widget.dart';
 
 class ReelsScreen extends StatelessWidget {
@@ -85,36 +84,12 @@ class ReelsScreen extends StatelessWidget {
                     const Icon(Icons.send,
                         color: AppColorConst.appWhite, size: 24),
                     const SizedBox(height: 20),
-                    /*IconButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          backgroundColor: AppColorConst.appBlack,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(20)),
-                          ),
-                          isScrollControlled: true,
-                          builder: (_) => Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: AppMusicWidget(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.more_horiz,
-                        color: AppColorConst.appWhite,
-                        size: 24,
-                      ),
-                    ),*/
-
                     const Icon(
                       Icons.more_horiz,
                       color: AppColorConst.appWhite,
                       size: 24,
                     ),
                     const SizedBox(height: 20),
-
                     GestureDetector(
                       onTap: () => Get.off(() => const AudioScreen()),
                       child: Container(
