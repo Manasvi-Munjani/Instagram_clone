@@ -85,7 +85,7 @@ class ReelsScreen extends StatelessWidget {
                     const Icon(Icons.send,
                         color: AppColorConst.appWhite, size: 24),
                     const SizedBox(height: 20),
-                    IconButton(
+                    /*IconButton(
                       onPressed: () {
                         showModalBottomSheet(
                           context: context,
@@ -106,9 +106,15 @@ class ReelsScreen extends StatelessWidget {
                         color: AppColorConst.appWhite,
                         size: 24,
                       ),
+                    ),*/
+
+                    const Icon(
+                      Icons.more_horiz,
+                      color: AppColorConst.appWhite,
+                      size: 24,
                     ),
                     GestureDetector(
-                      onTap: () => Get.off(() => AudioScreen()),
+                      onTap: () => Get.off(() => const AudioScreen()),
                       child: Container(
                         height: 24,
                         width: 24,
