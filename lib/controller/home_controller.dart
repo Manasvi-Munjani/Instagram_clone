@@ -26,6 +26,7 @@ class HomeController extends GetxController {
   var isSave = false.obs;
   var isDataSet = false.obs;
   // var userModel = Rxn<UserModel>();
+
   Rxn<UserModel> userModel = Rxn<UserModel>();
   final picker = ImagePicker();
 
@@ -216,8 +217,6 @@ class HomeController extends GetxController {
           email: userdoc['email']);
     }
   }*/
-
-
 
   Future<void> fetchProfileData() async {
     final user = FirebaseAuth.instance.currentUser;

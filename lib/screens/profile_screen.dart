@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: Row(
                   children: [
-                    Text(
+                    /*   Text(
                       // 'john_scott',
                       user!.username,
 
@@ -35,7 +35,23 @@ class ProfileScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: AppColorConst.appWhite,
                       ),
-                    ),
+                    ),*/
+                    Obx(() {
+                      final user = homeController.userModel.value;
+                      if (user == null) {
+                        return const SizedBox(); // or a placeholder Text
+                      }
+                      return Text(
+                        user.username,
+                        style: const TextStyle(
+                          color: AppColorConst.appWhite,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      );
+                    }),
+
+
                     const Spacer(),
                     const Icon(
                       Icons.add_box_outlined,
@@ -77,7 +93,6 @@ class ProfileScreen extends StatelessWidget {
   Widget _profileData() {
     final HomeController homeController = Get.find<HomeController>();
 
-
     return Obx(() {
       final user = homeController.userModel.value;
 
@@ -97,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                     /* child: ClipOval(
+                      /* child: ClipOval(
                         child: Image.asset(
                           AppImageConst.appDpImage,
                           fit: BoxFit.cover,
@@ -106,15 +121,15 @@ class ProfileScreen extends StatelessWidget {
 
                       child: ClipOval(
                         child: Obx(() {
-                          final imageUrl = homeController.userModel.value?.image;
+                          final imageUrl =
+                              homeController.userModel.value?.image;
                           return imageUrl != null && imageUrl.isNotEmpty
                               ? Image.network(imageUrl, fit: BoxFit.cover)
-                              : Image.asset(AppImageConst.appDpImage, fit: BoxFit.cover);
+                              : Image.asset(AppImageConst.appDpImage,
+                                  fit: BoxFit.cover);
                         }),
                       ),
-
                     ),
-
                     Positioned(
                       bottom: 0,
                       right: 0,
@@ -199,16 +214,31 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 17),
-            Text(
+            /*Text(
               // 'Jonathan Scott',
               user!.username,
-
               style: const TextStyle(
                 color: AppColorConst.appWhite,
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
               ),
-            ),
+            ),*/
+
+            Obx(() {
+              final user = homeController.userModel.value;
+              if (user == null) {
+                return const SizedBox(); // or a placeholder Text
+              }
+              return Text(
+                user.username,
+                style: const TextStyle(
+                  color: AppColorConst.appWhite,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              );
+            }),
+
             const SizedBox(height: 4),
             const Text(
               'Creative/Artistic',
@@ -231,7 +261,7 @@ class ProfileScreen extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: GestureDetector(
-                    onTap: () => Get.off(() =>EditProfile()),
+                    onTap: () => Get.off(() => EditProfile()),
                     child: Container(
                       height: 40,
                       decoration: BoxDecoration(
