@@ -25,6 +25,7 @@ class HomeController extends GetxController {
   var isFavorite = false.obs;
   var isSave = false.obs;
   var isDataSet = false.obs;
+
   // var userModel = Rxn<UserModel>();
 
   Rxn<UserModel> userModel = Rxn<UserModel>();

@@ -26,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: Row(
                   children: [
-                    /*   Text(
+                    Text(
                       // 'john_scott',
                       user!.username,
 
@@ -35,11 +35,11 @@ class ProfileScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: AppColorConst.appWhite,
                       ),
-                    ),*/
-                    Obx(() {
+                    ),
+                    /* Obx(() {
                       final user = homeController.userModel.value;
                       if (user == null) {
-                        return const SizedBox(); // or a placeholder Text
+                        return const SizedBox();
                       }
                       return Text(
                         user.username,
@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                           fontSize: 16,
                         ),
                       );
-                    }),
+                    }),*/
                     const Spacer(),
                     const Icon(
                       Icons.add_box_outlined,
@@ -212,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 17),
-            /*Text(
+            Text(
               // 'Jonathan Scott',
               user!.username,
               style: const TextStyle(
@@ -220,9 +220,9 @@ class ProfileScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
               ),
-            ),*/
+            ),
 
-            Obx(() {
+            /*   Obx(() {
               final user = homeController.userModel.value;
               if (user == null) {
                 return const SizedBox(); // or a placeholder Text
@@ -235,7 +235,8 @@ class ProfileScreen extends StatelessWidget {
                   fontSize: 16,
                 ),
               );
-            }),
+            }),*/
+
             const SizedBox(height: 4),
             const Text(
               'Creative/Artistic',
