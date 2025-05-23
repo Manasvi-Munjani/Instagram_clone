@@ -58,50 +58,52 @@ class EditProfile extends StatelessWidget {
                               fontWeight: FontWeight.w600)),
                     ),
                     const SizedBox(height: 5),
-                    Stack(
-                      children: [
-                        Obx(() {
-                          final imageUrl =
-                              homeController.userModel.value?.image;
-                          return CircleAvatar(
-                            radius: 40,
-                            backgroundImage:
-                                imageUrl != null && imageUrl.isNotEmpty
-                                    ? NetworkImage(imageUrl)
-                                    : const AssetImage(AppImageConst.appDpImage)
-                                        as ImageProvider,
-                          );
-                        }),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: GestureDetector(
-                            onTap: () async {
-                              final uploadedUrl =
-                                  await homeController.pickAndUploadImage();
-                              if (uploadedUrl != null) {
-                                homeController.editProfile(
-                                  name: nameController.text,
-                                  username: userNameController.text,
-                                  bio: bioController.text,
-                                  link: linkController.text,
-                                  image: uploadedUrl,
-                                );
-                              }
-                            },
-                            child: Container(
-                              width: 24,
-                              height: 24,
-                              decoration: const BoxDecoration(
-                                color: AppColorConst.appBlue,
-                                shape: BoxShape.circle,
+                    Center(
+                      child: Stack(
+                        children: [
+                          Obx(() {
+                            final imageUrl =
+                                homeController.userModel.value?.image;
+                            return CircleAvatar(
+                              radius: 40,
+                              backgroundImage: imageUrl != null &&
+                                      imageUrl.isNotEmpty
+                                  ? NetworkImage(imageUrl)
+                                  : const AssetImage(AppImageConst.appDpImage)
+                                      as ImageProvider,
+                            );
+                          }),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              onTap: () async {
+                                final uploadedUrl =
+                                    await homeController.pickAndUploadImage();
+                                if (uploadedUrl != null) {
+                                  homeController.editProfile(
+                                    name: nameController.text,
+                                    username: userNameController.text,
+                                    bio: bioController.text,
+                                    link: linkController.text,
+                                    image: uploadedUrl,
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: const BoxDecoration(
+                                  color: AppColorConst.appBlue,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(Icons.edit,
+                                    size: 16, color: Colors.white),
                               ),
-                              child: const Icon(Icons.edit,
-                                  size: 16, color: Colors.white),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   ],
                 ),
