@@ -29,7 +29,6 @@ class ReelsScreen extends StatelessWidget {
                         reelsData[index],
                         fit: BoxFit.fill,
                       ),
-
                 /*child: reelsData.isEmpty
                     ? ReelWidget(videoUrl: reelsData[index])
                     : Image.asset(
