@@ -27,6 +27,7 @@ class HomeController extends GetxController {
   var isDataSet = false.obs;
 
   var userModel = Rxn<UserModel>();
+
   // Rxn<UserModel> userModel = Rxn<UserModel>();
 
   final picker = ImagePicker();
