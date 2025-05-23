@@ -25,11 +25,10 @@ class HomeController extends GetxController {
   var isFavorite = false.obs;
   var isSave = false.obs;
   var isDataSet = false.obs;
+  final picker = ImagePicker();
   var userModel = Rxn<UserModel>();
 
   // Rxn<UserModel> userModel = Rxn<UserModel>();
-
-  final picker = ImagePicker();
 
 // ======================== Selected Icons -> BottomNavigation Screen ========================
 
