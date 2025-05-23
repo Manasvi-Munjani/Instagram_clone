@@ -24,11 +24,27 @@ class ReelsScreen extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: reelsData[index].endsWith('.mp4')
-                    ? ReelWidget(videoUrl: reelsData[index]) // ✅ Video
+                    ? ReelWidget(videoUrl: reelsData[index])
                     : Image.asset(
                         reelsData[index],
                         fit: BoxFit.fill,
                       ),
+
+                /*Image.network(
+                        reelsData[index],
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Center(
+                              child: Icon(Icons.broken_image,
+                                  color: Colors.white));
+                        },
+                      ),*/
+
                 /*child: reelsData.isEmpty
                     ? ReelWidget(videoUrl: reelsData[index])
                     : Image.asset(
