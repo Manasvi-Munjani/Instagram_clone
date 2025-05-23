@@ -110,14 +110,14 @@ class ProfileScreen extends StatelessWidget {
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      /* child: ClipOval(
+                      child: ClipOval(
                         child: Image.asset(
                           AppImageConst.appDpImage,
                           fit: BoxFit.cover,
                         ),
-                      ),*/
+                      ),
 
-                      child: ClipOval(
+                      /* child: ClipOval(
                         child: Obx(() {
                           final imageUrl =
                               homeController.userModel.value?.image;
@@ -126,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
                               : Image.asset(AppImageConst.appDpImage,
                                   fit: BoxFit.cover);
                         }),
-                      ),
+                      ),*/
                     ),
                     Positioned(
                       bottom: 0,
