@@ -218,7 +218,7 @@ class HomeController extends GetxController {
     }
   }
 
-  /* Future<void> fetchProfileData() async {
+ /* Future<void> fetchProfileData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 

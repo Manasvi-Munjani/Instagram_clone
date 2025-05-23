@@ -29,7 +29,6 @@ class ProfileScreen extends StatelessWidget {
                     Text(
                       // 'john_scott',
                       user!.username,
-
                       style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
