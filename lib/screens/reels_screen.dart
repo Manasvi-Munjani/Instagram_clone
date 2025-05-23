@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
+import 'package:instagram_clone/controller/reels_controller.dart';
 import 'package:instagram_clone/screens/audio_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 import 'package:instagram_clone/widgets/app_music_widget.dart';
+import 'package:instagram_clone/widgets/reels_widget.dart';
 
 class ReelsScreen extends StatelessWidget {
   const ReelsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ReelsController());
+
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: PageView.builder(
@@ -20,10 +24,12 @@ class ReelsScreen extends StatelessWidget {
           return Stack(
             children: [
               Positioned.fill(
-                child: Image.asset(
-                  reelsData[index],
-                  fit: BoxFit.fill,
-                ),
+                child: reelsData.isEmpty
+                    ? ReelWidget(videoUrl: videoUrls[index])
+                    : Image.asset(
+                        reelsData[index],
+                        fit: BoxFit.fill,
+                      ),
               ),
               const Positioned(
                 top: 20,
@@ -210,5 +216,13 @@ class ReelsScreen extends StatelessWidget {
     'assets/images/book2.jpg',
     'assets/images/doraemon.jpg',
     'assets/images/post2.jpg',
+  ];
+
+  static final List<String> videoUrls = [
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
+        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4'
   ];
 }

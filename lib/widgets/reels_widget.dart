@@ -11,17 +11,22 @@ class ReelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReelsController reelsController = Get.put(ReelsController());
+    final ReelsController reelsController = Get.find<ReelsController>();
+    final controller = reelsController.getController(videoUrl);
 
     return VisibilityDetector(
       key: Key(videoUrl),
-      onVisibilityChanged: reelsController.onVisibilityChanged,
-      child: reelsController.controller.value.isInitialized
-          ? AspectRatio(
-              aspectRatio: reelsController.controller.value.aspectRatio,
-              child: VideoPlayer(reelsController.controller),
-            )
-          : const Center(child: CircularProgressIndicator()),
+      onVisibilityChanged: (info) {
+        reelsController.onVisibilityChanged(videoUrl, info);
+      },
+      child: Obx(() {
+        return controller.value.isInitialized
+            ? AspectRatio(
+          aspectRatio: controller.value.aspectRatio,
+          child: VideoPlayer(controller),
+        )
+            : const Center(child: CircularProgressIndicator());
+      }),
     );
   }
 }
