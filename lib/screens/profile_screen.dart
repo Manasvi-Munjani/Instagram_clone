@@ -11,7 +11,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.put(HomeController());
+    final HomeController homeController = Get.find<HomeController>();
+
     return Obx(() {
       final user = homeController.userModel.value;
 
@@ -74,7 +75,8 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _profileData() {
-    final HomeController homeController = Get.put(HomeController());
+    final HomeController homeController = Get.find<HomeController>();
+
 
     return Obx(() {
       final user = homeController.userModel.value;
