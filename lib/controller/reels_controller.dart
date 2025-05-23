@@ -57,7 +57,7 @@ class ReelsController extends GetxController {
   void onVisibilityChanged(String url, VisibilityInfo info) {
     final controller = _controllers[url];
     if (controller != null && controller.value.isInitialized) {
-      if (info.visibleFraction > 0.5) {
+      if (info.visibleFraction > 0.55) {
         controller.play();
       } else {
         controller.pause();

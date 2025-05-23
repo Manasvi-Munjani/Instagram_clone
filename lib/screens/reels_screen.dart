@@ -27,9 +27,9 @@ class ReelsScreen extends StatelessWidget {
                 child: reelsData[index].endsWith('.mp4')
                     ? ReelWidget(videoUrl: reelsData[index]) // ✅ Video
                     : Image.asset(
-                  reelsData[index],                      // ✅ Image
-                  fit: BoxFit.cover,
-                ),
+                        reelsData[index], // ✅ Image
+                        fit: BoxFit.fill,
+                      ),
 
                 /*child: reelsData.isEmpty
                     ? ReelWidget(videoUrl: reelsData[index])
