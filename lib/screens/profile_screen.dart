@@ -54,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
                       style: const TextStyle(
                         color: AppColorConst.appWhite,
                         fontWeight: FontWeight.w600,
-                        fontSize: 16,
+                        fontSize: 26,
                       ),
                     );
                   }),
