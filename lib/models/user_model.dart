@@ -2,7 +2,7 @@ class UserModel {
   final String userid;
   final String username;
   final String email;
-  final String? image;
+  late final String? image;
   final String? name;
   final String? bio;
   final String? link;

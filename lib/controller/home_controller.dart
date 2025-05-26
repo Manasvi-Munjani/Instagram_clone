@@ -103,12 +103,13 @@ class HomeController extends GetxController {
     }
 
     fetchProfileData();
-    loadUserData();
+    // loadUserData();
     super.onInit();
   }
 
 //========================= Profile Screen User ==================
 
+/*
   void loadUserData() {
     final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -119,6 +120,7 @@ class HomeController extends GetxController {
           email: currentUser.email ?? '');
     }
   }
+*/
 
 // ======================== SignIn Button ========================
 
@@ -221,7 +223,6 @@ class HomeController extends GetxController {
 
 // =========================== Fetch profile Data =================================
 
-/*
   Future<void> fetchProfileData() async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
@@ -235,23 +236,8 @@ class HomeController extends GetxController {
           email: userdoc['email']);
     }
   }
-*/
 
-  Future<void> fetchProfileData() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
-
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get();
-
-    if (snapshot.exists) {
-      userModel.value = UserModel.fromMap(snapshot.data()!);
-    }
-  }
-
-  /* Future<void> fetchProfileData() async {
+  /*Future<void> fetchProfileData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
@@ -296,18 +282,6 @@ class HomeController extends GetxController {
       Get.off(() => const ProfileScreen());
     } catch (e) {
       Fluttertoast.showToast(msg: 'Error: $e');
-    }
-  }
-
-//=============== Image Upload Using Cloudinary ==================
-
-  CloudinaryImage cloudinary = CloudinaryImage();
-
-  void uploadImageAndUpdateProfile() async {
-    String? imageUrl = await cloudinary.pickAndUploadImage();
-    if (imageUrl != null) {
-      // update your user model or Firebase here
-      print("Uploaded Image URL: $imageUrl");
     }
   }
 }

@@ -27,7 +27,6 @@ class EditProfile extends StatelessWidget {
         final imageUrl = homeController.userModel.value?.image;
 
         if (user != null) {
-
           nameController.text = user.name ?? '';
           userNameController.text = user.username ?? '';
           bioController.text = user.bio ?? '';
@@ -87,10 +86,6 @@ class EditProfile extends StatelessWidget {
                               onTap: () async {
                                 final uploadedUrl =
                                     await cloudinary.pickAndUploadImage();
-                                /*
-                            final uploadedUrl =
-                                    await homeController.pickAndUploadImage();
-                          */
 
                                 if (uploadedUrl != null) {
                                   homeController.editProfile(
