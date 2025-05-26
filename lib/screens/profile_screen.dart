@@ -15,12 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
     final user = homeController.userModel.value;
     if (user == null) {
-      return const Scaffold(
-        backgroundColor: AppColorConst.appBlack,
-        body: Center(
-          child: CircularProgressIndicator(color: AppColorConst.appWhite),
-        ),
-      );
+      return const SizedBox();
     }
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
@@ -250,7 +245,6 @@ Widget _profileData() {
                 fontSize: 14,
               ),
             ),
-
           const SizedBox(height: 20),
           Row(
             children: [

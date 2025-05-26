@@ -231,6 +231,26 @@ class HomeController extends GetxController {
 
     if (userdoc.exists) {
       userModel.value = UserModel(
+        userid: userdoc['userid'],
+        username: userdoc['username'],
+        email: userdoc['email'],
+        bio: userdoc['bio'],
+        link: userdoc['link'],
+        image: userdoc['image'],
+      );
+    }
+  }
+}
+
+/*
+  Future<void> fetchProfileData() async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentSnapshot userdoc =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+    if (userdoc.exists) {
+      userModel.value = UserModel(
           userid: userdoc['userid'],
           username: userdoc['username'],
           email: userdoc['email']);
@@ -249,39 +269,39 @@ class HomeController extends GetxController {
     if (snapshot.exists) {
       userModel.value = UserModel.fromMap(snapshot.data()!);
     }
-  }
+  }*/
 
 // =========================== Update profile Data =================================
 
-  Future<void> editProfile({
-    required String name,
-    required String username,
-    String? image,
-    String? bio,
-    String? link,
-  }) async {
-    try {
-      final User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) return;
+Future<void> editProfile({
+  required String name,
+  required String username,
+  String? image,
+  String? bio,
+  String? link,
+}) async {
+  try {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
 
-      Map<String, dynamic> updateData = {
-        'name': name,
-        'username': username,
-        'image': image,
-        'bio': bio ?? '',
-        'link': link ?? '',
-      };
+    Map<String, dynamic> updateData = {
+      'name': name,
+      'username': username,
+      'image': image,
+      'bio': bio ?? '',
+      'link': link ?? '',
+    };
 
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .update(updateData);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .update(updateData);
 
-      Fluttertoast.showToast(msg: 'Profile updated successfully!');
-      await fetchProfileData();
-      Get.off(() => const ProfileScreen());
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Error: $e');
-    }
+    Fluttertoast.showToast(msg: 'Profile updated successfully!');
+    // await fetchProfileData();
+
+    Get.off(() => const ProfileScreen());
+  } catch (e) {
+    Fluttertoast.showToast(msg: 'Error: $e');
   }
 }
