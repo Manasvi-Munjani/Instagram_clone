@@ -14,7 +14,10 @@ class ProfileScreen extends StatelessWidget {
     final HomeController homeController = Get.find<HomeController>();
     final user = homeController.userModel.value;
 
-    return Scaffold(
+    return /* user == null
+        ? SizedBox()
+        :*/
+        Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: SafeArea(
         child: Column(
@@ -100,16 +103,15 @@ Widget _profileData() {
                     ),
 */
 
-                     child: ClipOval(
-                        child: Obx(() {
-                          final imageUrl =
-                              homeController.userModel.value?.image;
-                          return imageUrl != null && imageUrl.isNotEmpty
-                              ? Image.network(imageUrl, fit: BoxFit.cover)
-                              : Image.asset(AppImageConst.appDpImage,
-                                  fit: BoxFit.cover);
-                        }),
-                      ),
+                    child: ClipOval(
+                      child: Obx(() {
+                        final imageUrl = homeController.userModel.value?.image;
+                        return imageUrl != null && imageUrl.isNotEmpty
+                            ? Image.network(imageUrl, fit: BoxFit.cover)
+                            : Image.asset(AppImageConst.appDpImage,
+                                fit: BoxFit.cover);
+                      }),
+                    ),
                   ),
                   Positioned(
                     bottom: 0,

@@ -49,8 +49,8 @@ class CloudinaryImage {
       if (pickedFile == null) return null;
 
       File imageFile = File(pickedFile.path);
-      String uploadUrl = 'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload';
-      String uploadPreset = 'YOUR_UPLOAD_PRESET'; // From Cloudinary
+      String uploadUrl = 'https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload';
+      String uploadPreset = 'flutter_unsigned'; // From Cloudinary
 
       FormData formData = FormData.fromMap({
         'file': await MultipartFile.fromFile(imageFile.path),

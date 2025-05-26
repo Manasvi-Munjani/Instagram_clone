@@ -73,7 +73,7 @@ class EditProfile extends StatelessWidget {
                     Center(
                       child: Stack(
                         children: [
-                          /* Obx(() {
+                           Obx(() {
                             final imageUrl =
                                 homeController.userModel.value?.image;
                             return CircleAvatar(
@@ -84,18 +84,19 @@ class EditProfile extends StatelessWidget {
                                   : const AssetImage(AppImageConst.appDpImage)
                                       as ImageProvider,
                             );
-                          }),*/
+                          }),
 
-                          Obx(() {
+                        /*  Obx(() {
                             final user = homeController.userModel.value;
                             return CircleAvatar(
                               radius: 40,
-                              backgroundImage:
-                                  user!.image != null && user.image!.isNotEmpty
-                                      ? NetworkImage(user.image!)
-                                      : const AssetImage('') as ImageProvider,
+                              backgroundImage: user != null &&
+                                      user.image != null &&
+                                      user.image!.isNotEmpty
+                                  ? NetworkImage(user.image!)
+                                  : const AssetImage('') as ImageProvider,
                             );
-                          }),
+                          }),*/
 
                           /*Positioned(
                             bottom: 0,
