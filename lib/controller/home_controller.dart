@@ -107,6 +107,8 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+//========================= Profile Screen User ==================
+
   void loadUserData() {
     final currentUser = FirebaseAuth.instance.currentUser;
 
