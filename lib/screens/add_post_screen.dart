@@ -18,8 +18,12 @@ class AddPostScreen extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-
-          TextField()
+          TextField(
+            decoration: InputDecoration(
+                hintText: 'Add Caption',
+                hintStyle: TextStyle(color: AppColorConst.appGray,fontWeight: FontWeight.w500,fontSize: 14),
+                border: OutlineInputBorder()),
+          ),
         ],
       ),
     );
