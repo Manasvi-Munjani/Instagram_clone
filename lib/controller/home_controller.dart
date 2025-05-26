@@ -14,6 +14,7 @@ import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:instagram_clone/widgets/cloudinary_image.dart';
 
 class HomeController extends GetxController {
   var obscureText = true.obs;
@@ -27,6 +28,8 @@ class HomeController extends GetxController {
   var isDataSet = false.obs;
   final picker = ImagePicker();
   var userModel = Rxn<UserModel>();
+  final RxString tempProfileImage = ''.obs;
+
 
   // Rxn<UserModel> userModel = Rxn<UserModel>();
 
@@ -268,37 +271,13 @@ class HomeController extends GetxController {
 
 //=============== Image Upload Using Cloudinary ==================
 
-  String cloudName = 'dgu8vmtqi';
-  String uploadPreset = 'flutter_unsigned';
+  CloudinaryImage cloudinary = CloudinaryImage();
 
-  Future<String?> pickAndUploadImage() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      withData: true,
-    );
-
-    if (result != null && result.files.single.bytes != null) {
-      final bytes = result.files.single.bytes!;
-
-      final base64Image = base64Encode(bytes);
-
-      final url =
-          Uri.parse('https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload');
-      final response = await http.post(
-        url,
-        body: {
-          'file': 'data:image/png;base64,$base64Image',
-          'upload_preset': 'flutter_unsigned',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data['secure_url'];
-      } else {
-        debugPrint('Upload failed: ${response.body}');
-      }
+  void uploadImageAndUpdateProfile() async {
+    String? imageUrl = await cloudinary.pickAndUploadImage();
+    if (imageUrl != null) {
+      // update your user model or Firebase here
+      print("Uploaded Image URL: $imageUrl");
     }
-    return null;
   }
 }

@@ -4,6 +4,8 @@ import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
+import 'package:instagram_clone/widgets/cloudinary_image.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class EditProfile extends StatelessWidget {
   EditProfile({super.key});
@@ -17,16 +19,22 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
+    CloudinaryImage cloudinary = CloudinaryImage();
 
     return Scaffold(
       body: Obx(() {
         final user = homeController.userModel.value;
+        final imageUrl = homeController.userModel.value?.image;
 
         if (user != null) {
+
           nameController.text = user.name ?? '';
           userNameController.text = user.username ?? '';
           bioController.text = user.bio ?? '';
           linkController.text = user.link ?? '';
+        } else {
+          LoadingAnimationWidget.hexagonDots(
+              color: AppColorConst.appGray, size: 24);
         }
 
         return Form(
@@ -78,7 +86,12 @@ class EditProfile extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () async {
                                 final uploadedUrl =
+                                    await cloudinary.pickAndUploadImage();
+                                /*
+                            final uploadedUrl =
                                     await homeController.pickAndUploadImage();
+                          */
+
                                 if (uploadedUrl != null) {
                                   homeController.editProfile(
                                     name: nameController.text,
