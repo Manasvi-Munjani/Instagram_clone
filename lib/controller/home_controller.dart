@@ -108,7 +108,14 @@ class HomeController extends GetxController {
   }
 
   void loadUserData() {
-    userModel.value = UserModel(userid: '', username: 'username', email: '');
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      userModel.value = UserModel(
+          userid: currentUser.uid,
+          username: currentUser.displayName ?? '',
+          email: currentUser.email ?? '');
+    }
   }
 
 // ======================== SignIn Button ========================
