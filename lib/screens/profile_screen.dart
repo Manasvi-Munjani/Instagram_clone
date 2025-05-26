@@ -229,38 +229,28 @@ Widget _profileData() {
               fontSize: 16,
             ),
           ),
-
-          /*   Obx(() {
-              final user = homeController.userModel.value;
-              if (user == null) {
-                return const SizedBox(); // or a placeholder Text
-              }
-              return Text(
-                user.username,
-                style: const TextStyle(
-                  color: AppColorConst.appWhite,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
-              );
-            }),*/
-
           const SizedBox(height: 4),
-          const Text(
-            'Creative/Artistic',
-            style: TextStyle(
-              color: AppColorConst.appWhite,
-              fontSize: 14,
+          if (user.bio != null && user.bio!.isNotEmpty)
+            Text(
+              user.bio!,
+              // 'Creative/Artistic',
+              style: const TextStyle(
+                color: AppColorConst.appWhite,
+                fontSize: 14,
+              ),
             ),
-          ),
           const SizedBox(height: 4),
-          const Text(
-            'www.johnscott.com',
-            style: TextStyle(
-              color: AppColorConst.appWhite,
-              fontSize: 14,
+          if (user.link != null && user.link!.isNotEmpty)
+            Text(
+              user.link!,
+
+              // 'www.johnscott.com',
+              style: const TextStyle(
+                color: AppColorConst.appWhite,
+                fontSize: 14,
+              ),
             ),
-          ),
+
           const SizedBox(height: 20),
           Row(
             children: [
