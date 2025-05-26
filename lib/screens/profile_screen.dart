@@ -26,19 +26,6 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Row(
                 children: [
-/*
-                  Text(
-                    // 'john_scott',
-                    user.username,
-
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w700,
-                      color: AppColorConst.appWhite,
-                    ),
-                  ),
-*/
-
                   Obx(() {
                     final user = homeController.userModel.value;
                     if (user == null) {
