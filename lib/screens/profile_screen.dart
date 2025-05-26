@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/screens/add_post_screen.dart';
 import 'package:instagram_clone/screens/edit_profile.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
@@ -35,10 +36,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const Icon(
-                    Icons.add_box_outlined,
-                    color: AppColorConst.appWhite,
-                    size: 28,
+                  GestureDetector(
+                    onTap: ()=>Get.off(()=>const AddPostScreen()),
+                    child: const Icon(
+                      Icons.add_box_outlined,
+                      color: AppColorConst.appWhite,
+                      size: 28,
+                    ),
                   ),
                   const SizedBox(width: 15),
                   const Icon(
