@@ -30,7 +30,6 @@ class HomeController extends GetxController {
   var userModel = Rxn<UserModel>();
   final RxString tempProfileImage = ''.obs;
 
-
   // Rxn<UserModel> userModel = Rxn<UserModel>();
 
 // ======================== Selected Icons -> BottomNavigation Screen ========================
@@ -194,6 +193,7 @@ class HomeController extends GetxController {
         email: email,
         time: time,
       );
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -207,6 +207,7 @@ class HomeController extends GetxController {
 
 // =========================== Fetch profile Data =================================
 
+/*
   Future<void> fetchProfileData() async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
@@ -218,6 +219,21 @@ class HomeController extends GetxController {
           userid: userdoc['userid'],
           username: userdoc['username'],
           email: userdoc['email']);
+    }
+  }
+*/
+
+  Future<void> fetchProfileData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+
+    if (snapshot.exists) {
+      userModel.value = UserModel.fromMap(snapshot.data()!);
     }
   }
 
