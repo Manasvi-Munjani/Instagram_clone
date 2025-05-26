@@ -15,6 +15,7 @@ class EditProfile extends StatelessWidget {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
   final TextEditingController linkController = TextEditingController();
+  bool isInitial = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +25,21 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
       body: Obx(() {
         final user = homeController.userModel.value;
-        final imageUrl = homeController.userModel.value?.image;
 
-        if (user != null) {
+        if (user == null) {
+          return Center(
+            child: LoadingAnimationWidget.hexagonDots(
+              color: AppColorConst.appGray,
+              size: 24,
+            ),
+          );
+        }
+        if (isInitial) {
           nameController.text = user.name ?? '';
           userNameController.text = user.username ?? '';
           bioController.text = user.bio ?? '';
           linkController.text = user.link ?? '';
-        } else {
-          LoadingAnimationWidget.hexagonDots(
-              color: AppColorConst.appGray, size: 24);
+          isInitial = false;
         }
 
         return Form(
