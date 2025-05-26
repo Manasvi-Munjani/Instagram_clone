@@ -103,7 +103,12 @@ class HomeController extends GetxController {
     }
 
     fetchProfileData();
+    loadUserData();
     super.onInit();
+  }
+
+  void loadUserData() {
+    userModel.value = UserModel(userid: '', username: 'username', email: '');
   }
 
 // ======================== SignIn Button ========================
