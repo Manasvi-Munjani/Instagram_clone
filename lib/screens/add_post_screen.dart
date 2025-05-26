@@ -6,25 +6,46 @@ class AddPostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final formkey = GlobalKey<FormState>();
+
+    return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      body: Column(
-        children: [
-          Text(
-            'Add Post',
-            style: TextStyle(
-              color: AppColorConst.appWhite,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+      body: Form(
+        key: formkey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Add Post',
+              style: TextStyle(
+                color: AppColorConst.appWhite,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          TextField(
-            decoration: InputDecoration(
-                hintText: 'Add Caption',
-                hintStyle: TextStyle(color: AppColorConst.appGray,fontWeight: FontWeight.w500,fontSize: 14),
-                border: OutlineInputBorder()),
-          ),
-        ],
+            SizedBox(height: 15),
+            TextField(
+              decoration: InputDecoration(
+                  hintText: 'Add Caption',
+                  hintStyle: TextStyle(
+                      color: AppColorConst.appGray,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14),
+                  border: OutlineInputBorder()),
+            ),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Add description',
+                hintStyle: TextStyle(
+                    color: AppColorConst.appGray,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14),
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
