@@ -12,6 +12,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
+    final user = homeController.userModel.value;
+
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: SafeArea(
@@ -21,20 +23,14 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Row(
                 children: [
-                  Obx(() {
-                    final user = homeController.userModel.value;
-                    if (user == null) {
-                      return const SizedBox();
-                    }
-                    return Text(
-                      user.username,
-                      style: const TextStyle(
-                        color: AppColorConst.appWhite,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 26,
-                      ),
-                    );
-                  }),
+                  Text(
+                    user!.username,
+                    style: const TextStyle(
+                      color: AppColorConst.appWhite,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 26,
+                    ),
+                  ),
                   const Spacer(),
                   const Icon(
                     Icons.add_box_outlined,
@@ -95,14 +91,16 @@ Widget _profileData() {
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
+/*
                     child: ClipOval(
                       child: Image.asset(
                         AppImageConst.appDpImage,
                         fit: BoxFit.cover,
                       ),
                     ),
+*/
 
-                    /* child: ClipOval(
+                     child: ClipOval(
                         child: Obx(() {
                           final imageUrl =
                               homeController.userModel.value?.image;
@@ -111,7 +109,7 @@ Widget _profileData() {
                               : Image.asset(AppImageConst.appDpImage,
                                   fit: BoxFit.cover);
                         }),
-                      ),*/
+                      ),
                   ),
                   Positioned(
                     bottom: 0,

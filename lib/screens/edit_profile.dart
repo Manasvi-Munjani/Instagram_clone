@@ -73,7 +73,7 @@ class EditProfile extends StatelessWidget {
                     Center(
                       child: Stack(
                         children: [
-                          Obx(() {
+                          /* Obx(() {
                             final imageUrl =
                                 homeController.userModel.value?.image;
                             return CircleAvatar(
@@ -84,7 +84,52 @@ class EditProfile extends StatelessWidget {
                                   : const AssetImage(AppImageConst.appDpImage)
                                       as ImageProvider,
                             );
+                          }),*/
+
+                          Obx(() {
+                            final user = homeController.userModel.value;
+                            return CircleAvatar(
+                              radius: 40,
+                              backgroundImage:
+                                  user!.image != null && user.image!.isNotEmpty
+                                      ? NetworkImage(user.image!)
+                                      : const AssetImage('') as ImageProvider,
+                            );
                           }),
+
+                          /*Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              onTap: () async {
+                                final uploadedUrl =
+                                    await cloudinary.pickAndUploadImage();
+
+                                if (uploadedUrl != null) {
+                                  homeController.editProfile(
+                                    name: nameController.text,
+                                    username: userNameController.text,
+                                    bio: bioController.text,
+                                    link: linkController.text,
+                                    image: uploadedUrl,
+                                  );
+                                }
+
+
+                              },
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: const BoxDecoration(
+                                  color: AppColorConst.appBlue,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(Icons.edit,
+                                    size: 16, color: Colors.white),
+                              ),
+                            ),
+                          ),*/
+
                           Positioned(
                             bottom: 0,
                             right: 0,
@@ -94,6 +139,11 @@ class EditProfile extends StatelessWidget {
                                     await cloudinary.pickAndUploadImage();
 
                                 if (uploadedUrl != null) {
+                                  final updatedUser = homeController
+                                      .userModel.value!
+                                      .copyWith(image: uploadedUrl);
+                                  homeController.userModel.value = updatedUser;
+
                                   homeController.editProfile(
                                     name: nameController.text,
                                     username: userNameController.text,

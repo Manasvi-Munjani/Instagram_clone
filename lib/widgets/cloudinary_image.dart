@@ -1,3 +1,4 @@
+/*
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -27,6 +28,45 @@ class CloudinaryImage {
       return json['secure_url'];
     } else {
       print("Upload failed: ${response.statusCode}");
+      return null;
+    }
+  }
+}
+*/
+
+
+import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
+
+class CloudinaryImage {
+  final ImagePicker _picker = ImagePicker();
+
+  Future<String?> pickAndUploadImage() async {
+    try {
+      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+      if (pickedFile == null) return null;
+
+      File imageFile = File(pickedFile.path);
+      String uploadUrl = 'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload';
+      String uploadPreset = 'YOUR_UPLOAD_PRESET'; // From Cloudinary
+
+      FormData formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(imageFile.path),
+        'upload_preset': uploadPreset,
+      });
+
+      final response = await Dio().post(uploadUrl, data: formData);
+
+      if (response.statusCode == 200) {
+        return response.data['secure_url'];
+      } else {
+        print("Cloudinary Upload Failed: ${response.statusMessage}");
+        return null;
+      }
+    } catch (e) {
+      print("Error uploading image: $e");
       return null;
     }
   }

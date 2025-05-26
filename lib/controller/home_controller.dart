@@ -28,7 +28,8 @@ class HomeController extends GetxController {
   var isDataSet = false.obs;
   final picker = ImagePicker();
   var userModel = Rxn<UserModel>();
-  final RxString tempProfileImage = ''.obs;
+  final RxString tempImagePath = ''.obs;
+
 
   // Rxn<UserModel> userModel = Rxn<UserModel>();
 
@@ -103,22 +104,8 @@ class HomeController extends GetxController {
     }
 
     fetchProfileData();
-    loadUserData();
+
     super.onInit();
-  }
-
-//========================= Profile Screen User ==================
-
-  void loadUserData() {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
-    if (currentUser != null) {
-      userModel.value = UserModel(
-        userid: currentUser.uid,
-        username: currentUser.displayName ?? '',
-        email: currentUser.email ?? '',
-      );
-    }
   }
 
 // ======================== SignIn Button ========================
@@ -222,7 +209,7 @@ class HomeController extends GetxController {
 
 // =========================== Fetch profile Data =================================
 
-  /*Future<void> fetchProfileData() async {
+  Future<void> fetchProfileData() async {
     final userId = FirebaseAuth.instance.currentUser!.uid;
 
     DocumentSnapshot userdoc =
@@ -234,28 +221,7 @@ class HomeController extends GetxController {
           username: userdoc['username'],
           email: userdoc['email']);
     }
-  }*/
-
-  // Add this method inside your HomeController
-  void fetchProfileData() async {
-    try {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
-        final doc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(currentUser.uid)
-            .get();
-
-        if (doc.exists) {
-          userModel.value = UserModel.fromMap(doc.data()!);
-          isDataSet.value = true;
-        }
-      }
-    } catch (e) {
-      log("Error fetching profile data: $e");
-    }
   }
-
 
 /*
   Future<void> fetchProfileData() async {
@@ -300,7 +266,7 @@ class HomeController extends GetxController {
           .update(updateData);
 
       Fluttertoast.showToast(msg: 'Profile updated successfully!');
-      // await fetchProfileData();
+      await fetchProfileData();
 
       Get.off(() => const ProfileScreen());
     } catch (e) {
