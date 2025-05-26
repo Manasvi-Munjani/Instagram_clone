@@ -75,6 +75,182 @@ class AddPostScreen extends StatelessWidget {
   }
 }
 */
+
+import 'dart:io' show File;
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/validation/app_validation.dart';
+
+class AddPostScreen extends StatefulWidget {
+  const AddPostScreen({super.key});
+
+  @override
+  State<AddPostScreen> createState() => _AddPostScreenState();
+}
+
+class _AddPostScreenState extends State<AddPostScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _captionController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  XFile? _pickedImage;
+  Uint8List? _webImage;
+  File? _fileImage;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _pickedImage = image;
+      });
+
+      if (kIsWeb) {
+        _webImage = await image.readAsBytes();
+      } else {
+        _fileImage = File(image.path);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColorConst.appBlack,
+      appBar: AppBar(
+        backgroundColor: AppColorConst.appBlack,
+        title: const Text(
+          'Add Post',
+          style: TextStyle(
+            color: AppColorConst.appWhite,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColorConst.appGray.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: _pickedImage == null
+                        ? const Center(
+                            child: Text(
+                              'Tap to select image',
+                              style: TextStyle(color: AppColorConst.appGray),
+                            ),
+                          )
+                        : ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: kIsWeb
+                          ? (_webImage != null
+                          ? Image.memory(_webImage!, fit: BoxFit.cover)
+                          : const SizedBox()) // fallback
+                          : (_fileImage != null
+                          ? Image.file(_fileImage!, fit: BoxFit.cover)
+                          : const SizedBox()), // fallback
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _captionController,
+                  decoration: const InputDecoration(
+                    hintText: 'Add Caption',
+                    hintStyle: TextStyle(
+                      color: AppColorConst.appGray,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) =>
+                      emptyValidation(value, 'Please add caption'),
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _descriptionController,
+                  maxLines: 4,
+                  decoration: const InputDecoration(
+                    hintText: 'Add Description',
+                    hintStyle: TextStyle(
+                      color: AppColorConst.appGray,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                    ),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) =>
+                      emptyValidation(value, 'Please add description'),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 45,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColorConst.appDarkBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (_pickedImage == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please select an image'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          return;
+                        }
+
+                        // TODO: Add post upload logic here
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Post uploaded successfully!'),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text(
+                      'Add Post',
+                      style: TextStyle(
+                        color: AppColorConst.appWhite,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/*
+=================== Support only Mobile ===================
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -223,3 +399,4 @@ class _AddPostScreenState extends State<AddPostScreen> {
     );
   }
 }
+*/
