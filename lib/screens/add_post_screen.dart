@@ -139,7 +139,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Please select an image'),
-                              backgroundColor: Colors.red,
+                              backgroundColor:AppColorConst.appRed,
                             ),
                           );
                           return;
