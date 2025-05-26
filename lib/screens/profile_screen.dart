@@ -13,30 +13,28 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
 
-    return Obx(() {
-      final user = homeController.userModel.value;
+    final user = homeController.userModel.value;
 
-      return Scaffold(
-        backgroundColor: AppColorConst.appBlack,
-        body: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                child: Row(
-                  children: [
-                    Text(
-                      // 'john_scott',
-                      user!.username,
-                      style: const TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w700,
-                        color: AppColorConst.appWhite,
-                      ),
+    return Scaffold(
+      backgroundColor: AppColorConst.appBlack,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Row(
+                children: [
+                  Text(
+                    // 'john_scott',
+                    user!.username,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                      color: AppColorConst.appWhite,
                     ),
+                  ),
 
-                    /* Obx(() {
+                  /* Obx(() {
                       final user = homeController.userModel.value;
                       if (user == null) {
                         return const SizedBox();
@@ -50,42 +48,41 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       );
                     }),*/
-                    const Spacer(),
-                    const Icon(
-                      Icons.add_box_outlined,
-                      color: AppColorConst.appWhite,
-                      size: 28,
-                    ),
-                    const SizedBox(width: 15),
-                    const Icon(
-                      Icons.menu,
-                      color: AppColorConst.appWhite,
-                      size: 28,
-                    )
+                  const Spacer(),
+                  const Icon(
+                    Icons.add_box_outlined,
+                    color: AppColorConst.appWhite,
+                    size: 28,
+                  ),
+                  const SizedBox(width: 15),
+                  const Icon(
+                    Icons.menu,
+                    color: AppColorConst.appWhite,
+                    size: 28,
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _profileData(),
+                    const SizedBox(height: 20),
+                    _storyHighlights(),
+                    const SizedBox(height: 15),
+                    _postIcon(),
+                    const SizedBox(height: 15),
+                    _postGrid(),
+                    const SizedBox(height: 15),
                   ],
                 ),
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _profileData(),
-                      const SizedBox(height: 20),
-                      _storyHighlights(),
-                      const SizedBox(height: 15),
-                      _postIcon(),
-                      const SizedBox(height: 15),
-                      _postGrid(),
-                      const SizedBox(height: 15),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 
   Widget _profileData() {
