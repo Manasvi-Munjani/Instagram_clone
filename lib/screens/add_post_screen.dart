@@ -157,15 +157,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                             ),
                           )
                         : ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: kIsWeb
-                          ? (_webImage != null
-                          ? Image.memory(_webImage!, fit: BoxFit.cover)
-                          : const SizedBox()) // fallback
-                          : (_fileImage != null
-                          ? Image.file(_fileImage!, fit: BoxFit.cover)
-                          : const SizedBox()), // fallback
-                    ),
+                            borderRadius: BorderRadius.circular(10),
+                            child: kIsWeb
+                                ? (_webImage != null
+                                    ? Image.memory(_webImage!,
+                                        fit: BoxFit.cover)
+                                    : const SizedBox())
+                                : (_fileImage != null
+                                    ? Image.file(_fileImage!, fit: BoxFit.cover)
+                                    : const SizedBox()),
+                          ),
                   ),
                 ),
                 const SizedBox(height: 20),
