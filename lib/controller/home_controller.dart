@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +16,6 @@ import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/splash_screen.dart';
 import 'package:http/http.dart' as http;
-import 'package:instagram_clone/widgets/cloudinary_image.dart';
 
 class HomeController extends GetxController {
   var obscureText = true.obs;
