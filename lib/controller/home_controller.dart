@@ -34,7 +34,7 @@ class HomeController extends GetxController {
   final RxString tempImagePath = ''.obs;
 
 //============================ Post Image ======================
-  XFile? pickedImage;
+ /* XFile? pickedImage;
   Uint8List? webImage;
   File? fileImage;
 
@@ -52,7 +52,29 @@ class HomeController extends GetxController {
       }
     }
   }
+*/
 
+
+  final Rx<XFile?> pickedImage = Rx<XFile?>(null);
+  Uint8List? webImage;
+  File? fileImage;
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      pickedImage.value = image;
+
+      if (kIsWeb) {
+        webImage = await image.readAsBytes();
+      } else {
+        fileImage = File(image.path);
+      }
+
+      update(); // Triggers GetBuilder
+    }
+  }
 //====================== Post Collection ==========================
 /*
   void postdata() {

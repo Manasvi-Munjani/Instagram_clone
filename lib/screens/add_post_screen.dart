@@ -41,7 +41,7 @@ class AddPostScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                GestureDetector(
+                /* GestureDetector(
                   onTap: homeController.pickImage,
                   child: Container(
                     height: 200,
@@ -70,7 +70,40 @@ class AddPostScreen extends StatelessWidget {
                                     : const SizedBox()),
                           ),
                   ),
-                ),
+                ),*/
+
+                GetBuilder<HomeController>(builder: (_) {
+                  return GestureDetector(
+                    onTap: homeController.pickImage,
+                    child: Container(
+                      height: 200,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: AppColorConst.appGray.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: homeController.pickedImage.value == null
+                          ? const Center(
+                              child: Text(
+                                'Tap to select image',
+                                style: TextStyle(color: AppColorConst.appGray),
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: kIsWeb
+                                  ? Image.memory(
+                                      homeController.webImage!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.file(
+                                      homeController.fileImage!,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                    ),
+                  );
+                }),
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _captionController,
@@ -116,7 +149,7 @@ class AddPostScreen extends StatelessWidget {
                           return;
                         }
                         Fluttertoast.showToast(msg: 'Post Update successfully');
-                        Get.to(()=>const ProfileScreen());
+                        Get.to(() => const ProfileScreen());
                       }
                     },
                     child: const Text(
