@@ -64,7 +64,7 @@ class HomeController extends GetxController {
   }) async {
     try {
       if (pickedImage.value == null) {
-        Fluttertoast.showToast(msg: '📷 Please select an image first.');
+        Fluttertoast.showToast(msg: 'Please select an image first.');
         return;
       }
 
