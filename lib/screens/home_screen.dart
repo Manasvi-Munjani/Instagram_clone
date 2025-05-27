@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/screens/favorites_screen.dart';
 import 'package:instagram_clone/screens/order_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/reels_screen.dart';
@@ -50,9 +51,12 @@ class HomeScreen extends StatelessWidget {
                   color: AppColorConst.appWhite,
                 ),
                 const SizedBox(width: 15),
-                const Icon(
-                  Icons.favorite_border_rounded,
-                  color: AppColorConst.appWhite,
+                GestureDetector(
+                  onTap: () => Get.off(() => const FavoritesScreen()),
+                  child: const Icon(
+                    Icons.favorite_border_rounded,
+                    color: AppColorConst.appWhite,
+                  ),
                 ),
                 const SizedBox(width: 15),
                 const Icon(
