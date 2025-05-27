@@ -39,7 +39,6 @@ class AddPostScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -82,29 +81,32 @@ class AddPostScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _captionController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Add Caption',
                     hintStyle: const TextStyle(
                       color: AppColorConst.appGray,
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
-                    suffixIcon: const Icon(Icons.closed_caption,color: AppColorConst.appGray,size: 20,),
+                    suffixIcon: const Icon(
+                      Icons.closed_caption,
+                      color: AppColorConst.appGray,
+                      size: 20,
+                    ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:
-                      const BorderSide(color: AppColorConst.appGray),
+                          const BorderSide(color: AppColorConst.appGray),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: const BorderSide(
                           color: AppColorConst.appBlue, width: 1.5),
                     ),
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide:
-                      const BorderSide(color: AppColorConst.appGray),
+                          const BorderSide(color: AppColorConst.appGray),
                     ),
                   ),
                 ),
@@ -112,14 +114,33 @@ class AddPostScreen extends StatelessWidget {
                 TextFormField(
                   controller: _descriptionController,
                   maxLines: 4,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Add Description',
                     hintStyle: TextStyle(
                       color: AppColorConst.appGray,
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
-                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(
+                      Icons.description,
+                      color: AppColorConst.appGray,
+                      size: 20,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          const BorderSide(color: AppColorConst.appGray),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                          color: AppColorConst.appBlue, width: 1.5),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                          const BorderSide(color: AppColorConst.appGray),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
