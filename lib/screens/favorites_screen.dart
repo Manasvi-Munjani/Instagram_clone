@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -14,13 +15,25 @@ class FavoritesScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            const Text(
-              'Favorite Screen',
-              style: TextStyle(
-                color: AppColorConst.appWhite,
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-              ),
+            
+            Row(
+              children: [
+
+                GestureDetector(
+                  onTap: () => Get.off(() => const HomeScreen()),
+                  child: const Icon(Icons.arrow_back,
+                      size: 20, color: AppColorConst.appWhite),
+                ),
+
+                const Text(
+                  'Favorite Screen',
+                  style: TextStyle(
+                    color: AppColorConst.appWhite,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             _favoritePostGrid(),
