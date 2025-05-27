@@ -230,7 +230,7 @@ class HomeController extends GetxController {
         .collection('posts')
         .get();
 
-    uploadedPostImages.clear(); // optional: prevent duplicates
+    uploadedPostImages.clear();
 
     for (var doc in snapshot.docs) {
       uploadedPostImages.add(doc['image']);

@@ -366,46 +366,6 @@ Widget _postIcon() {
   );
 }
 
-/*
-Widget _postGrid() {
-  final postImages = [
-    'assets/images/nature.jpg',
-    'assets/images/nature2.png',
-    'assets/images/nature.jpg',
-    'assets/images/nature2.png',
-    'assets/images/post1.png',
-    'assets/images/nature.jpg',
-  ];
-
-  List<Widget> imageWidgets = [];
-
-  for (var img in postImages) {
-    imageWidgets.add(
-      GestureDetector(
-        onTap: () => Get.off(() => Photoviewscreen(imageURL: img)),
-        child: SizedBox(
-          height: 150,
-          child: Image.asset(
-            img,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-    );
-  }
-
-  return GridView.count(
-    crossAxisCount:3,
-    shrinkWrap: true,
-    crossAxisSpacing: 3,
-    mainAxisSpacing: 3,
-    physics: const NeverScrollableScrollPhysics(),
-    children: imageWidgets,
-  );
-}
-*/
-
-
 Widget _postGrid(HomeController homeController) {
   return Obx(() {
     if (homeController.uploadedPostImages.isEmpty) {
