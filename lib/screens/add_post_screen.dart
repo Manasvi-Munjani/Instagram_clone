@@ -81,6 +81,8 @@ class AddPostScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _captionController,
+                  style: const TextStyle(
+                      color: AppColorConst.appGray, fontSize: 14),
                   decoration: InputDecoration(
                     hintText: 'Add Caption',
                     hintStyle: const TextStyle(
@@ -113,6 +115,8 @@ class AddPostScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _descriptionController,
+                  style: const TextStyle(
+                      color: AppColorConst.appGray, fontSize: 14),
                   maxLines: 4,
                   decoration: InputDecoration(
                     hintText: 'Add Description',
