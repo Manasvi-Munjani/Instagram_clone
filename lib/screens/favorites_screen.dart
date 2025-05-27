@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
@@ -14,8 +13,8 @@ class FavoritesScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Favorite Screen',
               style: TextStyle(
                 color: AppColorConst.appWhite,
@@ -23,7 +22,7 @@ class FavoritesScreen extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _favoritePostGrid(),
           ],
         ),
