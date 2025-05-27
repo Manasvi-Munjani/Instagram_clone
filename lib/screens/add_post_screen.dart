@@ -144,11 +144,11 @@ class AddPostScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        homeController.postData(
+                        homeController.uploadImageToCloudinary(
                           caption: _captionController.text.trim(),
                           description: _descriptionController.text.trim(),
-                          image: homeController.uploadedImageUrl.value,
                         );
+
                         if (homeController.pickedImage == null) {
                           Fluttertoast.showToast(msg: 'Please select an image');
                           return;

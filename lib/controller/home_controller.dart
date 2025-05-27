@@ -60,7 +60,10 @@ class HomeController extends GetxController {
   String cloudName = 'dgu8vmtqi';
   String uploadPreset = 'flutter_unsigned';
 
-  Future<void> uploadImageToCloudinary() async {
+  Future<void> uploadImageToCloudinary({
+    required String caption,
+    required String description,
+  }) async {
     try {
       if (pickedImage.value == null) {
         Fluttertoast.showToast(msg: '📷 Please select an image first.');
@@ -89,6 +92,14 @@ class HomeController extends GetxController {
 
         uploadedImageUrl.value = data['secure_url'];
         debugPrint(uploadedImageUrl.value);
+
+        postData(
+          caption: caption,
+          description: description,
+          image: uploadedImageUrl.value,
+        );
+
+        Fluttertoast.showToast(msg: '✅ Post uploaded successfully!');
       } else {
         Fluttertoast.showToast(msg: 'Cloudinary upload failed');
       }
@@ -183,7 +194,7 @@ class HomeController extends GetxController {
       final user = FirebaseAuth.instance.currentUser;
 
       if (user == null) {
-        print('❌ User not logged in');
+        debugPrint('User not logged in');
         return;
       }
 
@@ -203,9 +214,9 @@ class HomeController extends GetxController {
           .collection('posts')
           .add(post.toMap());
 
-      print('✅ Post uploaded successfully! Doc ID: ${docRef.id}');
+      debugPrint('Post uploaded successfully! Doc ID: ${docRef.id}');
     } catch (e) {
-      print('❌ Failed to upload post: $e');
+      debugPrint('Failed to upload post: $e');
     }
   }
 
