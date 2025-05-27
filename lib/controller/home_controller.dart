@@ -99,7 +99,7 @@ class HomeController extends GetxController {
           image: uploadedImageUrl.value,
         );
 
-        Fluttertoast.showToast(msg: '✅ Post uploaded successfully!');
+        Fluttertoast.showToast(msg: 'Post uploaded successfully!');
       } else {
         Fluttertoast.showToast(msg: 'Cloudinary upload failed');
       }
