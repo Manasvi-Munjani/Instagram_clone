@@ -177,7 +177,7 @@ class HomeController extends GetxController {
     }
 
     fetchProfileData();
-
+    fetchUploadedPosts();
     super.onInit();
   }
 
@@ -217,6 +217,23 @@ class HomeController extends GetxController {
       debugPrint('Post uploaded successfully! Doc ID: ${docRef.id}');
     } catch (e) {
       debugPrint('Failed to upload post: $e');
+    }
+  }
+
+  Future<void> fetchUploadedPosts() async {
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) return;
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('posts')
+        .get();
+
+    uploadedPostImages.clear(); // optional: prevent duplicates
+
+    for (var doc in snapshot.docs) {
+      uploadedPostImages.add(doc['image']);
     }
   }
 
