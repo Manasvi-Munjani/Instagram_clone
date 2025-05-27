@@ -11,56 +11,27 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.off(() => const HomeScreen()),
-                    child: const Icon(Icons.arrow_back,
-                        size: 20, color: AppColorConst.appWhite),
-                  ),
-                  const SizedBox(height: 10),
-                  const Center(
-                    child: Text('Edit Profile',
-                        style: TextStyle(
-                            color: AppColorConst.appWhite,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  const SizedBox(height: 5),
-                ],
-              ),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () => Get.off(() => const HomeScreen()),
-                  child: const Icon(Icons.arrow_back,
-                      size: 20, color: AppColorConst.appWhite),
-                ),
-                Center(
-                  child: const Text(
-                    'Favorite Screen',
-                    style: TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            _favoritePostGrid(),
-          ],
+
+      appBar: AppBar(
+        backgroundColor: AppColorConst.appBlack,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColorConst.appWhite),
+          onPressed: () {
+            Get.to(()=> HomeScreen());
+          },
         ),
+        title: const Text(
+          'Favorite Screen',
+          style: TextStyle(
+            color: AppColorConst.appWhite,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: _favoritePostGrid(),
       ),
     );
   }
