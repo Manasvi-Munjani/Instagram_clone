@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/validation/app_validation.dart';
 
 class AddPostScreen extends StatelessWidget {
@@ -51,7 +53,7 @@ class AddPostScreen extends StatelessWidget {
                     child: homeController.pickedImage == null
                         ? const Center(
                             child: Text(
-                              'Tap to select image',
+                              'Tap to select image *',
                               style: TextStyle(color: AppColorConst.appGray),
                             ),
                           )
@@ -81,8 +83,6 @@ class AddPostScreen extends StatelessWidget {
                     ),
                     border: OutlineInputBorder(),
                   ),
-                  validator: (value) =>
-                      emptyValidation(value, 'Please add caption'),
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
@@ -97,8 +97,6 @@ class AddPostScreen extends StatelessWidget {
                     ),
                     border: OutlineInputBorder(),
                   ),
-                  validator: (value) =>
-                      emptyValidation(value, 'Please add description'),
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
@@ -114,21 +112,11 @@ class AddPostScreen extends StatelessWidget {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         if (homeController.pickedImage == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Please select an image'),
-                              backgroundColor: AppColorConst.appRed,
-                            ),
-                          );
+                          Fluttertoast.showToast(msg: 'Please select an image');
                           return;
                         }
-
-                        // TODO: Add post upload logic here
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Post uploaded successfully!'),
-                          ),
-                        );
+                        Fluttertoast.showToast(msg: 'Post Update successfully');
+                        Get.to(()=>const ProfileScreen());
                       }
                     },
                     child: const Text(

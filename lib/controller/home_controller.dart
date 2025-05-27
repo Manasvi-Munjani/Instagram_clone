@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
+import 'package:instagram_clone/models/posts_model.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
@@ -32,6 +33,7 @@ class HomeController extends GetxController {
   var userModel = Rxn<UserModel>();
   final RxString tempImagePath = ''.obs;
 
+//============================ Post Image ======================
   XFile? pickedImage;
   Uint8List? webImage;
   File? fileImage;
@@ -48,6 +50,41 @@ class HomeController extends GetxController {
       } else {
         fileImage = File(image.path);
       }
+    }
+  }
+
+//====================== Post Collection ==========================
+/*
+  void postdata() {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('posts');
+  }*/
+  void postData() async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+
+      // Create post model
+      final post = PostsModel(
+        userid: userId,
+        caption: 'My Caption',
+        description: 'Post description',
+        image: 'https://example.com/myimage.jpg',
+        time: DateTime.now(),
+      );
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('posts')
+          .add(post.toMap());
+
+      print('✅ Post uploaded successfully!');
+    } catch (e) {
+      print('❌ Failed to upload post: $e');
     }
   }
 
