@@ -11,25 +11,40 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      body: Column(
-        children: [
-          Text(
-            'Favorite Screen',
-            style: TextStyle(
-              color: AppColorConst.appWhite,
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Favorite Screen',
+              style: TextStyle(
+                color: AppColorConst.appWhite,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          _favoritePostGrid(),
-        ],
+            SizedBox(height: 20),
+            _favoritePostGrid(),
+          ],
+        ),
       ),
     );
   }
 
   Widget _favoritePostGrid() {
     final postImages = [
+      'assets/images/nature.jpg',
+      'assets/images/nature2.png',
+      'assets/images/nature.jpg',
+      'assets/images/nature2.png',
+      'assets/images/post1.png',
+      'assets/images/nature.jpg',
+      'assets/images/nature.jpg',
+      'assets/images/nature2.png',
+      'assets/images/nature.jpg',
+      'assets/images/nature2.png',
+      'assets/images/post1.png',
+      'assets/images/nature.jpg',
       'assets/images/nature.jpg',
       'assets/images/nature2.png',
       'assets/images/nature.jpg',
