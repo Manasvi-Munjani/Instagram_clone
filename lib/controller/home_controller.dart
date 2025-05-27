@@ -34,32 +34,12 @@ class HomeController extends GetxController {
   final RxString tempImagePath = ''.obs;
 
 //============================ Post Image ======================
- /* XFile? pickedImage;
-  Uint8List? webImage;
-  File? fileImage;
-
-  Future<void> pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      pickedImage = image;
-
-      if (kIsWeb) {
-        webImage = await image.readAsBytes();
-      } else {
-        fileImage = File(image.path);
-      }
-    }
-  }
-*/
-
 
   final Rx<XFile?> pickedImage = Rx<XFile?>(null);
   Uint8List? webImage;
   File? fileImage;
-
   final ImagePicker _picker = ImagePicker();
+  final RxString uploadedImageUrl = ''.obs;
 
   Future<void> pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -72,41 +52,48 @@ class HomeController extends GetxController {
         fileImage = File(image.path);
       }
 
-      update(); // Triggers GetBuilder
+      update();
     }
   }
-//====================== Post Collection ==========================
-/*
-  void postdata() {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('posts');
-  }*/
-  void postData() async {
+// ======================= Updated image =======================
+  String cloudName = 'dgu8vmtqi';
+  String uploadPreset = 'flutter_unsigned';
+
+  Future<void> uploadImageToCloudinary() async {
     try {
-      final userId = FirebaseAuth.instance.currentUser!.uid;
+      if (pickedImage.value == null) {
+        Fluttertoast.showToast(msg: '📷 Please select an image first.');
+        return;
+      }
 
-      // Create post model
-      final post = PostsModel(
-        userid: userId,
-        caption: 'My Caption',
-        description: 'Post description',
-        image: 'https://example.com/myimage.jpg',
-        time: DateTime.now(),
-      );
+      final imageBytes =
+          kIsWeb ? webImage : await pickedImage.value!.readAsBytes();
 
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .collection('posts')
-          .add(post.toMap());
+      final uri =
+          Uri.parse('https://api.cloudinary.com/v1_1/$cloudName/image/upload');
 
-      print('✅ Post uploaded successfully!');
+      final request = http.MultipartRequest('POST', uri)
+        ..fields['upload_preset'] = uploadPreset
+        ..files.add(http.MultipartFile.fromBytes(
+          'file',
+          imageBytes!,
+          filename: pickedImage.value!.name,
+        ));
+
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        final resStr = await response.stream.bytesToString();
+        final data = jsonDecode(resStr);
+
+        uploadedImageUrl.value = data['secure_url'];
+        debugPrint(uploadedImageUrl.value);
+      } else {
+        Fluttertoast.showToast(msg: 'Cloudinary upload failed');
+      }
     } catch (e) {
-      print('❌ Failed to upload post: $e');
+      Fluttertoast.showToast(msg: 'Upload Error: $e');
     }
   }
 
@@ -183,6 +170,43 @@ class HomeController extends GetxController {
     fetchProfileData();
 
     super.onInit();
+  }
+
+//====================== Post Collection ==========================
+
+  void postData({
+    required String caption,
+    required String description,
+    required String image,
+  }) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        print('❌ User not logged in');
+        return;
+      }
+
+      final userId = user.uid;
+
+      final post = PostsModel(
+        userid: userId,
+        caption: caption,
+        description: description,
+        image: image,
+        time: DateTime.now(),
+      );
+
+      final docRef = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('posts')
+          .add(post.toMap());
+
+      print('✅ Post uploaded successfully! Doc ID: ${docRef.id}');
+    } catch (e) {
+      print('❌ Failed to upload post: $e');
+    }
   }
 
 // ======================== SignIn Button ========================
