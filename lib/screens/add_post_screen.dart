@@ -40,37 +40,6 @@ class AddPostScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                /* GestureDetector(
-                  onTap: homeController.pickImage,
-                  child: Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColorConst.appGray.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: homeController.pickedImage == null
-                        ? const Center(
-                            child: Text(
-                              'Tap to select image *',
-                              style: TextStyle(color: AppColorConst.appGray),
-                            ),
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: kIsWeb
-                                ? (homeController.webImage != null
-                                    ? Image.memory(homeController.webImage!,
-                                        fit: BoxFit.cover)
-                                    : const SizedBox())
-                                : (homeController.fileImage != null
-                                    ? Image.file(homeController.fileImage!,
-                                        fit: BoxFit.cover)
-                                    : const SizedBox()),
-                          ),
-                  ),
-                ),*/
-
                 GetBuilder<HomeController>(builder: (_) {
                   return GestureDetector(
                     onTap: homeController.pickImage,
