@@ -53,7 +53,8 @@ class HomeController extends GetxController {
     }
   }
 
-// ======================= Updated image =======================
+// ======================= Cloudinary Post image =======================
+
   String cloudName = 'dgu8vmtqi';
   String uploadPreset = 'flutter_unsigned';
 
