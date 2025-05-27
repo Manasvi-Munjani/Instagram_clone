@@ -82,14 +82,30 @@ class AddPostScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _captionController,
-                  decoration: const InputDecoration(
+                  decoration:  InputDecoration(
                     hintText: 'Add Caption',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: AppColorConst.appGray,
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
-                    border: OutlineInputBorder(),
+                    suffixIcon: const Icon(Icons.closed_caption,color: AppColorConst.appGray,size: 20,),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                      const BorderSide(color: AppColorConst.appGray),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                          color: AppColorConst.appBlue, width: 1.5),
+                    ),
+
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide:
+                      const BorderSide(color: AppColorConst.appGray),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
