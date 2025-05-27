@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
-import 'package:instagram_clone/validation/app_validation.dart';
 
 class AddPostScreen extends StatelessWidget {
   AddPostScreen({super.key});
