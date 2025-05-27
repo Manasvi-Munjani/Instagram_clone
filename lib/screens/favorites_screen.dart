@@ -11,13 +11,12 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-
       appBar: AppBar(
         backgroundColor: AppColorConst.appBlack,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColorConst.appWhite),
           onPressed: () {
-            Get.to(()=> HomeScreen());
+            Get.to(() => const HomeScreen());
           },
         ),
         title: const Text(
