@@ -20,7 +20,6 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
-    CloudinaryImage cloudinary = CloudinaryImage();
 
     return Scaffold(
       body: Obx(() {
@@ -73,7 +72,7 @@ class EditProfile extends StatelessWidget {
                     Center(
                       child: Stack(
                         children: [
-                           Obx(() {
+                          Obx(() {
                             final imageUrl =
                                 homeController.userModel.value?.image;
                             return CircleAvatar(
@@ -86,7 +85,7 @@ class EditProfile extends StatelessWidget {
                             );
                           }),
 
-                        /*  Obx(() {
+                          /*  Obx(() {
                             final user = homeController.userModel.value;
                             return CircleAvatar(
                               radius: 40,
@@ -136,7 +135,7 @@ class EditProfile extends StatelessWidget {
                             right: 0,
                             child: GestureDetector(
                               onTap: () async {
-                                final uploadedUrl =
+                                /*final uploadedUrl =
                                     await cloudinary.pickAndUploadImage();
 
                                 if (uploadedUrl != null) {
@@ -152,7 +151,7 @@ class EditProfile extends StatelessWidget {
                                     link: linkController.text,
                                     image: uploadedUrl,
                                   );
-                                }
+                                }*/
                               },
                               child: Container(
                                 width: 24,
