@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                     style: const TextStyle(
                       color: AppColorConst.appWhite,
                       fontWeight: FontWeight.w600,
-                      fontSize: 26,
+                      fontSize: 21,
                     ),
                   ),
                   const Spacer(),
