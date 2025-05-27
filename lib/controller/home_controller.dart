@@ -51,7 +51,6 @@ class HomeController extends GetxController {
       } else {
         fileImage = File(image.path);
       }
-
       update();
     }
   }
