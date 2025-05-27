@@ -15,22 +15,44 @@ class FavoritesScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () => Get.off(() => const HomeScreen()),
+                    child: const Icon(Icons.arrow_back,
+                        size: 20, color: AppColorConst.appWhite),
+                  ),
+                  const SizedBox(height: 10),
+                  const Center(
+                    child: Text('Edit Profile',
+                        style: TextStyle(
+                            color: AppColorConst.appWhite,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(height: 5),
+                ],
+              ),
+            ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 GestureDetector(
                   onTap: () => Get.off(() => const HomeScreen()),
                   child: const Icon(Icons.arrow_back,
                       size: 20, color: AppColorConst.appWhite),
                 ),
-
-                const Text(
-                  'Favorite Screen',
-                  style: TextStyle(
-                    color: AppColorConst.appWhite,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
+                Center(
+                  child: const Text(
+                    'Favorite Screen',
+                    style: TextStyle(
+                      color: AppColorConst.appWhite,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ],
