@@ -384,7 +384,7 @@ Widget _postGrid(HomeController homeController) {
       itemBuilder: (context, index) {
         final img = homeController.uploadedPostImages[index];
         return GestureDetector(
-          onTap: () => Get.to(() => Photoviewscreen(imageURL: img)),
+          onTap: () => Get.off(() => Photoviewscreen(imageURL: img)),
           child: SizedBox(
             height: 150,
             child: Image.network(
