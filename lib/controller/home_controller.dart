@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,8 +32,24 @@ class HomeController extends GetxController {
   var userModel = Rxn<UserModel>();
   final RxString tempImagePath = ''.obs;
 
+  XFile? pickedImage;
+  Uint8List? webImage;
+  File? fileImage;
 
-  // Rxn<UserModel> userModel = Rxn<UserModel>();
+  Future<void> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      pickedImage = image;
+
+      if (kIsWeb) {
+        webImage = await image.readAsBytes();
+      } else {
+        fileImage = File(image.path);
+      }
+    }
+  }
 
 // ======================== Selected Icons -> BottomNavigation Screen ========================
 

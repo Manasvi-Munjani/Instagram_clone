@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   GestureDetector(
-                    onTap: ()=>Get.off(()=>const AddPostScreen()),
+                    onTap: () => Get.off(() => AddPostScreen()),
                     child: const Icon(
                       Icons.add_box_outlined,
                       color: AppColorConst.appWhite,

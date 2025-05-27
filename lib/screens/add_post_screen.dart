@@ -2,42 +2,22 @@ import 'dart:io' show File;
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/validation/app_validation.dart';
 
-class AddPostScreen extends StatefulWidget {
-  const AddPostScreen({super.key});
+class AddPostScreen extends StatelessWidget {
+  AddPostScreen({super.key});
 
-  @override
-  State<AddPostScreen> createState() => _AddPostScreenState();
-}
-
-class _AddPostScreenState extends State<AddPostScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController _captionController = TextEditingController();
+
   final TextEditingController _descriptionController = TextEditingController();
 
-  XFile? _pickedImage;
-  Uint8List? _webImage;
-  File? _fileImage;
-
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      setState(() {
-        _pickedImage = image;
-      });
-
-      if (kIsWeb) {
-        _webImage = await image.readAsBytes();
-      } else {
-        _fileImage = File(image.path);
-      }
-    }
-  }
+  final HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +43,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: _pickImage,
+                  onTap: homeController.pickImage,
                   child: Container(
                     height: 200,
                     width: double.infinity,
@@ -71,7 +51,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       color: AppColorConst.appGray.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: _pickedImage == null
+                    child: homeController.pickedImage == null
                         ? const Center(
                             child: Text(
                               'Tap to select image',
@@ -81,12 +61,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: kIsWeb
-                                ? (_webImage != null
-                                    ? Image.memory(_webImage!,
+                                ? (homeController.webImage != null
+                                    ? Image.memory(homeController.webImage!,
                                         fit: BoxFit.cover)
                                     : const SizedBox())
-                                : (_fileImage != null
-                                    ? Image.file(_fileImage!, fit: BoxFit.cover)
+                                : (homeController.fileImage != null
+                                    ? Image.file(homeController.fileImage!,
+                                        fit: BoxFit.cover)
                                     : const SizedBox()),
                           ),
                   ),
@@ -135,7 +116,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        if (_pickedImage == null) {
+                        if (homeController.pickedImage == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Please select an image'),
