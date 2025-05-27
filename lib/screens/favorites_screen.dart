@@ -45,12 +45,6 @@ class FavoritesScreen extends StatelessWidget {
       'assets/images/nature2.png',
       'assets/images/post1.png',
       'assets/images/nature.jpg',
-      'assets/images/nature.jpg',
-      'assets/images/nature2.png',
-      'assets/images/nature.jpg',
-      'assets/images/nature2.png',
-      'assets/images/post1.png',
-      'assets/images/nature.jpg',
     ];
 
     List<Widget> imageWidgets = [];
