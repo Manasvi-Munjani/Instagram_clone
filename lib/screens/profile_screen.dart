@@ -63,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 15),
                     _postIcon(),
                     const SizedBox(height: 15),
-                    _postGrid(),
+                    _postGrid(homeController),
                     const SizedBox(height: 15),
                   ],
                 ),
@@ -366,6 +366,7 @@ Widget _postIcon() {
   );
 }
 
+/*
 Widget _postGrid() {
   final postImages = [
     'assets/images/nature.jpg',
@@ -394,11 +395,45 @@ Widget _postGrid() {
   }
 
   return GridView.count(
-    crossAxisCount: 3,
+    crossAxisCount:3,
     shrinkWrap: true,
     crossAxisSpacing: 3,
     mainAxisSpacing: 3,
     physics: const NeverScrollableScrollPhysics(),
     children: imageWidgets,
   );
+}
+*/
+
+
+Widget _postGrid(HomeController homeController) {
+  return Obx(() {
+    if (homeController.uploadedPostImages.isEmpty) {
+      return const Center(child: Text('No posts yet.'));
+    }
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: homeController.uploadedPostImages.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 3,
+        mainAxisSpacing: 3,
+      ),
+      itemBuilder: (context, index) {
+        final img = homeController.uploadedPostImages[index];
+        return GestureDetector(
+          onTap: () => Get.to(() => Photoviewscreen(imageURL: img)),
+          child: SizedBox(
+            height: 150,
+            child: Image.network(
+              img,
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+      },
+    );
+  });
 }

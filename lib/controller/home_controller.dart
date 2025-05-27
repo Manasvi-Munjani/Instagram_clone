@@ -29,7 +29,6 @@ class HomeController extends GetxController {
   var isDataSet = false.obs;
   final picker = ImagePicker();
   var userModel = Rxn<UserModel>();
-  final RxString tempImagePath = ''.obs;
 
 //============================ Post Image ======================
 
@@ -38,6 +37,7 @@ class HomeController extends GetxController {
   File? fileImage;
   final ImagePicker _picker = ImagePicker();
   final RxString uploadedImageUrl = ''.obs;
+  final RxList<String> uploadedPostImages = <String>[].obs;
 
   Future<void> pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -211,6 +211,8 @@ class HomeController extends GetxController {
           .doc(userId)
           .collection('posts')
           .add(post.toMap());
+
+      uploadedPostImages.add(image);
 
       debugPrint('Post uploaded successfully! Doc ID: ${docRef.id}');
     } catch (e) {
