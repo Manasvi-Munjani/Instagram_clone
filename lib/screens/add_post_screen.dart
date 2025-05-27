@@ -116,12 +116,12 @@ class AddPostScreen extends StatelessWidget {
                   maxLines: 4,
                   decoration: InputDecoration(
                     hintText: 'Add Description',
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       color: AppColorConst.appGray,
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
                     ),
-                    suffixIcon: Icon(
+                    suffixIcon: const Icon(
                       Icons.description,
                       color: AppColorConst.appGray,
                       size: 20,
