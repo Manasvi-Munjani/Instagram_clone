@@ -23,6 +23,12 @@ class AddPostScreen extends StatelessWidget {
       backgroundColor: AppColorConst.appBlack,
       appBar: AppBar(
         backgroundColor: AppColorConst.appBlack,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColorConst.appWhite),
+          onPressed: () {
+            Get.to(() => const ProfileScreen());
+          },
+        ),
         title: const Text(
           'Add Post',
           style: TextStyle(
@@ -33,6 +39,7 @@ class AddPostScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
