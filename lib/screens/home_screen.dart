@@ -53,9 +53,12 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(width: 15),
                 GestureDetector(
                   onTap: () => Get.off(() => const FavoritesScreen()),
-                  child: const Icon(
-                    Icons.favorite_border_rounded,
-                    color: AppColorConst.appWhite,
+                  child: const Tooltip(
+                    message: 'Likes',
+                    child: Icon(
+                      Icons.favorite_border_rounded,
+                      color: AppColorConst.appWhite,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 15),
