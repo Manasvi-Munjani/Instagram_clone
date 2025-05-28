@@ -5,6 +5,7 @@ import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/add_post_screen.dart';
 import 'package:instagram_clone/screens/edit_profile.dart';
+import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -57,7 +58,9 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     onSelected: (String value) {
                       if (value == 'Save') {
-                      } else if (value == 'LogOut') {}
+                      } else if (value == 'LogOut') {
+                        Get.off(() => const LoginScreen());
+                      }
                     },
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<String>>[
