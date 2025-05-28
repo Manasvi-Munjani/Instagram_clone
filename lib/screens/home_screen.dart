@@ -394,7 +394,7 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   post['username'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColorConst.appWhite,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14,
@@ -402,7 +402,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   post['caption'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppColorConst.appWhite,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14,
