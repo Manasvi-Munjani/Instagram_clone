@@ -54,6 +54,42 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     onSelected: (String value) {
                       if (value == 'Saved') {
+                      } else if (value == 'Your activity') {
+                        final RenderBox overlay = Overlay.of(context)
+                            .context
+                            .findRenderObject() as RenderBox;
+
+                        showMenu(
+                          context: context,
+                          position: RelativeRect.fromLTRB(
+                              overlay.size.width - 50, 80, 10, 0),
+                          items: [
+                            const PopupMenuItem(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite_outline_rounded,
+                                    size: 20,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text('Likes'),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.messenger_outline_outlined,
+                                    size: 20,
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text('Comments'),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
                       } else if (value == 'LogOut') {
                         Get.off(() => const LoginScreen());
                       }
@@ -61,15 +97,22 @@ class ProfileScreen extends StatelessWidget {
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<String>>[
                       const PopupMenuItem<String>(
-                        value: 'Save',
+                        value: 'Saved',
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.bookmark_outline_outlined,
-                              size: 20,
-                            ),
+                            Icon(Icons.bookmark_outline_outlined, size: 20),
                             SizedBox(width: 5),
                             Text('Saved'),
+                          ],
+                        ),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'Your activity',
+                        child: Row(
+                          children: [
+                            Icon(Icons.broken_image_outlined, size: 20),
+                            SizedBox(width: 5),
+                            Text('Your activity'),
                           ],
                         ),
                       ),
@@ -77,10 +120,7 @@ class ProfileScreen extends StatelessWidget {
                         value: 'LogOut',
                         child: Row(
                           children: [
-                            Icon(
-                              Icons.logout,
-                              size: 20,
-                            ),
+                            Icon(Icons.logout, size: 20),
                             SizedBox(width: 5),
                             Text('LogOut'),
                           ],

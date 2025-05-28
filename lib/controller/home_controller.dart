@@ -287,6 +287,17 @@ class HomeController extends GetxController {
     }
   }
 
+// ======================== Favorite Data =======================
+
+  void favoriteData() {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('favorites');
+  }
+
 // ======================== SignIn Button ========================
 
   void SignInButton(String email, String password) async {
