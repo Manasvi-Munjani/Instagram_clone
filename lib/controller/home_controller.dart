@@ -178,7 +178,17 @@ class HomeController extends GetxController {
 
     fetchProfileData();
     fetchUploadedPosts();
+    fetchAllUsers();
+
     super.onInit();
+  }
+
+// ============================= Story Fetch All users ===================================
+  RxList<Map<String, dynamic>> allUsers = <Map<String, dynamic>>[].obs;
+
+  void fetchAllUsers() async {
+    final snapshot = await FirebaseFirestore.instance.collection('users').get();
+    allUsers.value = snapshot.docs.map((doc) => doc.data()).toList();
   }
 
 //====================== Post Collection ==========================
