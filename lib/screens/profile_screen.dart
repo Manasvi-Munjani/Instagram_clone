@@ -42,11 +42,39 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 15),
+                 /*
                   const Icon(
                     Icons.menu,
                     color: AppColorConst.appWhite,
                     size: 28,
+                  )*/
+
+                  PopupMenuButton<String>(
+                    icon: Icon(
+                      Icons.menu,
+                      color: AppColorConst.appWhite,
+                      size: 28,
+                    ),
+                    onSelected: (String value) {
+                      // Handle menu item selection
+                      if (value == 'edit') {
+                        // Do edit action
+                      } else if (value == 'delete') {
+                        // Do delete action
+                      }
+                    },
+                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                      PopupMenuItem<String>(
+                        value: 'edit',
+                        child: Text('Edit'),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'delete',
+                        child: Text('Delete'),
+                      ),
+                    ],
                   )
+
                 ],
               ),
             ),
