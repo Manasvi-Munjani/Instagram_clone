@@ -28,6 +28,7 @@ class ReelsScreen extends StatelessWidget {
                     : Image.asset(
                         reelsData[index],
                         fit: BoxFit.fill,
+                        width: double.infinity,
                       ),
 
                 /*Image.network(

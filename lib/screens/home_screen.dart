@@ -209,8 +209,10 @@ class HomeScreen extends StatelessWidget {
             height: 1000,
             child: Obx(() {
               if (homeController.postList.isEmpty) {
-                LoadingAnimationWidget.hexagonDots(
-                    color: AppColorConst.appGray, size: 24);
+                Center(
+                  child: LoadingAnimationWidget.hexagonDots(
+                      color: AppColorConst.appWhite, size: 24),
+                );
               }
               return ListView.builder(
                 itemCount: homeController.postList.length,
@@ -275,12 +277,28 @@ class HomeScreen extends StatelessWidget {
                                     fontSize: 14,
                                   ),
                                 ),
-                                Text(
+                                /*Text(
                                   post['caption'],
                                   style: const TextStyle(
                                     color: AppColorConst.appGray,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 13,
+                                  ),
+                                ),*/
+
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  child: Text(
+                                    post['caption'],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    style: const TextStyle(
+                                      color: AppColorConst.appGray,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -293,7 +311,11 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Image.network(post['postImage']),
+                      Image.network(
+                        post['postImage'],
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 8),
