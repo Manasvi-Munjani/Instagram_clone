@@ -277,15 +277,6 @@ class HomeScreen extends StatelessWidget {
                                     fontSize: 14,
                                   ),
                                 ),
-                                /*Text(
-                                  post['caption'],
-                                  style: const TextStyle(
-                                    color: AppColorConst.appGray,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 13,
-                                  ),
-                                ),*/
-
                                 SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.6,
