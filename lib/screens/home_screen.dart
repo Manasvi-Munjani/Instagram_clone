@@ -403,9 +403,9 @@ class HomeScreen extends StatelessWidget {
                                 Text(
                                   post['caption'],
                                   style: const TextStyle(
-                                    color: AppColorConst.appWhite,
+                                    color: AppColorConst.appGray,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 14,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ],
