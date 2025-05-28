@@ -43,13 +43,6 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 15),
-                  /*
-                  const Icon(
-                    Icons.menu,
-                    color: AppColorConst.appWhite,
-                    size: 28,
-                  )*/
-
                   PopupMenuButton<String>(
                     icon: const Icon(
                       Icons.menu,
@@ -57,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                       size: 28,
                     ),
                     onSelected: (String value) {
-                      if (value == 'Save') {
+                      if (value == 'Saved') {
                       } else if (value == 'LogOut') {
                         Get.off(() => const LoginScreen());
                       }
@@ -66,11 +59,29 @@ class ProfileScreen extends StatelessWidget {
                         <PopupMenuEntry<String>>[
                       const PopupMenuItem<String>(
                         value: 'Save',
-                        child: Text('Save'),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.bookmark_outline_outlined,
+                              size: 20,
+                            ),
+                            SizedBox(width: 5),
+                            Text('Saved'),
+                          ],
+                        ),
                       ),
                       const PopupMenuItem<String>(
                         value: 'LogOut',
-                        child: Text('LogOut'),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              size: 20,
+                            ),
+                            SizedBox(width: 5),
+                            Text('LogOut'),
+                          ],
+                        ),
                       ),
                     ],
                   )
