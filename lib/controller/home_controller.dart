@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/models/posts_model.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
@@ -403,8 +402,7 @@ class HomeController extends GetxController {
     }
   }
 
-/*
-  Future<void> fetchProfileData() async {
+  /* Future<void> fetchProfileData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
@@ -416,8 +414,7 @@ class HomeController extends GetxController {
     if (snapshot.exists) {
       userModel.value = UserModel.fromMap(snapshot.data()!);
     }
-  }
-*/
+  }*/
 
 // =========================== Update profile Data =================================
 
