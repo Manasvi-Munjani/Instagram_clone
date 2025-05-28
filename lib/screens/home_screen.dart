@@ -9,6 +9,7 @@ import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/reels_screen.dart';
 import 'package:instagram_clone/screens/search_screen.dart';
 import 'package:instagram_clone/widgets/app_bottom_navigation_widget.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -331,234 +332,260 @@ class HomeScreen extends StatelessWidget {
           ),
           SizedBox(
             height: 1000,
-            child: ListView.builder(
-              itemCount: homeController.postList.length,
-              itemBuilder: (context, index) {
-                final post = homeController.postList[index];
+            child: Obx(() {
+              if (homeController.postList.isEmpty) {
+                LoadingAnimationWidget.hexagonDots(
+                    color: AppColorConst.appGray, size: 24);
+              }
+              return ListView.builder(
+                itemCount: homeController.postList.length,
+                itemBuilder: (context, index) {
+                  final post = homeController.postList[index];
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 8),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(3),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: LinearGradient(
-                                colors: [
-                                  AppColorConst.appYellow,
-                                  AppColorConst.appOrange,
-                                  AppColorConst.appRed,
-                                  AppColorConst.appPurple,
-                                  AppColorConst.appDeepPurple,
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
-                            child: Container(
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(3),
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: AppColorConst.appBlack,
+                                gradient: LinearGradient(
+                                  colors: [
+                                    AppColorConst.appYellow,
+                                    AppColorConst.appOrange,
+                                    AppColorConst.appRed,
+                                    AppColorConst.appPurple,
+                                    AppColorConst.appDeepPurple,
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                               ),
-                              child: ClipOval(
-                                child: Image.asset(
-                                  post['userImage'],
-                                  fit: BoxFit.cover,
-                                  width: 35,
-                                  height: 35,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColorConst.appBlack,
+                                ),
+                                child: ClipOval(
+                                  child: post['image'] != null
+                                      ? Image.network(
+                                          post['image'],
+                                          fit: BoxFit.cover,
+                                          width: 35,
+                                          height: 35,
+                                        )
+                                      : Image.asset(
+                                          AppImageConst.appDpImage,
+                                          fit: BoxFit.cover,
+                                          width: 35,
+                                          height: 35,
+                                        ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            post['username'],
-                            style: const TextStyle(
-                              color: AppColorConst.appWhite,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                            ),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.more_horiz,
-                            color: AppColorConst.appWhite,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Image.asset(post['postImage']),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 8),
-                      child: Row(
-                        children: [
-                          Obx(
-                            () => GestureDetector(
-                              onTap: () => homeController.favoriteIcon(),
-                              child: homeController.isFavorite.value
-                                  ? const Icon(Icons.favorite_rounded,
-                                      color: AppColorConst.appRed)
-                                  : const Icon(Icons.favorite_outline_rounded,
-                                      color: AppColorConst.appWhite),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              Icons.chat_bubble_outline,
-                              color: AppColorConst.appWhite,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          GestureDetector(
-                            onTap: () {},
-                            child: const Icon(
-                              Icons.send,
-                              color: AppColorConst.appWhite,
-                            ),
-                          ),
-                          const Spacer(),
-                          Obx(
-                            () => GestureDetector(
-                              onTap: () => homeController.saveData(),
-                              child: homeController.isSave.value
-                                  ? const Icon(
-                                      Icons.bookmark,
-                                      color: AppColorConst.appWhite,
-                                    )
-                                  : const Icon(
-                                      Icons.bookmark_border,
-                                      color: AppColorConst.appWhite,
-                                    ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        post['likes'],
-                        style: const TextStyle(
-                          color: AppColorConst.appWhite,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        post['caption'],
-                        style: const TextStyle(
-                          color: AppColorConst.appWhite,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        'View all 103 comments',
-                        style: TextStyle(
-                          color: AppColorConst.appGray,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Obx(
-                        () {
-                          final post = homeController.postList[index];
-                          final isFocused = post['isFocused'] as RxBool;
-
-                          return Row(
-                            children: [
-                              ClipOval(
-                                child: Image.asset(
-                                  AppImageConst.appDpImage,
-                                  fit: BoxFit.cover,
-                                  width: 35,
-                                  height: 35,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: TextField(
-                                  focusNode: post['focusNode'] as FocusNode,
-                                  decoration: const InputDecoration(
-                                    hintText: "Add a comment...",
-                                    hintStyle: TextStyle(
-                                      color: AppColorConst.appGray,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    ),
-                                    border: InputBorder.none,
-                                  ),
-                                  style: const TextStyle(
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  post['username'],
+                                  style: TextStyle(
                                     color: AppColorConst.appWhite,
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 14,
                                   ),
                                 ),
-                              ),
-                              isFocused.value
-                                  ? IconButton(
-                                      icon: const Icon(
-                                        Icons.send,
-                                        color: AppColorConst.appBlue,
-                                        size: 18,
-                                      ),
-                                      onPressed: () {},
-                                    )
-                                  : const SizedBox(),
-                              const Icon(Icons.favorite,
-                                  color: AppColorConst.appRed, size: 16),
-                              const SizedBox(width: 8),
-                              const Icon(Icons.emoji_emotions,
-                                  color: AppColorConst.appYellow, size: 16),
-                              const SizedBox(width: 8),
-                              GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(context).unfocus();
-                                },
-                                child: const Icon(Icons.add_circle_outline,
-                                    color: AppColorConst.appGray, size: 16),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
-                      child: Text(
-                        post['timeAgo'],
-                        style: const TextStyle(
-                          color: AppColorConst.appGray,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
+                                Text(
+                                  post['caption'],
+                                  style: TextStyle(
+                                    color: AppColorConst.appWhite,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            const Icon(
+                              Icons.more_horiz,
+                              color: AppColorConst.appWhite,
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
-            ),
+                      Image.network(post['postImage']),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
+                        child: Row(
+                          children: [
+                            Obx(
+                              () => GestureDetector(
+                                onTap: () => homeController.favoriteIcon(),
+                                child: homeController.isFavorite.value
+                                    ? const Icon(Icons.favorite_rounded,
+                                        color: AppColorConst.appRed)
+                                    : const Icon(Icons.favorite_outline_rounded,
+                                        color: AppColorConst.appWhite),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            GestureDetector(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.chat_bubble_outline,
+                                color: AppColorConst.appWhite,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            GestureDetector(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.send,
+                                color: AppColorConst.appWhite,
+                              ),
+                            ),
+                            const Spacer(),
+                            Obx(
+                              () => GestureDetector(
+                                onTap: () => homeController.saveData(),
+                                child: homeController.isSave.value
+                                    ? const Icon(
+                                        Icons.bookmark,
+                                        color: AppColorConst.appWhite,
+                                      )
+                                    : const Icon(
+                                        Icons.bookmark_border,
+                                        color: AppColorConst.appWhite,
+                                      ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          post['likes'],
+                          style: const TextStyle(
+                            color: AppColorConst.appWhite,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          post['description'],
+                          style: const TextStyle(
+                            color: AppColorConst.appWhite,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          'View all 103 comments',
+                          style: TextStyle(
+                            color: AppColorConst.appGray,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Obx(
+                          () {
+                            final post = homeController.postList[index];
+                            final isFocused = post['isFocused'] as RxBool;
+
+                            return Row(
+                              children: [
+                                ClipOval(
+                                  child: Image.asset(
+                                    AppImageConst.appDpImage,
+                                    fit: BoxFit.cover,
+                                    width: 35,
+                                    height: 35,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: TextField(
+                                    focusNode: post['focusNode'] as FocusNode,
+                                    decoration: const InputDecoration(
+                                      hintText: "Add a comment...",
+                                      hintStyle: TextStyle(
+                                        color: AppColorConst.appGray,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                      border: InputBorder.none,
+                                    ),
+                                    style: const TextStyle(
+                                      color: AppColorConst.appWhite,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                isFocused.value
+                                    ? IconButton(
+                                        icon: const Icon(
+                                          Icons.send,
+                                          color: AppColorConst.appBlue,
+                                          size: 18,
+                                        ),
+                                        onPressed: () {},
+                                      )
+                                    : const SizedBox(),
+                                const Icon(Icons.favorite,
+                                    color: AppColorConst.appRed, size: 16),
+                                const SizedBox(width: 8),
+                                const Icon(Icons.emoji_emotions,
+                                    color: AppColorConst.appYellow, size: 16),
+                                const SizedBox(width: 8),
+                                GestureDetector(
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  child: const Icon(Icons.add_circle_outline,
+                                      color: AppColorConst.appGray, size: 16),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 6),
+                        child: Text(
+                          post['timeAgo'],
+                          style: const TextStyle(
+                            color: AppColorConst.appGray,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }),
           ),
         ],
       ),

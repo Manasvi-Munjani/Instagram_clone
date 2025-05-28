@@ -142,7 +142,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    postList.assignAll([
+    /*postList.assignAll([
       {
         'username': 'marvel',
         'userImage': AppImageConst.appPostDp,
@@ -174,12 +174,12 @@ class HomeController extends GetxController {
       focusNode.addListener(() {
         isFocused.value = focusNode.hasFocus;
       });
-    }
+    }*/
 
     fetchProfileData();
     fetchUploadedPosts();
     fetchAllUsers();
-
+    fetchUsersPosts();
     super.onInit();
   }
 
@@ -191,8 +191,55 @@ class HomeController extends GetxController {
     allUsers.value = snapshot.docs.map((doc) => doc.data()).toList();
   }
 
+// ============================= Post Fetch All users ===================================
+
+  Future<void> fetchUsersPosts() async {
+    final usersSnapshot =
+        await FirebaseFirestore.instance.collection('users').get();
+
+    final List<Map<String, dynamic>> userPosts = [];
+
+    for (final userDoc in usersSnapshot.docs) {
+      final userData = userDoc.data();
+      final uid = userDoc.id;
+
+      final userPostsSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('posts')
+          .get();
+
+      for (final postDoc in userPostsSnapshot.docs) {
+        final postData = postDoc.data();
+
+        userPosts.add({
+          'username': userData['username'] ?? '',
+          'userImage': userData['image'] ?? '',
+          'postImage': postData['image'] ?? '',
+          'caption': postData['caption'] ?? '',
+          'description': postData['description'] ?? '',
+          'likes': "0 likes" ?? '',
+          'timeAgo': postData['time'] ?? '',
+          'focusNode': FocusNode(),
+          'isFocused': false.obs,
+        });
+      }
+    }
+
+    postList.assignAll(userPosts);
+
+    for (var post in postList) {
+      final focusNode = post['focusNode'] as FocusNode;
+      final isFocused = post['isFocused'] as RxBool;
+      focusNode.addListener(() {
+        isFocused.value = focusNode.hasFocus;
+      });
+    }
+  }
+
 //====================== Post Collection ==========================
 
+/*
   void postData({
     required String caption,
     required String description,
@@ -225,6 +272,35 @@ class HomeController extends GetxController {
       uploadedPostImages.add(image);
 
       debugPrint('Post uploaded successfully! Doc ID: ${docRef.id}');
+    } catch (e) {
+      debugPrint('Failed to upload post: $e');
+    }
+  }
+*/
+
+  void postData({
+    required String caption,
+    required String description,
+    required String image,
+  }) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+
+      final post = PostsModel(
+        userid: user.uid,
+        caption: caption,
+        description: description,
+        image: image,
+        time: DateTime.now(),
+      );
+
+      // Save in top-level 'posts' collection
+      await FirebaseFirestore.instance.collection('posts').add(post.toMap());
+
+      uploadedPostImages.add(image);
+
+      debugPrint('Post uploaded globally');
     } catch (e) {
       debugPrint('Failed to upload post: $e');
     }
