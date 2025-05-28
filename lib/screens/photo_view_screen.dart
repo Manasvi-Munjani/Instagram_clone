@@ -12,7 +12,8 @@ class Photoviewscreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: PhotoView(
-        imageProvider: AssetImage(imageURL),
+        imageProvider: NetworkImage(imageURL),
+        initialScale: PhotoViewComputedScale.contained * 0.8,
         backgroundDecoration: const BoxDecoration(
           color: AppColorConst.appBlack,
         ),
@@ -20,4 +21,3 @@ class Photoviewscreen extends StatelessWidget {
     );
   }
 }
-
