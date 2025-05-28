@@ -18,62 +18,61 @@ class ProfileScreen extends StatelessWidget {
     return /* user == null
         ? SizedBox()
         :*/
-      Scaffold(
-        backgroundColor: AppColorConst.appBlack,
-        body: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 15, vertical: 15),
-                child: Row(
-                  children: [
-                    Text(
-                      user!.username,
-                      style: const TextStyle(
-                        color: AppColorConst.appWhite,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 21,
-                      ),
+        Scaffold(
+      backgroundColor: AppColorConst.appBlack,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Row(
+                children: [
+                  Text(
+                    user!.username,
+                    style: const TextStyle(
+                      color: AppColorConst.appWhite,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 21,
                     ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () => Get.off(() => AddPostScreen()),
-                      child: const Icon(
-                        Icons.add_box_outlined,
-                        color: AppColorConst.appWhite,
-                        size: 28,
-                      ),
-                    ),
-                    const SizedBox(width: 15),
-                    const Icon(
-                      Icons.menu,
+                  ),
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () => Get.off(() => AddPostScreen()),
+                    child: const Icon(
+                      Icons.add_box_outlined,
                       color: AppColorConst.appWhite,
                       size: 28,
-                    )
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  const Icon(
+                    Icons.menu,
+                    color: AppColorConst.appWhite,
+                    size: 28,
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _profileData(),
+                    const SizedBox(height: 20),
+                    _storyHighlights(),
+                    const SizedBox(height: 15),
+                    _postIcon(),
+                    const SizedBox(height: 15),
+                    _postGrid(homeController),
+                    const SizedBox(height: 15),
                   ],
                 ),
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      _profileData(),
-                      const SizedBox(height: 20),
-                      _storyHighlights(),
-                      const SizedBox(height: 15),
-                      _postIcon(),
-                      const SizedBox(height: 15),
-                      _postGrid(homeController),
-                      const SizedBox(height: 15),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -99,14 +98,13 @@ Widget _profileData() {
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-/*
-                    child: ClipOval(
+
+                    /*    child: ClipOval(
                       child: Image.asset(
                         AppImageConst.appDpImage,
                         fit: BoxFit.cover,
                       ),
-                    ),
-*/
+                    ), */
 
                     child: ClipOval(
                       child: Obx(() {
@@ -114,7 +112,7 @@ Widget _profileData() {
                         return imageUrl != null && imageUrl.isNotEmpty
                             ? Image.network(imageUrl, fit: BoxFit.cover)
                             : Image.asset(AppImageConst.appDpImage,
-                            fit: BoxFit.cover);
+                                fit: BoxFit.cover);
                       }),
                     ),
                   ),
@@ -128,7 +126,7 @@ Widget _profileData() {
                         color: AppColorConst.appBlue,
                         shape: BoxShape.circle,
                         border:
-                        Border.all(color: AppColorConst.appBlack, width: 2),
+                            Border.all(color: AppColorConst.appBlack, width: 2),
                       ),
                       child: const Icon(
                         Icons.add,
