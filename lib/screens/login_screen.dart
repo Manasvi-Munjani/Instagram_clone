@@ -146,7 +146,7 @@ class LoginScreen extends StatelessWidget {
                       child: TextButton(
                         onPressed: () {
                           if (formkey.currentState!.validate()) {
-                            homeController.SignInButton(
+                            homeController.signInButton(
                               emailController.text.trim(),
                               passwordController.text.trim(),
                             );

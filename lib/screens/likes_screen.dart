@@ -4,8 +4,8 @@ import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
-class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({super.key});
+class LikesScreen extends StatelessWidget {
+  const LikesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

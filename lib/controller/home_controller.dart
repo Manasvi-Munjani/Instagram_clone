@@ -149,6 +149,7 @@ class HomeController extends GetxController {
   }
 
 // ============================= Story Fetch All users ===================================
+
   RxList<Map<String, dynamic>> allUsers = <Map<String, dynamic>>[].obs;
 
   void fetchAllUsers() async {
@@ -204,7 +205,7 @@ class HomeController extends GetxController {
 
 //====================== Post Collection ==========================
 
-  void postData({
+  /*void postData({
     required String caption,
     required String description,
     required String image,
@@ -240,8 +241,8 @@ class HomeController extends GetxController {
       debugPrint('Failed to upload post: $e');
     }
   }
+*/
 
-/*
   void postData({
     required String caption,
     required String description,
@@ -249,26 +250,38 @@ class HomeController extends GetxController {
   }) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
-      if (user == null) return;
+
+      if (user == null) {
+        debugPrint('User not logged in');
+        return;
+      }
+
+      final userId = user.uid;
+
+      final docRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('posts')
+          .doc();
 
       final post = PostsModel(
-        userid: user.uid,
+        userid: userId,
         caption: caption,
         description: description,
         image: image,
         time: DateTime.now(),
+        postId: docRef.id,
       );
 
-      await FirebaseFirestore.instance.collection('posts').add(post.toMap());
+      await docRef.set(post.toMap());
 
       uploadedPostImages.add(image);
 
-      debugPrint('Post uploaded globally');
+      debugPrint('Post uploaded successfully! Doc ID: ${docRef.id}');
     } catch (e) {
       debugPrint('Failed to upload post: $e');
     }
   }
-*/
 
   Future<void> fetchUploadedPosts() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
@@ -289,18 +302,45 @@ class HomeController extends GetxController {
 
 // ======================== Favorite Data =======================
 
-  void favoriteData() {
+/*  void likesData(String postOwnerId, String postId) {
     final userId = FirebaseAuth.instance.currentUser!.uid;
+    final postId = FirebaseAuth.instance.currentUser!.uid;
 
     FirebaseFirestore.instance
         .collection('users')
         .doc(userId)
-        .collection('favorites');
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(userId)
+        .set({'likeAt': Timestamp.now()});
+  }*/
+
+  void likesData(String postId) async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    final likePost = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(userId);
+
+    final doc = await likePost.get();
+
+    if (doc.exists) {
+      await likePost.delete();
+      isFavorite.value = false;
+    } else {
+      await likePost.set({'likedAt': Timestamp.now()});
+      isFavorite.value = true;
+    }
   }
 
 // ======================== SignIn Button ========================
 
-  void SignInButton(String email, String password) async {
+  void signInButton(String email, String password) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -462,3 +502,22 @@ class HomeController extends GetxController {
     }
   }
 }
+
+/*
+====================== ON LIKES SCREEN =====================
+
+void checkIfLiked(String postOwnerId, String postId) async {
+  final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
+  final likeDoc = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(postOwnerId)
+      .collection('posts')
+      .doc(postId)
+      .collection('likes')
+      .doc(currentUserId)
+      .get();
+
+  isFavorite.value = likeDoc.exists;
+}
+*/

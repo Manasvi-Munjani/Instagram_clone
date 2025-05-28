@@ -5,6 +5,7 @@ import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/add_post_screen.dart';
 import 'package:instagram_clone/screens/edit_profile.dart';
+import 'package:instagram_clone/screens/likes_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
@@ -52,37 +53,35 @@ class ProfileScreen extends StatelessWidget {
                       color: AppColorConst.appWhite,
                       size: 28,
                     ),
-                    onSelected: (String value) {
+                    onSelected: (String value) async {
                       if (value == 'Saved') {
                       } else if (value == 'Your activity') {
                         final RenderBox overlay = Overlay.of(context)
                             .context
                             .findRenderObject() as RenderBox;
 
-                        showMenu(
+                        final selected = await showMenu<String>(
                           context: context,
                           position: RelativeRect.fromLTRB(
-                              overlay.size.width - 50, 80, 10, 0),
+                              overlay.size.width - 150, 80, 10, 0),
                           items: [
-                            const PopupMenuItem(
+                            const PopupMenuItem<String>(
+                              value: 'Likes',
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.favorite_outline_rounded,
-                                    size: 20,
-                                  ),
+                                  Icon(Icons.favorite_outline_rounded,
+                                      size: 20),
                                   SizedBox(width: 5),
                                   Text('Likes'),
                                 ],
                               ),
                             ),
-                            const PopupMenuItem(
+                            const PopupMenuItem<String>(
+                              value: 'Comments',
                               child: Row(
                                 children: [
-                                  Icon(
-                                    Icons.messenger_outline_outlined,
-                                    size: 20,
-                                  ),
+                                  Icon(Icons.messenger_outline_outlined,
+                                      size: 20),
                                   SizedBox(width: 5),
                                   Text('Comments'),
                                 ],
@@ -90,6 +89,12 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ],
                         );
+
+                        if (selected == 'Likes') {
+                          Get.to(() => const LikesScreen());
+                        } else if (selected == 'Comments') {
+                          // Get.to(() => CommentsScreen());
+                        }
                       } else if (value == 'LogOut') {
                         Get.off(() => const LoginScreen());
                       }
@@ -127,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
