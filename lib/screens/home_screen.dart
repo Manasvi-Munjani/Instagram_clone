@@ -323,20 +323,14 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 12),
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Icon(
-                                Icons.chat_bubble_outline,
-                                color: AppColorConst.appWhite,
-                              ),
+                            const Icon(
+                              Icons.chat_bubble_outline,
+                              color: AppColorConst.appWhite,
                             ),
                             const SizedBox(width: 12),
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Icon(
-                                Icons.send,
-                                color: AppColorConst.appWhite,
-                              ),
+                            const Icon(
+                              Icons.send,
+                              color: AppColorConst.appWhite,
                             ),
                             const Spacer(),
                             Obx(

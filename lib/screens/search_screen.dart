@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -9,6 +10,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: SingleChildScrollView(
@@ -49,14 +51,18 @@ class SearchScreen extends StatelessWidget {
               crossAxisSpacing: 3,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: postImages.length,
+              itemCount: homeController.postList.length,
+              // itemCount: postImages.length,
               itemBuilder: (context, index) {
+                final posts = homeController.postList[index];
                 return GestureDetector(
-                  onTap: () => Get.off(
-                      () => Photoviewscreen(imageURL: postImages[index])),
+                  onTap: () => Get.off(() => Photoviewscreen(
+                        imageURL: posts['postImage'], /*postImages[index]*/
+                      )),
                   child: ClipRRect(
                     child: Image.asset(
-                      postImages[index],
+                      // postImages[index],
+                      posts['postImage'],
                       fit: BoxFit.cover,
                     ),
                   ),
