@@ -203,7 +203,6 @@ class HomeScreen extends StatelessWidget {
                     itemCount: homeController.allUsers.length + 1,
                     itemBuilder: (context, index) {
                       if (index == 0) {
-                        // "Your Story"
                         return Padding(
                           padding: const EdgeInsets.only(right: 18),
                           child: Column(
@@ -220,7 +219,6 @@ class HomeScreen extends StatelessWidget {
                                     child: ClipOval(
                                       child: Image.asset(
                                         AppImageConst.appDpImage,
-                                        // Use current user's image if you want
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -261,7 +259,6 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       } else {
-                        // Show registered users from index-1
                         final user = homeController.allUsers[index - 1];
                         return Padding(
                           padding: const EdgeInsets.only(right: 12),
@@ -317,7 +314,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                user['username'] ?? 'User',
+                                user['username'] ?? '',
                                 style: const TextStyle(
                                   color: AppColorConst.appWhite,
                                   fontSize: 12,
