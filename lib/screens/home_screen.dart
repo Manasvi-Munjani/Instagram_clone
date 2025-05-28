@@ -381,8 +381,8 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           post['description'],
-                          style: const TextStyle(
-                            color: AppColorConst.appWhite,
+                          style: TextStyle(
+                            color: AppColorConst.appWhite.withOpacity(0.8),
                             fontWeight: FontWeight.w500,
                             fontSize: 14,
                           ),
