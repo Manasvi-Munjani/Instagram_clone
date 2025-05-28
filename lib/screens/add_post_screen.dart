@@ -45,6 +45,7 @@ class AddPostScreen extends StatelessWidget {
           key: _formKey,
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GetBuilder<HomeController>(builder: (_) {
                   return GestureDetector(
