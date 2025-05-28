@@ -60,10 +60,11 @@ class SearchScreen extends StatelessWidget {
                         imageURL: posts['postImage'], /*postImages[index]*/
                       )),
                   child: ClipRRect(
-                    child: Image.asset(
+                    child: Image.network(
                       // postImages[index],
                       posts['postImage'],
                       fit: BoxFit.cover,
+                      width: double.infinity,
                     ),
                   ),
                 );

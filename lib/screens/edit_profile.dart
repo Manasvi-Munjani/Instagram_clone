@@ -4,7 +4,6 @@ import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
-import 'package:instagram_clone/widgets/cloudinary_image.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class EditProfile extends StatelessWidget {
