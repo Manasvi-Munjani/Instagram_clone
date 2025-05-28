@@ -142,40 +142,6 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    /*postList.assignAll([
-      {
-        'username': 'marvel',
-        'userImage': AppImageConst.appPostDp,
-        'postImage': AppImageConst.appPost,
-        'caption':
-            "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
-        'likes': '105,762 likes',
-        'timeAgo': '13 hours ago',
-        'focusNode': FocusNode(),
-        'isFocused': false.obs,
-      },
-      {
-        'username': 'Beauty_of_Nature',
-        'userImage': AppImageConst.appPostDp,
-        'postImage': AppImageConst.appNature,
-        'caption':
-            "marvel We can’t get enough of this dynamic duo. Marvel Studios' @HawkeyeOfficial is...",
-        'likes': '105,762 likes',
-        'timeAgo': '13 hours ago',
-        'focusNode': FocusNode(),
-        'isFocused': false.obs,
-      },
-    ]);
-
-    for (var post in postList) {
-      final focusNode = post['focusNode'] as FocusNode;
-      final isFocused = post['isFocused'] as RxBool;
-
-      focusNode.addListener(() {
-        isFocused.value = focusNode.hasFocus;
-      });
-    }*/
-
     fetchProfileData();
     fetchUploadedPosts();
     fetchAllUsers();
@@ -239,7 +205,6 @@ class HomeController extends GetxController {
 
 //====================== Post Collection ==========================
 
-/*
   void postData({
     required String caption,
     required String description,
@@ -276,8 +241,8 @@ class HomeController extends GetxController {
       debugPrint('Failed to upload post: $e');
     }
   }
-*/
 
+/*
   void postData({
     required String caption,
     required String description,
@@ -295,7 +260,6 @@ class HomeController extends GetxController {
         time: DateTime.now(),
       );
 
-      // Save in top-level 'posts' collection
       await FirebaseFirestore.instance.collection('posts').add(post.toMap());
 
       uploadedPostImages.add(image);
@@ -305,6 +269,7 @@ class HomeController extends GetxController {
       debugPrint('Failed to upload post: $e');
     }
   }
+*/
 
   Future<void> fetchUploadedPosts() async {
     final userId = FirebaseAuth.instance.currentUser?.uid;
