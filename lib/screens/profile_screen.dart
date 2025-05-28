@@ -15,10 +15,7 @@ class ProfileScreen extends StatelessWidget {
     final HomeController homeController = Get.find<HomeController>();
     final user = homeController.userModel.value;
 
-    return /* user == null
-        ? SizedBox()
-        :*/
-        Scaffold(
+    return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       body: SafeArea(
         child: Column(
