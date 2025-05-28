@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                   )*/
 
                   PopupMenuButton<String>(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.menu,
                       color: AppColorConst.appWhite,
                       size: 28,
@@ -61,11 +61,11 @@ class ProfileScreen extends StatelessWidget {
                     },
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<String>>[
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'Save',
                         child: Text('Save'),
                       ),
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'LogOut',
                         child: Text('LogOut'),
                       ),
