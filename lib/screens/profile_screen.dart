@@ -8,6 +8,7 @@ import 'package:instagram_clone/screens/edit_profile.dart';
 import 'package:instagram_clone/screens/likes_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
+import 'package:instagram_clone/screens/post_details_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -451,6 +452,8 @@ Widget _postIcon() {
 }
 
 Widget _postGrid(HomeController homeController) {
+  final HomeController homeController = Get.find();
+
   return Obx(() {
     if (homeController.uploadedPostImages.isEmpty) {
       return const Center(child: Text('No posts yet.'));
@@ -468,11 +471,15 @@ Widget _postGrid(HomeController homeController) {
       itemBuilder: (context, index) {
         final img = homeController.uploadedPostImages[index];
         return GestureDetector(
-          onTap: () => Get.off(() => Photoviewscreen(imageURL: img)),
+          onTap: () => Get.off(() => PostDetailsScreen(
+                posts: homeController.uploadedPostImages,
+                initialIndex: index,
+              )),
+          // onTap: () => Get.off(() => Photoviewscreen(imageURL: img)),
           child: SizedBox(
             height: 150,
             child: Image.network(
-              img,
+              img.image,
               fit: BoxFit.cover,
             ),
           ),

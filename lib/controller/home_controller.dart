@@ -36,7 +36,6 @@ class HomeController extends GetxController {
   File? fileImage;
   final ImagePicker _picker = ImagePicker();
   final RxString uploadedImageUrl = ''.obs;
-  final RxList<String> uploadedPostImages = <String>[].obs;
 
   Future<void> pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
@@ -205,43 +204,8 @@ class HomeController extends GetxController {
 
 //====================== Post Collection ==========================
 
-  /*void postData({
-    required String caption,
-    required String description,
-    required String image,
-  }) async {
-    try {
-      final user = FirebaseAuth.instance.currentUser;
-
-      if (user == null) {
-        debugPrint('User not logged in');
-        return;
-      }
-
-      final userId = user.uid;
-
-      final post = PostsModel(
-        userid: userId,
-        caption: caption,
-        description: description,
-        image: image,
-        time: DateTime.now(),
-      );
-
-      final docRef = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .collection('posts')
-          .add(post.toMap());
-
-      uploadedPostImages.add(image);
-
-      debugPrint('Post uploaded successfully! Doc ID: ${docRef.id}');
-    } catch (e) {
-      debugPrint('Failed to upload post: $e');
-    }
-  }
-*/
+  // final RxList<String> uploadedPostImages = <String>[].obs;
+  final RxList<PostsModel> uploadedPostImages = <PostsModel>[].obs;
 
   void postData({
     required String caption,
@@ -275,7 +239,8 @@ class HomeController extends GetxController {
 
       await docRef.set(post.toMap());
 
-      uploadedPostImages.add(image);
+      // uploadedPostImages.add(image);
+      uploadedPostImages.add(post);
 
       debugPrint('Post uploaded successfully! Doc ID: ${docRef.id}');
     } catch (e) {
@@ -287,16 +252,26 @@ class HomeController extends GetxController {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) return;
 
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('posts')
-        .get();
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('posts')
+          .get();
 
-    uploadedPostImages.clear();
+      uploadedPostImages.clear();
 
-    for (var doc in snapshot.docs) {
+      /*for (var doc in snapshot.docs) {
       uploadedPostImages.add(doc['image']);
+    }*/
+
+      for (var doc in snapshot.docs) {
+        debugPrint("Fetched Post: ${doc.data()}");
+
+        uploadedPostImages.add(PostsModel.fromMap(doc.data()));
+      }
+    } catch (e) {
+      debugPrint('Error:$e');
     }
   }
 
