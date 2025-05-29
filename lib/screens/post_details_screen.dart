@@ -5,7 +5,7 @@ import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/models/posts_model.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 
-/*class PostDetailsScreen extends StatelessWidget {
+class PostDetailsScreen extends StatelessWidget {
   final List<PostsModel> posts;
   final int initialIndex;
 
@@ -161,9 +161,9 @@ import 'package:instagram_clone/screens/profile_screen.dart';
       ),
     );
   }
-}*/
+}
 
-
+/*
 class PostDetailsScreen extends StatefulWidget {
   final List<PostsModel> posts;
   final int initialIndex;
@@ -349,3 +349,4 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     );
   }
 }
+*/
