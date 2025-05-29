@@ -28,6 +28,7 @@ class HomeController extends GetxController {
   var isDataSet = false.obs;
   final picker = ImagePicker();
   var userModel = Rxn<UserModel>();
+  var allPosts = <PostsModel>[].obs;
 
 //============================ Post Image ======================
 
@@ -112,11 +113,19 @@ class HomeController extends GetxController {
 
 // ======================== Favorite Icon ========================
 
+  /*void favoriteIcon(Map<String, dynamic> post) {
+    post['isFavorite'].value = !post['isFavorite'].value;
+  }*/
+
   void favoriteIcon() {
     isFavorite.value = !isFavorite.value;
   }
 
 // ======================== Save Icon ========================
+
+  /*void saveData(Map<String, dynamic> post) {
+    post['isSaved'].value = !post['isSaved'].value;
+  }*/
 
   void saveData() {
     isSave.value = !isSave.value;

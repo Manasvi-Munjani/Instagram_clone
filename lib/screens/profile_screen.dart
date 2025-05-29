@@ -20,123 +20,127 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Row(
-                children: [
-                  Text(
-                    user!.username,
-                    style: const TextStyle(
-                      color: AppColorConst.appWhite,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 21,
+      appBar: AppBar(
+        backgroundColor: AppColorConst.appBlack,
+        title:  Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: Row(
+            children: [
+              Text(
+                user!.username,
+                style: const TextStyle(
+                  color: AppColorConst.appWhite,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 21,
+                ),
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () => Get.off(() => AddPostScreen()),
+                child: const Tooltip(
+                  message: 'Add Post',
+                  child: Icon(
+                    Icons.add_box_outlined,
+                    color: AppColorConst.appWhite,
+                    size: 28,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 15),
+              PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.menu,
+                  color: AppColorConst.appWhite,
+                  size: 28,
+                ),
+                onSelected: (String value) async {
+                  if (value == 'Saved') {
+                  } else if (value == 'Your activity') {
+                    final RenderBox overlay = Overlay.of(context)
+                        .context
+                        .findRenderObject() as RenderBox;
+
+                    final selected = await showMenu<String>(
+                      context: context,
+                      position: RelativeRect.fromLTRB(
+                          overlay.size.width - 150, 80, 10, 0),
+                      items: [
+                        const PopupMenuItem<String>(
+                          value: 'Likes',
+                          child: Row(
+                            children: [
+                              Icon(Icons.favorite_outline_rounded,
+                                  size: 20),
+                              SizedBox(width: 5),
+                              Text('Likes'),
+                            ],
+                          ),
+                        ),
+                        const PopupMenuItem<String>(
+                          value: 'Comments',
+                          child: Row(
+                            children: [
+                              Icon(Icons.messenger_outline_outlined,
+                                  size: 20),
+                              SizedBox(width: 5),
+                              Text('Comments'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+
+                    if (selected == 'Likes') {
+                      Get.to(() => const LikesScreen());
+                    } else if (selected == 'Comments') {
+                      // Get.to(() => CommentsScreen());
+                    }
+                  } else if (value == 'LogOut') {
+                    Get.off(() => const LoginScreen());
+                  }
+                },
+                itemBuilder: (BuildContext context) =>
+                <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                    value: 'Saved',
+                    child: Row(
+                      children: [
+                        Icon(Icons.bookmark_outline_outlined, size: 20),
+                        SizedBox(width: 5),
+                        Text('Saved'),
+                      ],
                     ),
                   ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () => Get.off(() => AddPostScreen()),
-                    child: const Tooltip(
-                      message: 'Add Post',
-                      child: Icon(
-                        Icons.add_box_outlined,
-                        color: AppColorConst.appWhite,
-                        size: 28,
-                      ),
+                  const PopupMenuItem<String>(
+                    value: 'Your activity',
+                    child: Row(
+                      children: [
+                        Icon(Icons.broken_image_outlined, size: 20),
+                        SizedBox(width: 5),
+                        Text('Your activity'),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 15),
-                  PopupMenuButton<String>(
-                    icon: const Icon(
-                      Icons.menu,
-                      color: AppColorConst.appWhite,
-                      size: 28,
+                  const PopupMenuItem<String>(
+                    value: 'LogOut',
+                    child: Row(
+                      children: [
+                        Icon(Icons.logout, size: 20),
+                        SizedBox(width: 5),
+                        Text('LogOut'),
+                      ],
                     ),
-                    onSelected: (String value) async {
-                      if (value == 'Saved') {
-                      } else if (value == 'Your activity') {
-                        final RenderBox overlay = Overlay.of(context)
-                            .context
-                            .findRenderObject() as RenderBox;
-
-                        final selected = await showMenu<String>(
-                          context: context,
-                          position: RelativeRect.fromLTRB(
-                              overlay.size.width - 150, 80, 10, 0),
-                          items: [
-                            const PopupMenuItem<String>(
-                              value: 'Likes',
-                              child: Row(
-                                children: [
-                                  Icon(Icons.favorite_outline_rounded,
-                                      size: 20),
-                                  SizedBox(width: 5),
-                                  Text('Likes'),
-                                ],
-                              ),
-                            ),
-                            const PopupMenuItem<String>(
-                              value: 'Comments',
-                              child: Row(
-                                children: [
-                                  Icon(Icons.messenger_outline_outlined,
-                                      size: 20),
-                                  SizedBox(width: 5),
-                                  Text('Comments'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-
-                        if (selected == 'Likes') {
-                          Get.to(() => const LikesScreen());
-                        } else if (selected == 'Comments') {
-                          // Get.to(() => CommentsScreen());
-                        }
-                      } else if (value == 'LogOut') {
-                        Get.off(() => const LoginScreen());
-                      }
-                    },
-                    itemBuilder: (BuildContext context) =>
-                        <PopupMenuEntry<String>>[
-                      const PopupMenuItem<String>(
-                        value: 'Saved',
-                        child: Row(
-                          children: [
-                            Icon(Icons.bookmark_outline_outlined, size: 20),
-                            SizedBox(width: 5),
-                            Text('Saved'),
-                          ],
-                        ),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'Your activity',
-                        child: Row(
-                          children: [
-                            Icon(Icons.broken_image_outlined, size: 20),
-                            SizedBox(width: 5),
-                            Text('Your activity'),
-                          ],
-                        ),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'LogOut',
-                        child: Row(
-                          children: [
-                            Icon(Icons.logout, size: 20),
-                            SizedBox(width: 5),
-                            Text('LogOut'),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
-            ),
+            ],
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

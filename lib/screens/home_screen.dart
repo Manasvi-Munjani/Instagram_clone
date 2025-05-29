@@ -4,7 +4,6 @@ import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/likes_screen.dart';
-import 'package:instagram_clone/screens/order_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 import 'package:instagram_clone/screens/reels_screen.dart';
 import 'package:instagram_clone/screens/search_screen.dart';
@@ -21,7 +20,7 @@ class HomeScreen extends StatelessWidget {
     final List<Widget> screens = [
       _homeContent(homeController),
       const SearchScreen(),
-      const OrderScreen(),
+      // const OrderScreen(),
       const ReelsScreen(),
       const ProfileScreen(),
     ];
@@ -71,7 +70,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: SizedBox(
               height: 100,
               child: Obx(() => ListView.builder(

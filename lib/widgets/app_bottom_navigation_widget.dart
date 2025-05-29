@@ -15,7 +15,7 @@ class AppBottomNavigationWidget extends StatelessWidget {
     final List<IconData> iconsFilled = [
       Icons.home,
       Icons.search,
-      Icons.add_box,
+      // Icons.add_box,
       Icons.movie_creation_rounded,
       Icons.person,
     ];
@@ -23,7 +23,7 @@ class AppBottomNavigationWidget extends StatelessWidget {
     final List<IconData> iconsOutlined = [
       Icons.home_outlined,
       Icons.search,
-      Icons.add_box_outlined,
+      // Icons.add_box_outlined,
       Icons.movie_creation_outlined,
       Icons.person_outline,
     ];
@@ -34,7 +34,7 @@ class AppBottomNavigationWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: List.generate(5, (index) {
+          children: List.generate(4, (index) {
             return GestureDetector(
               onTap: () {
                 homeController.selectIcon(index);
