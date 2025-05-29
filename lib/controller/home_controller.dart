@@ -440,16 +440,22 @@ class HomeController extends GetxController {
 // =========================== Fetch profile Data =================================
 
   Future<void> fetchProfileData() async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    try {
+      final userId = FirebaseAuth.instance.currentUser!.uid;
 
-    DocumentSnapshot userdoc =
-        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+      DocumentSnapshot userdoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
 
-    if (userdoc.exists) {
-      userModel.value = UserModel(
-          userid: userdoc['userid'],
-          username: userdoc['username'],
-          email: userdoc['email']);
+      if (userdoc.exists) {
+        userModel.value = UserModel(
+            userid: userdoc['userid'],
+            username: userdoc['username'],
+            email: userdoc['email']);
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
 

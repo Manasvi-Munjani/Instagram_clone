@@ -164,7 +164,9 @@ Widget _profileData() {
 
   return Obx(() {
     final user = homeController.userModel.value;
-
+    /*if (user == null) {
+      return const Center(child: CircularProgressIndicator());
+    }*/
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(

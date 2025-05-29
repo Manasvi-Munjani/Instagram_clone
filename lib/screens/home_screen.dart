@@ -209,11 +209,14 @@ class HomeScreen extends StatelessWidget {
             height: 1000,
             child: Obx(() {
               if (homeController.postList.isEmpty) {
-                Center(
+                return Center(
                   child: LoadingAnimationWidget.hexagonDots(
-                      color: AppColorConst.appWhite, size: 24),
+                    color: AppColorConst.appWhite,
+                    size: 24,
+                  ),
                 );
               }
+
               return ListView.builder(
                 itemCount: homeController.postList.length,
                 itemBuilder: (context, index) {

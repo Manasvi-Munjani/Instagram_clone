@@ -8,7 +8,6 @@ import 'package:instagram_clone/screens/welcome_screen.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  Get.put(HomeController());
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
@@ -20,6 +19,7 @@ Future<void> main() async {
   } catch (e) {
     debugPrint('Firebase initialization error: $e');
   }
+  Get.put(HomeController());
 
   runApp(const MyApp());
 }
