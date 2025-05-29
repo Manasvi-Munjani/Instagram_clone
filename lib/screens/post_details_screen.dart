@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/models/posts_model.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
 
@@ -14,6 +15,8 @@ class PostDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       appBar: AppBar(
@@ -26,10 +29,10 @@ class PostDetailsScreen extends StatelessWidget {
             size: 20,
           ),
         ),
-        title: const Center(
+        title: Center(
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Posts',
                 style: TextStyle(
                   color: AppColorConst.appWhite,
@@ -37,10 +40,11 @@ class PostDetailsScreen extends StatelessWidget {
                   fontSize: 17,
                 ),
               ),
-              SizedBox(height: 3),
+              const SizedBox(height: 3),
               Text(
-                'UserName',
-                style: TextStyle(
+                // 'UserName',
+                homeController.userModel.value!.username,
+                style: const TextStyle(
                     color: AppColorConst.appWhite,
                     fontWeight: FontWeight.w500,
                     fontSize: 14),
@@ -98,8 +102,8 @@ class PostDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'name',
-                          style: TextStyle(
+                          homeController.userModel.value!.username,
+                          style: const TextStyle(
                             color: AppColorConst.appWhite,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -107,7 +111,7 @@ class PostDetailsScreen extends StatelessWidget {
                         ),
                         Text(
                           post.caption!,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColorConst.appGray,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
