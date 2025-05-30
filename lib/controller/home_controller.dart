@@ -303,8 +303,10 @@ class HomeController extends GetxController {
           .collection('posts')
           .doc(postId)
           .delete();
+      allPosts.removeWhere((post) => post.postId == postId);
 
       Fluttertoast.showToast(msg: 'Post deleted successfully');
+      update();
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
       debugPrint('Error : ${e.toString()}');
