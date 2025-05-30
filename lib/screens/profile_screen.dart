@@ -7,7 +7,6 @@ import 'package:instagram_clone/screens/add_post_screen.dart';
 import 'package:instagram_clone/screens/edit_profile.dart';
 import 'package:instagram_clone/screens/likes_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
-import 'package:instagram_clone/screens/photo_view_screen.dart';
 import 'package:instagram_clone/screens/post_details_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
