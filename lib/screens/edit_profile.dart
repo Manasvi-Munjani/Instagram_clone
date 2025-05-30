@@ -113,8 +113,6 @@ class EditProfile extends StatelessWidget {
                                     image: uploadedUrl,
                                   );
                                 }
-
-
                               },
                               child: Container(
                                 width: 24,

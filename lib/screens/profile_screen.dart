@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: AppColorConst.appBlack,
       appBar: AppBar(
         backgroundColor: AppColorConst.appBlack,
-        title:  Padding(
+        title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: Row(
             children: [
@@ -69,8 +69,7 @@ class ProfileScreen extends StatelessWidget {
                           value: 'Likes',
                           child: Row(
                             children: [
-                              Icon(Icons.favorite_outline_rounded,
-                                  size: 20),
+                              Icon(Icons.favorite_outline_rounded, size: 20),
                               SizedBox(width: 5),
                               Text('Likes'),
                             ],
@@ -80,8 +79,7 @@ class ProfileScreen extends StatelessWidget {
                           value: 'Comments',
                           child: Row(
                             children: [
-                              Icon(Icons.messenger_outline_outlined,
-                                  size: 20),
+                              Icon(Icons.messenger_outline_outlined, size: 20),
                               SizedBox(width: 5),
                               Text('Comments'),
                             ],
@@ -99,8 +97,7 @@ class ProfileScreen extends StatelessWidget {
                     Get.off(() => const LoginScreen());
                   }
                 },
-                itemBuilder: (BuildContext context) =>
-                <PopupMenuEntry<String>>[
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                   const PopupMenuItem<String>(
                     value: 'Saved',
                     child: Row(
@@ -140,7 +137,6 @@ class ProfileScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-
             Expanded(
               child: SingleChildScrollView(
                 child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appImage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
@@ -120,10 +121,45 @@ class PostDetailsScreen extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    const Icon(
-                      Icons.more_horiz,
-                      color: AppColorConst.appWhite,
-                    ),
+                    PopupMenuButton<String>(
+                      icon: const Icon(
+                        Icons.more_horiz,
+                        color: AppColorConst.appWhite,
+                      ),
+                      onSelected: (String value) {
+                        if (value == 'Delete') {
+
+                          homeController.deletePost(post.postId);
+
+                          Fluttertoast.showToast(
+                              msg:
+                                  'can you sure you want to delete this post?.');
+                        } else if (value == 'Edit') {}
+                      },
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<String>>[
+                        const PopupMenuItem<String>(
+                          value: 'Delete',
+                          child: Row(
+                            children: [
+                              Icon(Icons.delete_outline, size: 20),
+                              SizedBox(width: 8),
+                              Text('Delete'),
+                            ],
+                          ),
+                        ),
+                        const PopupMenuItem<String>(
+                          value: 'Edit',
+                          child: Row(
+                            children: [
+                              Icon(Icons.edit_outlined, size: 20),
+                              SizedBox(width: 8),
+                              Text('Edit'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
                 const SizedBox(height: 8),

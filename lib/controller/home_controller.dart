@@ -284,6 +284,33 @@ class HomeController extends GetxController {
     }
   }
 
+// ======================== Delete Post ========================
+
+  void deletePost(String postId) {
+    try {
+      debugPrint('Deleting post with ID: $postId');
+
+      if (postId.isEmpty) {
+        Fluttertoast.showToast(msg: 'Post ID is empty!');
+        return;
+      }
+
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('posts')
+          .doc(postId)
+          .delete();
+
+      Fluttertoast.showToast(msg: 'Post deleted successfully');
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+      debugPrint('Error : ${e.toString()}');
+    }
+  }
+
 // ======================== Favorite Data =======================
 
 /*  void likesData(String postOwnerId, String postId) {

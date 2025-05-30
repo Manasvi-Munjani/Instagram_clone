@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/constant/appimage_const.dart';
+import 'package:instagram_clone/constant/timestamp.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/likes_screen.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
@@ -457,7 +459,7 @@ class HomeScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 6),
                         child: Text(
-                          post['timeAgo'],
+                          timeAgoFromTimestamp(post['timeAgo'] as Timestamp),
                           style: const TextStyle(
                             color: AppColorConst.appGray,
                             fontSize: 12,
