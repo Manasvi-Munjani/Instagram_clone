@@ -316,7 +316,7 @@ class HomeScreen extends StatelessWidget {
                             horizontal: 10, vertical: 8),
                         child: Row(
                           children: [
-                            Obx(
+                            /*    Obx(
                               () => GestureDetector(
                                 onTap: () => homeController.favoriteIcon(),
                                 child: homeController.isFavorite.value
@@ -325,7 +325,25 @@ class HomeScreen extends StatelessWidget {
                                     : const Icon(Icons.favorite_outline_rounded,
                                         color: AppColorConst.appWhite),
                               ),
-                            ),
+                            ),*/
+                            Obx(() {
+                              final RxBool isLiked = post['isFavorite'];
+                              return GestureDetector(
+                                onTap: () {
+                                  homeController.likesData(
+                                    postOwnerId: post['postOwnerId'],
+                                    postId: post['postId'],
+                                    postData: post,
+                                  );
+                                  isLiked.value = !isLiked.value;
+                                },
+                                child: isLiked.value
+                                    ? const Icon(Icons.favorite_rounded,
+                                        color: AppColorConst.appRed)
+                                    : const Icon(Icons.favorite_outline_rounded,
+                                        color: AppColorConst.appWhite),
+                              );
+                            }),
                             const SizedBox(width: 12),
                             const Icon(
                               Icons.chat_bubble_outline,

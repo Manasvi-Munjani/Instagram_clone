@@ -185,8 +185,12 @@ class HomeController extends GetxController {
 
       for (final postDoc in userPostsSnapshot.docs) {
         final postData = postDoc.data();
+        final postId = postDoc.id;
+
+        final isLiked = await isPostLiked(postOwnerId: uid, postId: postId);
 
         userPosts.add({
+          'postId': postId,
           'username': userData['username'] ?? '',
           'userImage': userData['image'] ?? '',
           'postImage': postData['image'] ?? '',
@@ -196,6 +200,8 @@ class HomeController extends GetxController {
           'timeAgo': postData['time'] ?? '',
           'focusNode': FocusNode(),
           'isFocused': false.obs,
+          'isFavorite': false.obs,
+          'postOwnerId': uid,
         });
       }
     }
@@ -315,40 +321,56 @@ class HomeController extends GetxController {
 
 // ======================== Favorite Data =======================
 
-/*  void likesData(String postOwnerId, String postId) {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    final postId = FirebaseAuth.instance.currentUser!.uid;
+  void likesData({
+    required String postOwnerId,
+    required String postId,
+    required Map<String, dynamic> postData,
+  }) async {
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
-    FirebaseFirestore.instance
+    final likeDocRef = FirebaseFirestore.instance
         .collection('users')
-        .doc(userId)
+        .doc(postOwnerId)
         .collection('posts')
         .doc(postId)
         .collection('likes')
-        .doc(userId)
-        .set({'likeAt': Timestamp.now()});
-  }*/
+        .doc(currentUserId);
 
-  void likesData(String postId) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final likeDoc = await likeDocRef.get();
 
-    final likePost = FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('posts')
-        .doc(postId)
-        .collection('likes')
-        .doc(userId);
-
-    final doc = await likePost.get();
-
-    if (doc.exists) {
-      await likePost.delete();
+    if (likeDoc.exists) {
+      await likeDocRef.delete();
       isFavorite.value = false;
     } else {
-      await likePost.set({'likedAt': Timestamp.now()});
+      await likeDocRef.set({
+        'postId': postId,
+        'postImage': postData['image'] ?? '',
+        'caption': postData['caption'] ?? '',
+        'description': postData['description'] ?? '',
+        'likes': postData['likes'],
+        'likedAt': Timestamp.now()
+      });
       isFavorite.value = true;
     }
+  }
+
+// ============================= Get Likes Data ===============================
+  Future<bool> isPostLiked({
+    required String postOwnerId,
+    required String postId,
+  }) async {
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
+    final likeDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(postOwnerId)
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(currentUserId)
+        .get();
+
+    return likeDoc.exists;
   }
 
 // ======================== SignIn Button ========================
