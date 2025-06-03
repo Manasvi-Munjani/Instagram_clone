@@ -188,6 +188,7 @@ class HomeController extends GetxController {
         final postId = postDoc.id;
 
         final isLiked = await isPostLiked(postOwnerId: uid, postId: postId);
+        final likeCount = await getLikesCount(uid, postId);
 
         userPosts.add({
           'postId': postId,
@@ -196,7 +197,8 @@ class HomeController extends GetxController {
           'postImage': postData['image'] ?? '',
           'caption': postData['caption'] ?? '',
           'description': postData['description'] ?? '',
-          'likes': "0 likes" ?? '',
+          // 'likes': "0 likes" ?? '',
+          'likes': "$likeCount likes",
           'timeAgo': postData['time'] ?? '',
           'focusNode': FocusNode(),
           'isFocused': false.obs,
@@ -344,7 +346,7 @@ class HomeController extends GetxController {
     } else {
       await likeDocRef.set({
         'postId': postId,
-        'postImage': postData['image'] ?? '',
+        'image': postData['postImage'] ?? '',
         'caption': postData['caption'] ?? '',
         'description': postData['description'] ?? '',
         'likes': postData['likes'],
@@ -355,11 +357,39 @@ class HomeController extends GetxController {
   }
 
 // ============================= Get Likes Data ===============================
+
+  /*void likesData({
+  required String postOwnerId,
+  required String postId,
+  required Map<String, dynamic> postData,
+}) async {
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+  final likesRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc(postOwnerId)
+      .collection('posts')
+      .doc(postId)
+      .collection('likes')
+      .doc(userId);
+
+  final doc = await likesRef.get();
+
+  if (doc.exists) {
+    // Unlike
+    await likesRef.delete();
+  } else {
+    // Like
+    await likesRef.set({'likedAt': FieldValue.serverTimestamp()});
+  }
+}
+*/
+
   Future<bool> isPostLiked({
     required String postOwnerId,
     required String postId,
+    required Map<String, dynamic> postData,
   }) async {
-    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    final userId = FirebaseAuth.instance.currentUser!.uid;
 
     final likeDoc = await FirebaseFirestore.instance
         .collection('users')
@@ -367,10 +397,33 @@ class HomeController extends GetxController {
         .collection('posts')
         .doc(postId)
         .collection('likes')
-        .doc(currentUserId)
+        .doc(userId);
+        // .get();
+
+    // return likeDoc.exists;
+
+
+    final doc = await likeDoc.get();
+
+    if (doc.exists) {
+      // Unlike
+      await likeDoc.delete();
+    } else {
+      // Like
+      await likeDoc.set({'likedAt': FieldValue.serverTimestamp()});
+    }
+  }
+
+  Future<int> getLikesCount(String postOwnerId, String postId) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(postOwnerId)
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
         .get();
 
-    return likeDoc.exists;
+    return snapshot.docs.length;
   }
 
 // ======================== SignIn Button ========================
@@ -544,21 +597,21 @@ class HomeController extends GetxController {
   }
 }
 
+//====================== ON LIKES SCREEN =====================
+
 /*
-====================== ON LIKES SCREEN =====================
+RxMap<String, bool> likedPosts = <String, bool>{}.obs;
 
-void checkIfLiked(String postOwnerId, String postId) async {
-  final currentUserId = FirebaseAuth.instance.currentUser!.uid;
-
-  final likeDoc = await FirebaseFirestore.instance
+Future<void> checkIfLiked(String postOwnerId, String postId) async {
+  final doc = await FirebaseFirestore.instance
       .collection('users')
       .doc(postOwnerId)
       .collection('posts')
       .doc(postId)
       .collection('likes')
-      .doc(currentUserId)
+      .doc(FirebaseAuth.instance.currentUser!.uid)
       .get();
 
-  isFavorite.value = likeDoc.exists;
+  likedPosts[postId] = doc.exists;
 }
 */

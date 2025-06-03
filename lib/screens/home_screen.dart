@@ -496,3 +496,65 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+/*Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+  child: StreamBuilder<QuerySnapshot>(
+    stream: FirebaseFirestore.instance
+        .collection('users')
+        .doc(post['postOwnerId'])
+        .collection('posts')
+        .doc(post['postId'])
+        .collection('likes')
+        .snapshots(),
+    builder: (context, snapshot) {
+      final likeCount = snapshot.hasData ? snapshot.data!.docs.length : 0;
+
+      return Row(
+        children: [
+          FutureBuilder<DocumentSnapshot>(
+            future: FirebaseFirestore.instance
+                .collection('users')
+                .doc(post['postOwnerId'])
+                .collection('posts')
+                .doc(post['postId'])
+                .collection('likes')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .get(),
+            builder: (context, likeSnapshot) {
+              final isLiked = likeSnapshot.data?.exists ?? false;
+
+              return GestureDetector(
+                onTap: () {
+                  homeController.likesData(
+                    postOwnerId: post['postOwnerId'],
+                    postId: post['postId'],
+                    postData: post,
+                  );
+                },
+                child: Icon(
+                  isLiked
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_outline_rounded,
+                  color: isLiked
+                      ? AppColorConst.appRed
+                      : AppColorConst.appWhite,
+                ),
+              );
+            },
+          ),
+          const SizedBox(width: 6),
+          Text(
+            '$likeCount likes',
+            style: const  TextStyle(
+              color: AppColorConst.appWhite,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      );
+    },
+  ),
+),
+*/
