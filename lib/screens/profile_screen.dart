@@ -310,7 +310,6 @@ Widget _profileData() {
           if (user.link != null && user.link!.isNotEmpty)
             Text(
               user.link!,
-
               // 'www.johnscott.com',
               style: const TextStyle(
                 color: AppColorConst.appWhite,

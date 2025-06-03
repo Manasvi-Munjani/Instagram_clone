@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
+import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
 
@@ -9,6 +10,9 @@ class LikesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final HomeController homeController = Get.find<HomeController>();
+
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
       appBar: AppBar(

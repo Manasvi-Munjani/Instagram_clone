@@ -113,12 +113,8 @@ class HomeController extends GetxController {
 
 // ======================== Favorite Icon ========================
 
-  /*void favoriteIcon(Map<String, dynamic> post) {
-    post['isFavorite'].value = !post['isFavorite'].value;
-  }*/
-
-  void favoriteIcon() {
-    isFavorite.value = !isFavorite.value;
+  void favoriteIcon(String postId) {
+    likedPosts[postId] = !(likedPosts[postId] ?? false);
   }
 
 // ======================== Save Icon ========================
@@ -197,12 +193,11 @@ class HomeController extends GetxController {
           'postImage': postData['image'] ?? '',
           'caption': postData['caption'] ?? '',
           'description': postData['description'] ?? '',
-          // 'likes': "0 likes" ?? '',
           'likes': "$likeCount likes",
           'timeAgo': postData['time'] ?? '',
           'focusNode': FocusNode(),
           'isFocused': false.obs,
-          'isFavorite': false.obs,
+          'isFavorite': isLiked.obs,
           'postOwnerId': uid,
         });
       }
@@ -221,7 +216,6 @@ class HomeController extends GetxController {
 
 //====================== Post Collection ==========================
 
-  // final RxList<String> uploadedPostImages = <String>[].obs;
   final RxList<PostsModel> uploadedPostImages = <PostsModel>[].obs;
 
   void postData({
@@ -278,10 +272,6 @@ class HomeController extends GetxController {
 
       uploadedPostImages.clear();
 
-      /*for (var doc in snapshot.docs) {
-      uploadedPostImages.add(doc['image']);
-    }*/
-
       for (var doc in snapshot.docs) {
         debugPrint("Fetched Post: ${doc.data()}");
 
@@ -311,7 +301,8 @@ class HomeController extends GetxController {
           .collection('posts')
           .doc(postId)
           .delete();
-      allPosts.removeWhere((post) => post.postId == postId);
+
+      postList.removeWhere((post) => post['postId'] == postId);
 
       Fluttertoast.showToast(msg: 'Post deleted successfully');
       update();
@@ -323,7 +314,7 @@ class HomeController extends GetxController {
 
 // ======================== Favorite Data =======================
 
-  void likesData({
+  Future<Map<String, dynamic>> likesData({
     required String postOwnerId,
     required String postId,
     required Map<String, dynamic> postData,
@@ -342,54 +333,68 @@ class HomeController extends GetxController {
 
     if (likeDoc.exists) {
       await likeDocRef.delete();
-      isFavorite.value = false;
     } else {
       await likeDocRef.set({
         'postId': postId,
-        'image': postData['postImage'] ?? '',
-        'caption': postData['caption'] ?? '',
-        'description': postData['description'] ?? '',
-        'likes': postData['likes'],
-        'likedAt': Timestamp.now()
+        'likedAt': Timestamp.now(),
       });
-      isFavorite.value = true;
+    }
+
+    final updatedCount = await getLikesCount(postOwnerId, postId);
+    final isLiked = await isPostLiked(postOwnerId: postOwnerId, postId: postId);
+
+    return {
+      'isLiked': isLiked,
+      'likeCount': updatedCount,
+    };
+  }
+
+// ==================== likes screen particulate user FetchLiked Data ==========================
+
+  RxList<String> likedImageUrls = <String>[].obs;
+
+  void fetchLikedPosts() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final likedPosts = userDoc.data()?['likedPosts'] ?? [];
+
+      if (likedPosts.isNotEmpty) {
+        List<String> imageUrls = [];
+
+        for (var post in likedPosts) {
+          final postId = post['postId'];
+          final postOwnerId = post['postOwnerId'];
+
+          final postDoc = await FirebaseFirestore.instance
+              .collection('users')
+              .doc(postOwnerId)
+              .collection('posts')
+              .doc(postId)
+              .get();
+
+          if (postDoc.exists) {
+            imageUrls.add(postDoc.data()?['imageURL']);
+          }
+          print("---------------$postDoc");
+
+        }
+        likedImageUrls.value = imageUrls;
+      } else {
+        likedImageUrls.value = [];
+      }
     }
   }
 
+
+
 // ============================= Get Likes Data ===============================
-
-  /*void likesData({
-  required String postOwnerId,
-  required String postId,
-  required Map<String, dynamic> postData,
-}) async {
-  final userId = FirebaseAuth.instance.currentUser!.uid;
-  final likesRef = FirebaseFirestore.instance
-      .collection('users')
-      .doc(postOwnerId)
-      .collection('posts')
-      .doc(postId)
-      .collection('likes')
-      .doc(userId);
-
-  final doc = await likesRef.get();
-
-  if (doc.exists) {
-    // Unlike
-    await likesRef.delete();
-  } else {
-    // Like
-    await likesRef.set({'likedAt': FieldValue.serverTimestamp()});
-  }
-}
-*/
 
   Future<bool> isPostLiked({
     required String postOwnerId,
     required String postId,
-    required Map<String, dynamic> postData,
   }) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
     final likeDoc = await FirebaseFirestore.instance
         .collection('users')
@@ -397,21 +402,10 @@ class HomeController extends GetxController {
         .collection('posts')
         .doc(postId)
         .collection('likes')
-        .doc(userId);
-        // .get();
+        .doc(currentUserId)
+        .get();
 
-    // return likeDoc.exists;
-
-
-    final doc = await likeDoc.get();
-
-    if (doc.exists) {
-      // Unlike
-      await likeDoc.delete();
-    } else {
-      // Like
-      await likeDoc.set({'likedAt': FieldValue.serverTimestamp()});
-    }
+    return likeDoc.exists;
   }
 
   Future<int> getLikesCount(String postOwnerId, String postId) async {
@@ -599,7 +593,6 @@ class HomeController extends GetxController {
 
 //====================== ON LIKES SCREEN =====================
 
-/*
 RxMap<String, bool> likedPosts = <String, bool>{}.obs;
 
 Future<void> checkIfLiked(String postOwnerId, String postId) async {
@@ -614,4 +607,3 @@ Future<void> checkIfLiked(String postOwnerId, String postId) async {
 
   likedPosts[postId] = doc.exists;
 }
-*/
