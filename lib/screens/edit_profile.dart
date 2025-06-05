@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:instagram_clone/constant/appImage_const.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/profile_screen.dart';
@@ -14,12 +15,11 @@ class EditProfile extends StatelessWidget {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
   final TextEditingController linkController = TextEditingController();
+  final HomeController homeController = Get.find<HomeController>();
   bool isInitial = true;
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
-
     return Scaffold(
       body: Obx(() {
         final user = homeController.userModel.value;
@@ -76,79 +76,40 @@ class EditProfile extends StatelessWidget {
                                 homeController.userModel.value?.image;
                             return CircleAvatar(
                               radius: 40,
-                              backgroundImage: imageUrl != null &&
-                                      imageUrl.isNotEmpty
-                                  ? NetworkImage(imageUrl)
-                                  : const AssetImage(AppImageConst.appDpImage)
-                                      as ImageProvider,
+                              backgroundImage:
+                                  imageUrl != null && imageUrl.isNotEmpty
+                                      ? NetworkImage(imageUrl)
+                                      : const AssetImage(AppImageConst.appUser)
+                                          as ImageProvider,
                             );
                           }),
-
-                          /*  Obx(() {
-                            final user = homeController.userModel.value;
-                            return CircleAvatar(
-                              radius: 40,
-                              backgroundImage: user != null &&
-                                      user.image != null &&
-                                      user.image!.isNotEmpty
-                                  ? NetworkImage(user.image!)
-                                  : const AssetImage('') as ImageProvider,
-                            );
-                          }),*/
-
-                          /*Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: GestureDetector(
-                              onTap: () async {
-                                final uploadedUrl =
-                                    await cloudinary.pickAndUploadImage();
-
-                                if (uploadedUrl != null) {
-                                  homeController.editProfile(
-                                    name: nameController.text,
-                                    username: userNameController.text,
-                                    bio: bioController.text,
-                                    link: linkController.text,
-                                    image: uploadedUrl,
-                                  );
-                                }
-                              },
-                              child: Container(
-                                width: 24,
-                                height: 24,
-                                decoration: const BoxDecoration(
-                                  color: AppColorConst.appBlue,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(Icons.edit,
-                                    size: 16, color: Colors.white),
-                              ),
-                            ),
-                          ),*/
-
                           Positioned(
                             bottom: 0,
                             right: 0,
                             child: GestureDetector(
                               onTap: () async {
-                                /*final uploadedUrl =
-                                    await cloudinary.pickAndUploadImage();
+                                final ImagePicker picker = ImagePicker();
+                                final XFile? picked = await picker.pickImage(
+                                    source: ImageSource.gallery);
 
-                                if (uploadedUrl != null) {
-                                  final updatedUser = homeController
-                                      .userModel.value!
-                                      .copyWith(image: uploadedUrl);
-                                  homeController.userModel.value = updatedUser;
+                                if (picked != null) {
+                                  final uploadedUrl = await homeController
+                                      .uploadProfileImage(picked);
 
-                                  homeController.editProfile(
-                                    name: nameController.text,
-                                    username: userNameController.text,
-                                    bio: bioController.text,
-                                    link: linkController.text,
-                                    image: uploadedUrl,
-                                  );
-                                }*/
+                                  if (uploadedUrl != null) {
+                                    /*homeController.editProfile(
+                                      name: nameController.text,
+                                      username: userNameController.text,
+                                      bio: bioController.text,
+                                      link: linkController.text,
+                                      image: uploadedUrl,
+                                    );
+                                 */
+                                    homeController.userModel.value =
+                                        homeController.userModel.value!
+                                            .copyWith(image: uploadedUrl);
+                                  }
+                                }
                               },
                               child: Container(
                                 width: 24,

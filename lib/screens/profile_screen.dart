@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:instagram_clone/constant/appImage_const.dart';
+import 'package:instagram_clone/constant/appimage_const.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
 import 'package:instagram_clone/screens/add_post_screen.dart';
@@ -15,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
+
     final user = homeController.userModel.value;
 
     return Scaffold(
@@ -28,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                user!.username,
+                user!.name ?? user.username,
                 style: const TextStyle(
                   color: AppColorConst.appWhite,
                   fontWeight: FontWeight.w600,
@@ -163,6 +164,7 @@ class ProfileScreen extends StatelessWidget {
 
 Widget _profileData() {
   final HomeController homeController = Get.find<HomeController>();
+  homeController.fetchUserData();
 
   return Obx(() {
     final user = homeController.userModel.value;
@@ -198,7 +200,7 @@ Widget _profileData() {
                         final imageUrl = homeController.userModel.value?.image;
                         return imageUrl != null && imageUrl.isNotEmpty
                             ? Image.network(imageUrl, fit: BoxFit.cover)
-                            : Image.asset(AppImageConst.appDpImage,
+                            : Image.asset(AppImageConst.appUser,
                                 fit: BoxFit.cover);
                       }),
                     ),
@@ -224,17 +226,17 @@ Widget _profileData() {
                   ),
                 ],
               ),
-              const Column(
+              Column(
                 children: [
                   Text(
-                    '5',
-                    style: TextStyle(
+                    homeController.uploadedPostImages.length.toString(),
+                    style: const TextStyle(
                       color: AppColorConst.appWhite,
                       fontWeight: FontWeight.w500,
                       fontSize: 17,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Post',
                     style: TextStyle(
                       color: AppColorConst.appWhite,
@@ -299,7 +301,7 @@ Widget _profileData() {
           const SizedBox(height: 4),
           if (user.bio != null && user.bio!.isNotEmpty)
             Text(
-              user.bio!,
+              user.bio! ?? '',
               // 'Creative/Artistic',
               style: const TextStyle(
                 color: AppColorConst.appWhite,
@@ -309,7 +311,7 @@ Widget _profileData() {
           const SizedBox(height: 4),
           if (user.link != null && user.link!.isNotEmpty)
             Text(
-              user.link!,
+              user.link! ?? '',
               // 'www.johnscott.com',
               style: const TextStyle(
                 color: AppColorConst.appWhite,

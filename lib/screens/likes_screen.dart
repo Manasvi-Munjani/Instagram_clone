@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/constant/appcolor_const.dart';
 import 'package:instagram_clone/controller/home_controller.dart';
+import 'package:instagram_clone/models/posts_model.dart';
 import 'package:instagram_clone/screens/home_screen.dart';
+import 'package:instagram_clone/screens/likes_details_screen.dart';
 import 'package:instagram_clone/screens/photo_view_screen.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LikesScreen extends StatelessWidget {
   const LikesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final HomeController homeController = Get.find<HomeController>();
 
     return Scaffold(
@@ -34,51 +36,62 @@ class LikesScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: _favoritePostGrid(),
+        child: _favoritePostGrid(homeController),
       ),
     );
   }
 
-  Widget _favoritePostGrid() {
-    final postImages = [
-      'assets/images/nature.jpg',
-      'assets/images/nature2.png',
-      'assets/images/nature.jpg',
-      'assets/images/nature2.png',
-      'assets/images/post1.png',
-      'assets/images/nature.jpg',
-      'assets/images/nature.jpg',
-      'assets/images/nature2.png',
-      'assets/images/nature.jpg',
-      'assets/images/nature2.png',
-      'assets/images/post1.png',
-      'assets/images/nature.jpg',
-    ];
+  Widget _favoritePostGrid(HomeController homeController) {
+    return Obx(() {
+      final likedPosts = homeController.postList
+          .where((post) => post['isFavorite'].value == true)
+          .toList();
 
-    List<Widget> imageWidgets = [];
-
-    for (var img in postImages) {
-      imageWidgets.add(
-        GestureDetector(
-          onTap: () => Get.off(() => Photoviewscreen(imageURL: img)),
-          child: SizedBox(
-            height: 150,
-            child: Image.asset(
-              img,
-              fit: BoxFit.cover,
+      if (likedPosts.isEmpty) {
+        return const Center(
+          child: Text(
+            'No liked posts yet.',
+            style: TextStyle(
+              color: AppColorConst.appWhite,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
           ),
-        ),
-      );
-    }
+        );
+      }
 
-    return GridView.count(
-      crossAxisCount: 3,
-      shrinkWrap: true,
-      crossAxisSpacing: 3,
-      mainAxisSpacing: 3,
-      physics: const NeverScrollableScrollPhysics(),
-      children: imageWidgets,
-    );
+      return GridView.builder(
+        itemCount: likedPosts.length,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 3,
+          mainAxisSpacing: 3,
+        ),
+        itemBuilder: (context, index) {
+          final post = likedPosts[index];
+
+          return GestureDetector(
+            onTap: () {
+              List<PostsModel> likedPostModels =
+                  likedPosts.map((e) => PostsModel.fromMap(e)).toList();
+
+              Get.to(() => LikesDetailsScreen(
+                    posts: likedPostModels,
+                    initialIndex: index,
+                  ));
+            },
+            child: SizedBox(
+              height: 150,
+              child: Image.network(
+                post['postImage'],
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        },
+      );
+    });
   }
 }

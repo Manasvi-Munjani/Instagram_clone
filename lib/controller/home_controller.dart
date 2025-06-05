@@ -30,6 +30,16 @@ class HomeController extends GetxController {
   var userModel = Rxn<UserModel>();
   var allPosts = <PostsModel>[].obs;
 
+  @override
+  void onInit() {
+    fetchProfileData();
+    fetchUploadedPosts();
+    fetchAllUsers();
+    fetchUsersPosts();
+    fetchUserData();
+    super.onInit();
+  }
+
 //============================ Post Image ======================
 
   final Rx<XFile?> pickedImage = Rx<XFile?>(null);
@@ -139,17 +149,6 @@ class HomeController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () {
       Get.off(() => const HomeScreen());
     });
-  }
-
-// ======================== Post Data -> Home screen ========================
-
-  @override
-  void onInit() {
-    fetchProfileData();
-    fetchUploadedPosts();
-    fetchAllUsers();
-    fetchUsersPosts();
-    super.onInit();
   }
 
 // ============================= Story Fetch All users ===================================
@@ -356,7 +355,8 @@ class HomeController extends GetxController {
   void fetchLikedPosts() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
-      final userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       final likedPosts = userDoc.data()?['likedPosts'] ?? [];
 
       if (likedPosts.isNotEmpty) {
@@ -377,7 +377,6 @@ class HomeController extends GetxController {
             imageUrls.add(postDoc.data()?['imageURL']);
           }
           print("---------------$postDoc");
-
         }
         likedImageUrls.value = imageUrls;
       } else {
@@ -385,8 +384,6 @@ class HomeController extends GetxController {
       }
     }
   }
-
-
 
 // ============================= Get Likes Data ===============================
 
@@ -555,55 +552,106 @@ class HomeController extends GetxController {
     }
   }*/
 
-// =========================== Update profile Data =================================
+// ======================== Profile Screen User data ===============================
 
-  Future<void> editProfile({
-    required String name,
-    required String username,
-    String? image,
-    String? bio,
-    String? link,
-  }) async {
-    try {
-      final User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) return;
+  /*Future<void> fetchUserData() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final doc =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    userModel.value = UserModel.fromMap(doc.data()!);
+  }*/
 
-      Map<String, dynamic> updateData = {
-        'name': name,
-        'username': username,
-        'image': image,
-        'bio': bio ?? '',
-        'link': link ?? '',
-      };
-
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .update(updateData);
-
-      Fluttertoast.showToast(msg: 'Profile updated successfully!');
-      await fetchProfileData();
-
-      Get.off(() => const ProfileScreen());
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Error: $e');
+  void fetchUserData() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      if (doc.exists) {
+        userModel.value = UserModel.fromMap(doc.data()!);
+      }
     }
   }
-}
+
+
+// ===================== Profile Image ============================
+
+  Future<String?> uploadProfileImage(XFile image) async {
+    try {
+      final imageBytes = await image.readAsBytes();
+
+      final uri =
+          Uri.parse('https://api.cloudinary.com/v1_1/dgu8vmtqi/image/upload');
+
+      final request = http.MultipartRequest('POST', uri)
+        ..fields['upload_preset'] = 'flutter_unsigned'
+        ..files.add(http.MultipartFile.fromBytes(
+          'file',
+          imageBytes,
+          filename: image.name,
+        ));
+
+      final response = await request.send();
+
+      if (response.statusCode == 200) {
+        final resStr = await response.stream.bytesToString();
+        final data = jsonDecode(resStr);
+        return data['secure_url'];
+      } else {
+        Fluttertoast.showToast(msg: 'Cloudinary upload failed');
+        return null;
+      }
+    } catch (e) {
+      Fluttertoast.showToast(msg: 'Upload Error: $e');
+      return null;
+    }
+  }
+
+// =========================== Update profile Data =================================
+
+  void editProfile({
+    required String name,
+    required String username,
+    required String bio,
+    required String link,
+    String? image,
+  }) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'name': name,
+      'username': username,
+      'bio': bio,
+      'link': link,
+      if (image != null) 'image': image,
+    });
+
+    userModel.value = userModel.value!.copyWith(
+      name: name,
+      username: username,
+      bio: bio,
+      link: link,
+      image: image ?? userModel.value!.image,
+    );
+
+    // fetchUserData();
+    Get.to(() => const ProfileScreen());
+    // Get.back();
+    Fluttertoast.showToast(msg: 'Profile updated successfully!');
+  }
 
 //====================== ON LIKES SCREEN =====================
 
-RxMap<String, bool> likedPosts = <String, bool>{}.obs;
+  RxMap<String, bool> likedPosts = <String, bool>{}.obs;
 
-Future<void> checkIfLiked(String postOwnerId, String postId) async {
-  final doc = await FirebaseFirestore.instance
-      .collection('users')
-      .doc(postOwnerId)
-      .collection('posts')
-      .doc(postId)
-      .collection('likes')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
-      .get();
+  Future<void> checkIfLiked(String postOwnerId, String postId) async {
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(postOwnerId)
+        .collection('posts')
+        .doc(postId)
+        .collection('likes')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
 
-  likedPosts[postId] = doc.exists;
+    likedPosts[postId] = doc.exists;
+  }
 }

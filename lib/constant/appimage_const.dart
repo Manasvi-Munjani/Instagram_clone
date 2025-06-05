@@ -8,6 +8,7 @@ class AppImageConst {
   static const String appInstagramText = '${iconsPath}instagram_text.png';
   static const String appDpImage = '${iconsPath}dp.png';
   static const String appPostDp = '${iconsPath}post_dp.png';
+  static const String appUser = '${iconsPath}user.jpg';
 
 
   // ========================== Images ===========================
