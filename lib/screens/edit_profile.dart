@@ -97,14 +97,6 @@ class EditProfile extends StatelessWidget {
                                       .uploadProfileImage(picked);
 
                                   if (uploadedUrl != null) {
-                                    /*homeController.editProfile(
-                                      name: nameController.text,
-                                      username: userNameController.text,
-                                      bio: bioController.text,
-                                      link: linkController.text,
-                                      image: uploadedUrl,
-                                    );
-                                 */
                                     homeController.userModel.value =
                                         homeController.userModel.value!
                                             .copyWith(image: uploadedUrl);

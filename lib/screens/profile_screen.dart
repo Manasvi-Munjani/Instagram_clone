@@ -8,6 +8,7 @@ import 'package:instagram_clone/screens/edit_profile.dart';
 import 'package:instagram_clone/screens/likes_screen.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/post_details_screen.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -15,8 +16,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
-
-    final user = homeController.userModel.value;
 
     return Scaffold(
       backgroundColor: AppColorConst.appBlack,
@@ -28,14 +27,23 @@ class ProfileScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: Row(
             children: [
-              Text(
-                user!.name ?? user.username,
-                style: const TextStyle(
-                  color: AppColorConst.appWhite,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 21,
-                ),
-              ),
+              Obx(() {
+                final user = homeController.userModel.value;
+                if (user == null) {
+                  return const Text(
+                    '',
+                    style: TextStyle(color: AppColorConst.appWhite),
+                  );
+                }
+                return Text(
+                  user.username,
+                  style: const TextStyle(
+                    color: AppColorConst.appWhite,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 21,
+                  ),
+                );
+              }),
               const Spacer(),
               GestureDetector(
                 onTap: () => Get.off(() => AddPostScreen()),
@@ -136,41 +144,54 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    _profileData(),
-                    const SizedBox(height: 20),
-                    _storyHighlights(),
-                    const SizedBox(height: 15),
-                    _postIcon(),
-                    const SizedBox(height: 15),
-                    _postGrid(homeController),
-                    const SizedBox(height: 15),
-                  ],
+      body: Obx(() {
+        if (homeController.postList.isEmpty ||
+            homeController.userModel.value == null) {
+          return Center(
+            child: LoadingAnimationWidget.hexagonDots(
+              color: AppColorConst.appWhite,
+              size: 24,
+            ),
+          );
+        }
+
+        return SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      _profileData(),
+                      const SizedBox(height: 20),
+                      _storyHighlights(),
+                      const SizedBox(height: 15),
+                      _postIcon(),
+                      const SizedBox(height: 15),
+                      _postGrid(homeController),
+                      const SizedBox(height: 15),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
 
 Widget _profileData() {
-  final HomeController homeController = Get.find<HomeController>();
-  homeController.fetchUserData();
+  final HomeController homeController = Get.put(HomeController());
+  // homeController.fetchUserData();
 
   return Obx(() {
     final user = homeController.userModel.value;
     /*if (user == null) {
       return const Center(child: CircularProgressIndicator());
     }*/
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(

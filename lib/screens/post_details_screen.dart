@@ -129,10 +129,6 @@ class PostDetailsScreen extends StatelessWidget {
                       onSelected: (String value) {
                         if (value == 'Delete') {
                           homeController.deletePost(post.postId);
-
-                          Fluttertoast.showToast(
-                              msg:
-                                  'can you sure you want to delete this post?.');
                         } else if (value == 'Edit') {}
                       },
                       itemBuilder: (BuildContext context) =>

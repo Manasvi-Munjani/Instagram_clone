@@ -27,16 +27,19 @@ class HomeController extends GetxController {
   var isSave = false.obs;
   var isDataSet = false.obs;
   final picker = ImagePicker();
-  var userModel = Rxn<UserModel>();
+  // var userModel = Rxn<UserModel>();
+  Rx<UserModel?> userModel = Rx<UserModel?>(null);
+
   var allPosts = <PostsModel>[].obs;
 
   @override
   void onInit() {
     fetchProfileData();
-    fetchUploadedPosts();
+
     fetchAllUsers();
     fetchUsersPosts();
     fetchUserData();
+    fetchUploadedPosts();
     super.onInit();
   }
 
@@ -564,13 +567,13 @@ class HomeController extends GetxController {
   void fetchUserData() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
-      final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final doc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       if (doc.exists) {
         userModel.value = UserModel.fromMap(doc.data()!);
       }
     }
   }
-
 
 // ===================== Profile Image ============================
 
@@ -632,7 +635,7 @@ class HomeController extends GetxController {
       image: image ?? userModel.value!.image,
     );
 
-    // fetchUserData();
+    fetchUserData();
     Get.to(() => const ProfileScreen());
     // Get.back();
     Fluttertoast.showToast(msg: 'Profile updated successfully!');
