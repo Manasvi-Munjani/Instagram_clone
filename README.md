@@ -13,8 +13,8 @@
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/your-username/scary-teacher-app.git
-   cd scary-teacher-app
+   git clone https://github.com/Manasvi-Munjani/Instagram_clone.git
+   cd Instagram_clone
 
 2. Install dependencies:
 
